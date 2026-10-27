@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ノードとネットワーク &mdash; Houdini 入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9f2b073c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=35a8b989"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="はじめてのモデリング" href="modeling.html" />
+    <link rel="prev" title="画面と基本操作" href="ui.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Houdini 入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Houdini とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cg_basics.html">3DCG の基礎知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">画面と基本操作</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ノードとネットワーク</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">ネットワークの階層とコンテキスト</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">オブジェクトとジオメトリ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">ノードの作成と接続</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">フラグ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">クックと依存関係</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">非破壊編集</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#null-out">Null ノードと OUT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modeling.html">はじめてのモデリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">ジオメトリとアトリビュート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">パラメーターとエクスプレッション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vex.html">VEX 入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="procedural.html">プロシージャルモデリングの実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python による操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hda.html">デジタルアセット</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">マテリアルとレンダリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">シミュレーション入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="next.html">次のステップ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">サンプルコード一覧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Houdini 入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ノードとネットワーク</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>ノードとネットワーク<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>Houdini の作業は、全てノードのネットワークの上で行う。この章では、ネットワークの種類、ノードのつなぎ方、フラグ、ノードが計算される仕組み（クック）を説明する。</p>
+<section id="id2">
+<h2>ネットワークの階層とコンテキスト<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>Houdini のシーンは、ファイルシステムのような木構造になっている。最上位（<code class="docutils literal notranslate"><span class="pre">/</span></code>）の下に、扱うデータの種類ごとのネットワークがあり、ノードの中にさらにネットワークを持つものもある。ノードの場所は <code class="docutils literal notranslate"><span class="pre">/obj/table/OUT</span></code> のようなパスで表す。ファイルシステムと同じく、<code class="docutils literal notranslate"><span class="pre">..</span></code> は 1 つ上の階層を表す。</p>
+<p>ネットワークが扱うデータの種類をコンテキストと呼ぶ。コンテキストによって、作れるノードの種類が決まっている。各コンテキストのノードは、OBJ、SOP のような略称で呼ばれる。</p>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-number">表 10 </span><span class="caption-text">主なコンテキスト</span><a class="headerlink" href="#id8" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 15.0%" />
+<col style="width: 20.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>略称</p></th>
+<th class="head"><p>主な場所</p></th>
+<th class="head"><p>扱うもの</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OBJ</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/obj</span></code></p></td>
+<td><p>オブジェクト。シーンに置く物（ジオメトリ、カメラ、ライトなど）と、その位置や親子関係を扱う。</p></td>
+</tr>
+<tr class="row-odd"><td><p>SOP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/obj</span></code> の Geometry ノードの中</p></td>
+<td><p>ジオメトリ（形状）。モデリングの大部分は SOP で行う。Surface OPerator の略。</p></td>
+</tr>
+<tr class="row-even"><td><p>LOP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/stage</span></code></p></td>
+<td><p>USD のシーン（ステージ）。レンダリングのためのシーンを組む。Solaris とも呼ぶ。</p></td>
+</tr>
+<tr class="row-odd"><td><p>VOP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/mat</span></code>、Material Library ノードの中など</p></td>
+<td><p>VEX のプログラムをノードで組み立てる。マテリアルの定義にも使う。</p></td>
+</tr>
+<tr class="row-even"><td><p>DOP</p></td>
+<td><p>DOP Network ノードの中</p></td>
+<td><p>シミュレーション（動力学）。</p></td>
+</tr>
+<tr class="row-odd"><td><p>ROP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/out</span></code></p></td>
+<td><p>レンダリングやファイルの書き出し。Render OPerator の略。</p></td>
+</tr>
+<tr class="row-even"><td><p>COP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/img</span></code> など</p></td>
+<td><p>画像の処理と合成。</p></td>
+</tr>
+<tr class="row-odd"><td><p>CHOP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/ch</span></code></p></td>
+<td><p>時間とともに変わる値（チャンネル）の処理。</p></td>
+</tr>
+<tr class="row-even"><td><p>TOP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/tasks</span></code></p></td>
+<td><p>作業（タスク）を分割して並列に実行する仕組み（PDG）。</p></td>
+</tr>
+</tbody>
+</table>
+<p>本資料で主に使うのは OBJ、SOP、LOP である。</p>
+</section>
+<section id="id3">
+<h2>オブジェクトとジオメトリ<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>形状を作るには、まず <code class="docutils literal notranslate"><span class="pre">/obj</span></code> に Geometry ノード（オブジェクト）を作り、その中に入って SOP のノードを並べる。</p>
+<ul class="simple">
+<li><p><strong>オブジェクト</strong>（<code class="docutils literal notranslate"><span class="pre">/obj</span></code> のノード）は、シーンの中の 1 個の物を表す。位置、回転、大きさ（オブジェクトの変換）と、表示するかどうかを持つ。</p></li>
+<li><p><strong>ジオメトリ</strong>（Geometry ノードの中の SOP のネットワーク）は、その物の形を表す。SOP のネットワークのうち、ディスプレイフラグ（後述）を立てたノードの出力が、オブジェクトの形になる。</p></li>
+</ul>
+<p>例えば机と椅子を作るなら、<code class="docutils literal notranslate"><span class="pre">/obj</span></code> に <code class="docutils literal notranslate"><span class="pre">table</span></code> と <code class="docutils literal notranslate"><span class="pre">chair</span></code> の 2 個の Geometry ノードを作り、それぞれの中で形を作るのが一般的である。</p>
+</section>
+<section id="id4">
+<h2>ノードの作成と接続<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>ネットワークエディターで <kbd class="kbd docutils literal notranslate">Tab</kbd> を押すと Tab メニューが開く。ノードの名前（例えば <code class="docutils literal notranslate"><span class="pre">box</span></code>）を入力して <kbd class="kbd docutils literal notranslate">Enter</kbd> を押し、ネットワークエディターの中をクリックすると、その位置にノードが作られる。ノードの名前は、作った後に名前の部分をダブルクリックして変えられる。</p>
+<p>ノードには 0 個以上の入力と、1 個以上の出力がある。Box ノードのように形状を新しく作るノードは入力を持たない。Transform ノードのように形状を加工するノードは、入力に受け取った形状を加工して出力する。Merge ノードや Boolean ノードのように、複数の入力を受け取るノードもある。入力にワイヤーをつなぐと、上のノードの出力が下のノードに渡される。</p>
+<p>1 個のノードの出力を、複数のノードの入力につなぐこともできる。この場合、同じ結果が分岐してそれぞれのノードに渡される。</p>
+</section>
+<section id="id5">
+<h2>フラグ<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>SOP のノードの左右の端には、フラグ（flag）と呼ばれるスイッチがある。クリックするか、ノードを選んでキーを押すと切り替わる。</p>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-number">表 11 </span><span class="caption-text">SOP の主なフラグ</span><a class="headerlink" href="#id9" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>フラグ</p></th>
+<th class="head"><p>位置と色</p></th>
+<th class="head"><p>キー</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Display（ディスプレイ）</p></td>
+<td><p>右端、青</p></td>
+<td><p><kbd class="kbd docutils literal notranslate">R</kbd></p></td>
+<td><p>ビューポートに表示するノード。ネットワークの中で 1 個だけに立つ。オブジェクトの形状は、このノードの出力になる。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Render（レンダー）</p></td>
+<td><p>右端、紫</p></td>
+<td><p><kbd class="kbd docutils literal notranslate">T</kbd></p></td>
+<td><p>レンダリングに使うノード。通常は Display フラグと一緒に動く。</p></td>
+</tr>
+<tr class="row-even"><td><p>Template（テンプレート）</p></td>
+<td><p>右から 2 番目、赤茶</p></td>
+<td><p><kbd class="kbd docutils literal notranslate">E</kbd></p></td>
+<td><p>Display フラグが無くても、そのノードの出力を薄く表示する。比較や位置合わせに使う。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bypass（バイパス）</p></td>
+<td><p>左端、黄</p></td>
+<td><p><kbd class="kbd docutils literal notranslate">Q</kbd> または <kbd class="kbd docutils literal notranslate">B</kbd></p></td>
+<td><p>ノードの処理を無効にし、入力をそのまま出力に渡す。ノードの効果を確かめるのに使う。</p></td>
+</tr>
+</tbody>
+</table>
+<p>Display フラグは、ネットワークの最後のノードに立てるのが基本だが、途中のノードに移して、その時点の結果を確かめることがよくある。これは、プログラムの途中の変数の値を表示して確かめる作業に似ている。</p>
+</section>
+<section id="id6">
+<h2>クックと依存関係<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>ノードが処理を実行して結果を作ることを、クック（cook）と呼ぶ。Houdini は、全てのノードを常に計算しているわけではない。ビューポートに表示するなど、結果が必要になったノードだけを、その上流のノードから順にクックする。クックした結果は保存され、次に必要になったときに再利用される。</p>
+<p>あるノードのパラメーターを変えると、そのノードと、そこから下流にある全てのノードの結果が古くなった（dirty）とみなされる。結果が再び必要になったときに、古くなったノードだけがクックし直される（<a class="reference internal" href="#fig-cook"><span class="std std-numref">図 9</span></a>）。この仕組みは、ビルドツールの make が、変更されたファイルに依存するものだけを作り直すのに似ている。</p>
+<figure class="align-default" id="fig-cook">
+<div class="graphviz"><object data="_images/graphviz-8197b0f22613d39d14816a75737f104b62e071fc.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph cook {
+  node [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#d4e8f7&quot;, fontsize=11];
+  top [label=&quot;top（Box）&quot;];
+  lift [label=&quot;lift_top（Transform）\nTranslate Y を変更&quot;, fillcolor=&quot;#fff3b0&quot;];
+  bevel [label=&quot;bevel_top（PolyBevel）&quot;, fillcolor=&quot;#fff3b0&quot;];
+  leg [label=&quot;leg（Box）&quot;];
+  pos [label=&quot;leg_positions（Grid）&quot;];
+  copy [label=&quot;copy_legs（Copy to Points）&quot;];
+  merge [label=&quot;merge（Merge）&quot;, fillcolor=&quot;#fff3b0&quot;];
+  out [label=&quot;OUT（Null）\nDisplay フラグ&quot;, fillcolor=&quot;#fff3b0&quot;];
+  top -&gt; lift -&gt; bevel -&gt; merge;
+  leg -&gt; copy; pos -&gt; copy; copy -&gt; merge;
+  merge -&gt; out;
+}</p></object></div>
+<figcaption>
+<p><span class="caption-number">図 9 </span><span class="caption-text">パラメーターを変えたときにクックし直されるノード（黄色）</span><a class="headerlink" href="#fig-cook" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-cook"><span class="std std-numref">図 9</span></a> では、<code class="docutils literal notranslate"><span class="pre">lift_top</span></code> のパラメーターを変えている。<code class="docutils literal notranslate"><span class="pre">top</span></code> と、脚を作る 3 個のノードはクックし直されず、保存された結果が使われる。</p>
+</section>
+<section id="id7">
+<h2>非破壊編集<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>ネットワークでは、上流のノードのパラメーターをいつでも変更できる。変更は下流の全てのノードに自動的に反映される。途中にノードを差し込むことも、ノードを取り除くこともできる。このように、作った結果を壊さずに途中の手順を編集できることを、非破壊編集と呼ぶ。</p>
+<p>ただし、下流のノードが上流の結果の「何番目の点」のような番号に頼っている場合、上流の変更で点の数や順序が変わると、下流の結果が意図しないものになる。番号の代わりに、グループやアトリビュート（<a class="reference internal" href="attributes.html"><span class="doc">ジオメトリとアトリビュート</span></a>）で処理の対象を指定すると、変更に強いネットワークになる。</p>
+</section>
+<section id="null-out">
+<h2>Null ノードと OUT<a class="headerlink" href="#null-out" title="Link to this heading"></a></h2>
+<p>Null ノードは、入力をそのまま出力するだけのノードである。何もしないが、ネットワークの最後に <code class="docutils literal notranslate"><span class="pre">OUT</span></code> という名前の Null ノードを置く習慣がある。</p>
+<ul class="simple">
+<li><p>ネットワークの出口がひと目で分かる。</p></li>
+<li><p>他のネットワークから <code class="docutils literal notranslate"><span class="pre">/obj/table/OUT</span></code> のようなパスで結果を参照するとき、途中のノードを追加したり削除したりしても、参照先を変えずに済む。</p></li>
+</ul>
+<p>本資料の作例でも、全てのネットワークの最後に <code class="docutils literal notranslate"><span class="pre">OUT</span></code> を置く。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ui.html" class="btn btn-neutral float-left" title="画面と基本操作" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modeling.html" class="btn btn-neutral float-right" title="はじめてのモデリング" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

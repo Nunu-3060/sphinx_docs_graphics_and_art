@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7. マイクロファセット理論 &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="8. レンダリング方程式" href="rendering_equation.html" />
+    <link rel="prev" title="6. BRDF" href="brdf.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. マイクロファセット理論</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">7.1. 粗い表面のモデル化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cook-torrance">7.2. Cook-Torrance モデル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#d">7.3. 法線分布関数 D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#f">7.4. フレネル項 F</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#g">7.5. 幾何減衰項 G</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">7.6. ラフネスと見た目</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">7.7. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7. </span>マイクロファセット理論</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">7. </span>マイクロファセット理論<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>現実の表面の多くは、完全な鏡でも理想的な拡散面でもない。つや消し加工した金属にはぼやけたハイライトが現れ、使い込んだ机の天板は鈍く光る。本章では、このような粗い表面の鏡面反射を物理的に表すマイクロファセット理論と、それに基づく Cook-Torrance モデルを説明する。</p>
+<section id="id2">
+<h2><span class="section-number">7.1. </span>粗い表面のモデル化<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>肉眼では平らに見える表面も、顕微鏡で拡大すると細かな凹凸がある。マイクロファセット理論では、表面を、向きがばらばらな微小な平面（マイクロファセット、微小面）の集まりとみなす（<a class="reference internal" href="#fig-microfacets"><span class="std std-numref">図 7.1</span></a>）。各微小面は完全な鏡として振る舞うと仮定する。</p>
+<figure class="align-center" id="fig-microfacets">
+<a class="reference internal image-reference" href="_images/microfacets.png"><img alt="_images/microfacets.png" src="_images/microfacets.png" style="width: 85%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 7.1 </span><span class="caption-text">マイクロファセットの模式図。赤で示した微小面だけが、光源からの光を観測者の方向へ反射する。</span><a class="headerlink" href="#fig-microfacets" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>微小面の大きさは、光の波長よりは十分に大きく（幾何光学が使える）、1 画素に写る範囲よりは十分に小さい（個々の微小面は見分けられない）と仮定する。そのため、個々の微小面の形を記述する代わりに、微小面の向きの統計的な分布を使って反射を記述する。</p>
+<p>光源の方向 <span class="math notranslate nohighlight">\(\omega_i\)</span> から来た光を、観測者の方向 <span class="math notranslate nohighlight">\(\omega_o\)</span> へ反射できるのは、法線がちょうど 2 つの方向の中間を向いている微小面だけである。この中間の方向をハーフベクトルと呼ぶ。</p>
+<div class="math notranslate nohighlight" id="equation-half-vector">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-half-vector" title="Link to this equation"></a></span>\[\mathbf{h} = \frac{\omega_i + \omega_o}{\| \omega_i + \omega_o \|}\]</div>
+<p>表面が滑らかなら、ほとんどの微小面の法線はマクロな法線 <span class="math notranslate nohighlight">\(\mathbf{n}\)</span> の付近に集中し、<span class="math notranslate nohighlight">\(\mathbf{h} \approx \mathbf{n}\)</span> となる方向、すなわち正反射方向の付近でだけ強く光る（鋭いハイライト）。表面が粗ければ、微小面の向きは大きくばらつき、広い範囲の方向で少しずつ光る（ぼやけたハイライト）。</p>
+</section>
+<section id="cook-torrance">
+<h2><span class="section-number">7.2. </span>Cook-Torrance モデル<a class="headerlink" href="#cook-torrance" title="Link to this heading"></a></h2>
+<p>マイクロファセット理論に基づく鏡面反射の BRDF は、次の形で表される。この形は Cook と Torrance <a class="reference internal" href="references.html#cooktorrance1982" id="id3"><span>[CookTorrance1982]</span></a> によってコンピューターグラフィックスに導入されたため、Cook-Torrance モデルと呼ばれる。</p>
+<div class="math notranslate nohighlight" id="equation-cook-torrance">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-cook-torrance" title="Link to this equation"></a></span>\[f_{\mathrm{spec}}(\omega_i, \omega_o) = \frac{D(\mathbf{h}) \, F(\omega_o \cdot \mathbf{h}) \, G(\omega_i, \omega_o)}{4 \, (\mathbf{n} \cdot \omega_i)(\mathbf{n} \cdot \omega_o)}\]</div>
+<p>分子の 3 つの項は、それぞれ次の意味を持つ。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>項</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(D(\mathbf{h})\)</span></p></td>
+<td><p>法線分布関数。法線が <span class="math notranslate nohighlight">\(\mathbf{h}\)</span> を向いている微小面がどれだけあるか。</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(F(\omega_o \cdot \mathbf{h})\)</span></p></td>
+<td><p>フレネル反射率。その微小面に当たった光のうち、どれだけが反射するか。</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(G(\omega_i, \omega_o)\)</span></p></td>
+<td><p>幾何減衰項。ほかの微小面に遮られずに光が届き、かつ観測者から見える微小面の割合。</p></td>
+</tr>
+</tbody>
+</table>
+<p>分母の <span class="math notranslate nohighlight">\(4 \, (\mathbf{n} \cdot \omega_i)(\mathbf{n} \cdot \omega_o)\)</span> は、微小面単位で考えた量をマクロな表面の BRDF に換算するための係数である。<span class="math notranslate nohighlight">\(\mathbf{n} \cdot \omega_i\)</span> と <span class="math notranslate nohighlight">\(\mathbf{n} \cdot \omega_o\)</span> は、微小面の面積をマクロな表面の面積に換算する際に現れ、係数 4 は、ハーフベクトルの微小な立体角と反射方向の微小な立体角の比（<span class="math notranslate nohighlight">\(d\omega_h = d\omega_o / (4 \, \omega_o \cdot \mathbf{h})\)</span>）に由来する。詳しい導出は <a class="reference internal" href="references.html#walter2007" id="id4"><span>[Walter2007]</span></a> や <a class="reference internal" href="references.html#pbr4" id="id5"><span>[PBR4]</span></a> を参照されたい。</p>
+<p>以下、各項を順に説明する。</p>
+</section>
+<section id="d">
+<h2><span class="section-number">7.3. </span>法線分布関数 D<a class="headerlink" href="#d" title="Link to this heading"></a></h2>
+<p>法線分布関数（Normal Distribution Function、NDF）<span class="math notranslate nohighlight">\(D(\mathbf{m})\)</span> は、微小面の法線 <span class="math notranslate nohighlight">\(\mathbf{m}\)</span> の分布を表す関数である。マクロな表面の単位面積あたり、法線が <span class="math notranslate nohighlight">\(\mathbf{m}\)</span> の周りの単位立体角に含まれる微小面の面積を表す。微小面をマクロな表面に投影した面積の合計はマクロな表面の面積に等しいので、<span class="math notranslate nohighlight">\(D\)</span> は次の正規化条件を満たす。</p>
+<div class="math notranslate nohighlight" id="equation-ndf-normalization">
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-ndf-normalization" title="Link to this equation"></a></span>\[\int_{\Omega} D(\mathbf{m}) \, (\mathbf{n} \cdot \mathbf{m}) \, d\omega_m = 1\]</div>
+<p>現在最も広く使われている法線分布関数は、GGX と呼ばれるものである。Walter らによって GGX の名で紹介され <a class="reference internal" href="references.html#walter2007" id="id6"><span>[Walter2007]</span></a>、のちに Trowbridge と Reitz が 1975 年に提案した分布 <a class="reference internal" href="references.html#trowbridgereitz1975" id="id7"><span>[TrowbridgeReitz1975]</span></a> と同じであることがわかったため、Trowbridge-Reitz 分布とも呼ばれる。</p>
+<div class="math notranslate nohighlight" id="equation-ggx">
+<span class="eqno">(7.4)<a class="headerlink" href="#equation-ggx" title="Link to this equation"></a></span>\[D(\mathbf{m}) = \frac{\alpha^2}{\pi \left( (\mathbf{n} \cdot \mathbf{m})^2 (\alpha^2 - 1) + 1 \right)^2}\]</div>
+<p><span class="math notranslate nohighlight">\(\alpha\)</span> は表面の粗さを表すパラメーターである。<span class="math notranslate nohighlight">\(\alpha\)</span> が小さいほど分布は <span class="math notranslate nohighlight">\(\mathbf{n}\)</span> の付近に鋭く集中し、大きいほどなだらかに広がる。</p>
+<p>多くのレンダラーやゲームエンジンでは、ユーザーが指定するラフネス <span class="math notranslate nohighlight">\(r\)</span>（0 以上 1 以下）から <span class="math notranslate nohighlight">\(\alpha = r^2\)</span> として <span class="math notranslate nohighlight">\(\alpha\)</span> を求める <a class="reference internal" href="references.html#burley2012" id="id8"><span>[Burley2012]</span></a>。こうすると、ラフネスを一定の割合で変化させたときに、見た目の粗さもほぼ一定の割合で変化するように感じられる。本書のサンプルコードもこの変換を用いている。</p>
+<p><a class="reference internal" href="#fig-ggx"><span class="std std-numref">図 7.2</span></a> に、ラフネスごとの GGX 分布を示す。縦軸は対数目盛である。</p>
+<figure class="align-center" id="fig-ggx">
+<a class="reference internal image-reference" href="_images/ggx_distribution.png"><img alt="_images/ggx_distribution.png" src="_images/ggx_distribution.png" style="width: 75%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 7.2 </span><span class="caption-text">ラフネスごとの GGX 法線分布関数（縦軸は対数目盛）</span><a class="headerlink" href="#fig-ggx" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>GGX の特徴は、ピークから離れても値がなかなか 0 にならない「長い裾」を持つことである。これにより、ハイライトの周囲に柔らかい光のにじみが生じる。古くから使われている Beckmann 分布と比べて、実際の材料の測定結果とよく一致することが知られている。</p>
+</section>
+<section id="f">
+<h2><span class="section-number">7.4. </span>フレネル項 F<a class="headerlink" href="#f" title="Link to this heading"></a></h2>
+<p>フレネル項には、前章の Schlick 近似（式 <a class="reference internal" href="light_matter.html#equation-schlick">(5.4)</a>）を用いることが多い。ここで注意すべきなのは、角度の余弦として <span class="math notranslate nohighlight">\(\mathbf{n} \cdot \omega_o\)</span> ではなく <span class="math notranslate nohighlight">\(\omega_o \cdot \mathbf{h}\)</span> を使うことである。光を反射しているのは法線が <span class="math notranslate nohighlight">\(\mathbf{h}\)</span> の微小面であり、フレネル反射率はその微小面に対する入射角で決まるからである。</p>
+</section>
+<section id="g">
+<h2><span class="section-number">7.5. </span>幾何減衰項 G<a class="headerlink" href="#g" title="Link to this heading"></a></h2>
+<p>粗い表面では、微小面の一部がほかの微小面の陰になる。光源から見て陰になっている微小面には光が届かず（シャドウイング）、観測者から見て陰になっている微小面は見えない（マスキング）。この影響を表すのが幾何減衰項 <span class="math notranslate nohighlight">\(G\)</span> であり、0 以上 1 以下の値をとる。<span class="math notranslate nohighlight">\(G\)</span> は、光や視線が表面すれすれの方向から来るときほど小さくなる。</p>
+<p><span class="math notranslate nohighlight">\(G\)</span> を求める方法として最も広く使われているのが Smith のモデル <a class="reference internal" href="references.html#smith1967" id="id9"><span>[Smith1967]</span></a> である。Smith のモデルでは、<span class="math notranslate nohighlight">\(G\)</span> を入射方向と出射方向のマスキング関数 <span class="math notranslate nohighlight">\(G_1\)</span> の積で近似する。</p>
+<div class="math notranslate nohighlight" id="equation-smith-g">
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-smith-g" title="Link to this equation"></a></span>\[G(\omega_i, \omega_o) \approx G_1(\omega_i) \, G_1(\omega_o)\]</div>
+<p>GGX 分布に対する <span class="math notranslate nohighlight">\(G_1\)</span> は次の式で表される。</p>
+<div class="math notranslate nohighlight" id="equation-smith-g1">
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-smith-g1" title="Link to this equation"></a></span>\[G_1(\omega) = \frac{2 \, (\mathbf{n} \cdot \omega)}{(\mathbf{n} \cdot \omega) + \sqrt{\alpha^2 + (1 - \alpha^2)(\mathbf{n} \cdot \omega)^2}}\]</div>
+<p><span class="math notranslate nohighlight">\(G\)</span> は法線分布関数 <span class="math notranslate nohighlight">\(D\)</span> と矛盾しないように選ぶ必要がある。Heitz <a class="reference internal" href="references.html#heitz2014" id="id10"><span>[Heitz2014]</span></a> は、マスキング・シャドウイング関数の理論を整理し、Smith のモデルが物理的に妥当な選択であることを示した。</p>
+</section>
+<section id="id11">
+<h2><span class="section-number">7.6. </span>ラフネスと見た目<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<p>PBR の材質では、鏡面反射の BRDF（Cook-Torrance モデル）と拡散反射の BRDF（ランバート BRDF）を組み合わせて使うことが多い。このとき、表面で反射されなかった光（割合 <span class="math notranslate nohighlight">\(1 - F\)</span>）だけが内部に入って拡散反射になると考え、ランバート BRDF に <span class="math notranslate nohighlight">\(1 - F\)</span> を掛けてエネルギーの和が 1 を超えないようにすることが多い。<a class="reference internal" href="#fig-roughness-spheres"><span class="std std-numref">図 7.3</span></a> は、平行光源 1 つで照らした球を、ラフネスと材質の種類を変えて描いたものである。描画に用いたコードは <code class="docutils literal notranslate"><span class="pre">brdf_plot.py</span></code>（「<a class="reference internal" href="appendix_examples.html"><span class="doc">付録 B サンプルコード</span></a>」）にある。</p>
+<figure class="align-center" id="fig-roughness-spheres">
+<a class="reference internal image-reference" href="_images/roughness_spheres.png"><img alt="_images/roughness_spheres.png" src="_images/roughness_spheres.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 7.3 </span><span class="caption-text">ラフネス（横方向）と材質（縦方向）を変えた球。上段は赤いプラスチック（誘電体）、下段は金（金属）。</span><a class="headerlink" href="#fig-roughness-spheres" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>この図から、次のことが読み取れる。</p>
+<ul class="simple">
+<li><p>ラフネスが小さいほどハイライトは小さく鋭くなり、大きいほど広くぼやける。</p></li>
+<li><p>ハイライトが広がるほど、ハイライトのピークの明るさは下がる。反射されるエネルギーの総量はほぼ一定であり、それが広い範囲に分散されるためである。Phong モデルとは異なり、この性質は式に組み込まれている。</p></li>
+<li><p>プラスチックのハイライトは白い（照明の色）が、金のハイライトは金色である。前章で説明した誘電体と金属の違いである。</p></li>
+<li><p>金の球のうち、ハイライト以外の部分は暗い。金属には拡散反射がなく、この図では周囲に映り込む環境がないためである。実際の金属が金属らしく見えるのは、周囲の環境が映り込むからである。</p></li>
+</ul>
+<p>なお、Cook-Torrance モデルは、光が微小面で 1 回だけ反射することを前提としている。実際には、粗い表面では微小面の間で複数回反射してから出ていく光もある。この光が無視されるため、ラフネスが大きいときには反射光がやや暗くなる。この問題を補正する手法も提案されているが、本書では扱わない。</p>
+</section>
+<section id="id12">
+<h2><span class="section-number">7.7. </span>まとめ<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>マイクロファセット理論では、表面を完全な鏡である微小面の集まりとみなし、その向きの分布で粗さを表す。</p></li>
+<li><p>Cook-Torrance モデルは、法線分布関数 <span class="math notranslate nohighlight">\(D\)</span>、フレネル項 <span class="math notranslate nohighlight">\(F\)</span>、幾何減衰項 <span class="math notranslate nohighlight">\(G\)</span> の積で鏡面反射の BRDF を表す。</p></li>
+<li><p><span class="math notranslate nohighlight">\(D\)</span> には GGX、<span class="math notranslate nohighlight">\(G\)</span> には Smith のモデル、<span class="math notranslate nohighlight">\(F\)</span> には Schlick 近似がよく使われる。</p></li>
+<li><p>ラフネスを変えてもエネルギーの総量はほぼ保たれ、ハイライトの広がりだけが変わる。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="brdf.html" class="btn btn-neutral float-left" title="6. BRDF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rendering_equation.html" class="btn btn-neutral float-right" title="8. レンダリング方程式" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

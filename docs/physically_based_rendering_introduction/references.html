@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>参考文献 &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="prev" title="用語集" href="glossary.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">参考文献</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">教科書</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">論文・講演資料</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">規格・仕様・ウェブ資料</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">参考文献</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>参考文献<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="id2">
+<h2>教科書<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<div role="list" class="citation-list">
+<div class="citation" id="pbr4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>PBR4<span class="fn-bracket">]</span></span>
+<p>Matt Pharr, Wenzel Jakob, Greg Humphreys. <em>Physically Based Rendering: From Theory to Implementation</em>, 4th edition. MIT Press, 2023. <a class="reference external" href="https://pbr-book.org/">https://pbr-book.org/</a></p>
+</div>
+<div class="citation" id="rtr4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>RTR4<span class="fn-bracket">]</span></span>
+<p>Tomas Akenine-Möller, Eric Haines, Naty Hoffman, Angelo Pesce, Michał Iwanicki, Sébastien Hillaire. <em>Real-Time Rendering</em>, 4th edition. CRC Press, 2018.</p>
+</div>
+<div class="citation" id="rtow" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>RTOW<span class="fn-bracket">]</span></span>
+<p>Peter Shirley, Trevor David Black, Steve Hollasch. <em>Ray Tracing in One Weekend</em> (book series). <a class="reference external" href="https://raytracing.github.io/">https://raytracing.github.io/</a></p>
+</div>
+<div class="citation" id="veach1997" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Veach1997<span class="fn-bracket">]</span></span>
+<p>Eric Veach. <em>Robust Monte Carlo Methods for Light Transport Simulation</em>. PhD thesis, Stanford University, 1997.</p>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>論文・講演資料<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<div role="list" class="citation-list">
+<div class="citation" id="bitterli2020" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Bitterli2020<span class="fn-bracket">]</span></span>
+<p>Benedikt Bitterli, Chris Wyman, Matt Pharr, Peter Shirley, Aaron Lefohn, Wojciech Jarosz. Spatiotemporal Reservoir Resampling for Real-Time Ray Tracing with Dynamic Direct Lighting. <em>ACM Transactions on Graphics</em>, 39(4), 2020.</p>
+</div>
+<div class="citation" id="blinn1977" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Blinn1977<span class="fn-bracket">]</span></span>
+<p>James F. Blinn. Models of Light Reflection for Computer Synthesized Pictures. <em>Computer Graphics (Proceedings of SIGGRAPH '77)</em>, 11(2), pp. 192–198, 1977.</p>
+</div>
+<div class="citation" id="burley2012" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Burley2012<span class="fn-bracket">]</span></span>
+<p>Brent Burley. Physically-Based Shading at Disney. <em>SIGGRAPH 2012 Course: Practical Physically Based Shading in Film and Game Production</em>, 2012.</p>
+</div>
+<div class="citation" id="cooktorrance1982" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>CookTorrance1982<span class="fn-bracket">]</span></span>
+<p>Robert L. Cook, Kenneth E. Torrance. A Reflectance Model for Computer Graphics. <em>ACM Transactions on Graphics</em>, 1(1), pp. 7–24, 1982.</p>
+</div>
+<div class="citation" id="duff2017" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Duff2017<span class="fn-bracket">]</span></span>
+<p>Tom Duff, James Burgess, Per Christensen, Christophe Hery, Andrew Kensler, Max Liani, Ryusuke Villemin. Building an Orthonormal Basis, Revisited. <em>Journal of Computer Graphics Techniques</em>, 6(1), pp. 1–8, 2017.</p>
+</div>
+<div class="citation" id="heitz2014" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Heitz2014<span class="fn-bracket">]</span></span>
+<p>Eric Heitz. Understanding the Masking-Shadowing Function in Microfacet-Based BRDFs. <em>Journal of Computer Graphics Techniques</em>, 3(2), pp. 48–107, 2014.</p>
+</div>
+<div class="citation" id="jensen1996" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Jensen1996<span class="fn-bracket">]</span></span>
+<p>Henrik Wann Jensen. Global Illumination Using Photon Maps. <em>Rendering Techniques '96 (Proceedings of the Eurographics Workshop on Rendering)</em>, pp. 21–30, 1996.</p>
+</div>
+<div class="citation" id="kajiya1986" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Kajiya1986<span class="fn-bracket">]</span></span>
+<p>James T. Kajiya. The Rendering Equation. <em>Computer Graphics (Proceedings of SIGGRAPH '86)</em>, 20(4), pp. 143–150, 1986.</p>
+</div>
+<div class="citation" id="karis2013" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Karis2013<span class="fn-bracket">]</span></span>
+<p>Brian Karis. Real Shading in Unreal Engine 4. <em>SIGGRAPH 2013 Course: Physically Based Shading in Theory and Practice</em>, 2013.</p>
+</div>
+<div class="citation" id="kerbl2023" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Kerbl2023<span class="fn-bracket">]</span></span>
+<p>Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler, George Drettakis. 3D Gaussian Splatting for Real-Time Radiance Field Rendering. <em>ACM Transactions on Graphics</em>, 42(4), 2023.</p>
+</div>
+<div class="citation" id="lafortunewillems1993" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>LafortuneWillems1993<span class="fn-bracket">]</span></span>
+<p>Eric P. Lafortune, Yves D. Willems. Bi-Directional Path Tracing. <em>Proceedings of Compugraphics '93</em>, pp. 145–153, 1993.</p>
+</div>
+<div class="citation" id="matusik2003" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Matusik2003<span class="fn-bracket">]</span></span>
+<p>Wojciech Matusik, Hanspeter Pfister, Matt Brand, Leonard McMillan. A Data-Driven Reflectance Model. <em>ACM Transactions on Graphics</em>, 22(3), pp. 759–769, 2003.</p>
+</div>
+<div class="citation" id="mildenhall2020" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Mildenhall2020<span class="fn-bracket">]</span></span>
+<p>Ben Mildenhall, Pratul P. Srinivasan, Matthew Tancik, Jonathan T. Barron, Ravi Ramamoorthi, Ren Ng. NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis. <em>European Conference on Computer Vision (ECCV)</em>, 2020.</p>
+</div>
+<div class="citation" id="phong1975" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Phong1975<span class="fn-bracket">]</span></span>
+<p>Bui Tuong Phong. Illumination for Computer Generated Pictures. <em>Communications of the ACM</em>, 18(6), pp. 311–317, 1975.</p>
+</div>
+<div class="citation" id="reinhard2002" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Reinhard2002<span class="fn-bracket">]</span></span>
+<p>Erik Reinhard, Michael Stark, Peter Shirley, James Ferwerda. Photographic Tone Reproduction for Digital Images. <em>ACM Transactions on Graphics</em>, 21(3), pp. 267–276, 2002.</p>
+</div>
+<div class="citation" id="schlick1994" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Schlick1994<span class="fn-bracket">]</span></span>
+<p>Christophe Schlick. An Inexpensive BRDF Model for Physically-based Rendering. <em>Computer Graphics Forum</em>, 13(3), pp. 233–246, 1994.</p>
+</div>
+<div class="citation" id="smith1967" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Smith1967<span class="fn-bracket">]</span></span>
+<p>Bruce G. Smith. Geometrical Shadowing of a Random Rough Surface. <em>IEEE Transactions on Antennas and Propagation</em>, 15(5), pp. 668–671, 1967.</p>
+</div>
+<div class="citation" id="trowbridgereitz1975" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>TrowbridgeReitz1975<span class="fn-bracket">]</span></span>
+<ol class="upperalpha simple" start="20">
+<li><ol class="upperalpha simple" start="19">
+<li><p>Trowbridge, K. P. Reitz. Average Irregularity Representation of a Rough Surface for Ray Reflection. <em>Journal of the Optical Society of America</em>, 65(5), pp. 531–536, 1975.</p></li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="citation" id="veachguibas1995" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>VeachGuibas1995<span class="fn-bracket">]</span></span>
+<p>Eric Veach, Leonidas J. Guibas. Optimally Combining Sampling Techniques for Monte Carlo Rendering. <em>Proceedings of SIGGRAPH '95</em>, pp. 419–428, 1995.</p>
+</div>
+<div class="citation" id="veachguibas1997" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>VeachGuibas1997<span class="fn-bracket">]</span></span>
+<p>Eric Veach, Leonidas J. Guibas. Metropolis Light Transport. <em>Proceedings of SIGGRAPH '97</em>, pp. 65–76, 1997.</p>
+</div>
+<div class="citation" id="walter2007" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Walter2007<span class="fn-bracket">]</span></span>
+<p>Bruce Walter, Stephen R. Marschner, Hongsong Li, Kenneth E. Torrance. Microfacet Models for Refraction through Rough Surfaces. <em>Proceedings of the Eurographics Symposium on Rendering</em>, pp. 195–206, 2007.</p>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>規格・仕様・ウェブ資料<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<div role="list" class="citation-list">
+<div class="citation" id="gltf2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>glTF2<span class="fn-bracket">]</span></span>
+<p>The Khronos Group. <em>glTF 2.0 Specification</em>. <a class="reference external" href="https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html">https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html</a></p>
+</div>
+<div class="citation" id="iec61966" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>IEC61966<span class="fn-bracket">]</span></span>
+<p>IEC 61966-2-1:1999. <em>Multimedia systems and equipment – Colour measurement and management – Part 2-1: Colour management – Default RGB colour space – sRGB</em>.</p>
+</div>
+<div class="citation" id="narkowicz2016" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Narkowicz2016<span class="fn-bracket">]</span></span>
+<p>Krzysztof Narkowicz. ACES Filmic Tone Mapping Curve. 2016. <a class="reference external" href="https://knarkowicz.wordpress.com/2016/01/06/aces-filmic-tone-mapping-curve/">https://knarkowicz.wordpress.com/2016/01/06/aces-filmic-tone-mapping-curve/</a></p>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="glossary.html" class="btn btn-neutral float-left" title="用語集" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

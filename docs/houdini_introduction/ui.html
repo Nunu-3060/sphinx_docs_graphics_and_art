@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>画面と基本操作 &mdash; Houdini 入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9f2b073c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=35a8b989"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="ノードとネットワーク" href="nodes.html" />
+    <link rel="prev" title="3DCG の基礎知識" href="cg_basics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Houdini 入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Houdini とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cg_basics.html">3DCG の基礎知識</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">画面と基本操作</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">起動</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">画面の構成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">ビューポートの操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">ネットワークエディターの操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">パラメーターエディターの操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">ファイルの保存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">ヘルプの引き方</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nodes.html">ノードとネットワーク</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modeling.html">はじめてのモデリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">ジオメトリとアトリビュート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">パラメーターとエクスプレッション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vex.html">VEX 入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="procedural.html">プロシージャルモデリングの実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python による操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hda.html">デジタルアセット</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">マテリアルとレンダリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">シミュレーション入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="next.html">次のステップ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">サンプルコード一覧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Houdini 入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">画面と基本操作</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>画面と基本操作<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>この章では、Houdini の画面の構成と、ビューポート、ネットワークエディター、パラメーターエディターの基本的な操作を説明する。</p>
+<section id="id2">
+<h2>起動<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>Houdini は、Houdini Launcher（Houdini のインストールとライセンスの管理を行うプログラム）から、またはインストール時に作られるショートカットから起動する。Apprentice のライセンスは、Houdini Launcher で SideFX 社のアカウントにログインして取得する。ライセンスの取得とインストールの手順は、SideFX 社のウェブサイトで案内されている。</p>
+</section>
+<section id="id3">
+<h2>画面の構成<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>起動すると、<a class="reference internal" href="#fig-ui-layout"><span class="std std-numref">図 8</span></a> のような構成の画面が表示される。</p>
+<figure class="align-default" id="id9">
+<span id="fig-ui-layout"></span><img alt="Houdini のメインウィンドウの構成を模式的に表した図" src="_images/ui_layout.png" />
+<figcaption>
+<p><span class="caption-number">図 8 </span><span class="caption-text">Houdini のメインウィンドウの構成（模式図）</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<table class="docutils align-default" id="id10">
+<caption><span class="caption-number">表 7 </span><span class="caption-text">画面の各部の役割</span><a class="headerlink" href="#id10" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名前</p></th>
+<th class="head"><p>役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><ol class="arabic simple">
+<li><p>メインメニュー</p></li>
+</ol>
+</td>
+<td><p>ファイルの保存や読み込み、ウィンドウの表示などのメニュー。</p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="2">
+<li><p>シェルフ</p></li>
+</ol>
+</td>
+<td><p>よく使う機能を呼び出すボタン（シェルフツール）を並べた棚。ツールを押すと、必要なノードが自動的に作られる。</p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="3">
+<li><p>シーンビュー</p></li>
+</ol>
+</td>
+<td><p>3 次元のシーンを表示する領域。ビューポートとも呼ぶ。</p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="4">
+<li><p>ツールボックス</p></li>
+</ol>
+</td>
+<td><p>選択、移動、回転、拡大縮小などのツール。</p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="5">
+<li><p>オペレーションツールバー</p></li>
+</ol>
+</td>
+<td><p>選択中のノードの主なパラメーターを表示する。</p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="6">
+<li><p>表示オプション</p></li>
+</ol>
+</td>
+<td><p>ビューポートの表示方法（点の番号、法線など）を切り替えるボタン。</p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="7">
+<li><p>パラメーターエディター</p></li>
+</ol>
+</td>
+<td><p>選択中のノードのパラメーターを表示し、編集する。</p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="8">
+<li><p>ネットワークエディター</p></li>
+</ol>
+</td>
+<td><p>ノードのネットワークを表示し、編集する。</p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="9">
+<li><p>プレイバー</p></li>
+</ol>
+</td>
+<td><p>アニメーションの再生と、現在のフレームの変更を行う。</p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="10">
+<li><p>ステータスライン</p></li>
+</ol>
+</td>
+<td><p>処理の状況やメッセージを表示する。</p></td>
+</tr>
+</tbody>
+</table>
+<p>画面を区切った各領域をペイン（pane）と呼ぶ。1 つのペインには複数のタブを持たせることができ、タブを切り替えて別の種類の表示に変えられる。ペインのタブの右端にある <span class="guilabel">+</span> のボタンから、新しいタブを追加できる。本資料では、次の 2 種類のタブを追加して使う。</p>
+<ul class="simple">
+<li><p><strong>Geometry Spreadsheet</strong>: ノードの出力するジオメトリの中身（点の位置やアトリビュートの値）を表の形で表示する。<a class="reference internal" href="attributes.html"><span class="doc">ジオメトリとアトリビュート</span></a> で使う。</p></li>
+<li><p><strong>Python Shell</strong>: Python の対話型のシェル。<span class="menuselection">Windows ‣ Python Shell</span> で別のウィンドウとして開くこともできる。<a class="reference internal" href="python.html"><span class="doc">Python による操作</span></a> で使う。</p></li>
+</ul>
+<p>Houdini では、作業の多くをネットワークエディターとパラメーターエディターで行う。シェルフツールは、ノードを作る手間を省くための補助と考えるとよい。</p>
+</section>
+<section id="id4">
+<h2>ビューポートの操作<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>ビューポートで視点を動かすには、<kbd class="kbd docutils literal notranslate">Space</kbd> キーを押したままマウスをドラッグする。<kbd class="kbd docutils literal notranslate">Space</kbd> の代わりに <kbd class="kbd docutils literal notranslate">Alt</kbd> を押してもよい。</p>
+<table class="docutils align-default" id="id11">
+<caption><span class="caption-number">表 8 </span><span class="caption-text">ビューポートの視点の操作</span><a class="headerlink" href="#id11" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>操作</p></th>
+<th class="head"><p>結果</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Space</kbd> + LMB でドラッグ</p></td>
+<td><p>視点を回転する（タンブル）。</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Space</kbd> + MMB でドラッグ</p></td>
+<td><p>視点を平行移動する（トラック）。</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Space</kbd> + RMB でドラッグ、またはマウスホイール</p></td>
+<td><p>視点を前後に移動する（ドリー）。</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Space</kbd> + <kbd class="kbd docutils literal notranslate">H</kbd></p></td>
+<td><p>シーン全体が見えるように視点を戻す。</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Space</kbd> + <kbd class="kbd docutils literal notranslate">G</kbd></p></td>
+<td><p>選択している物が見えるように視点を移す。</p></td>
+</tr>
+</tbody>
+</table>
+<p>形状を選んで移動する操作もビューポートでできるが、本資料では、パラメーターに数値を入力して形状を作る。数値で作る方が、後から変更しやすく、手順を正確に再現できるためである。</p>
+</section>
+<section id="id5">
+<h2>ネットワークエディターの操作<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>ネットワークエディターは、ノードを作り、つなぐための領域である。</p>
+<table class="docutils align-default" id="id12">
+<caption><span class="caption-number">表 9 </span><span class="caption-text">ネットワークエディターの主な操作</span><a class="headerlink" href="#id12" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>操作</p></th>
+<th class="head"><p>結果</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Tab</kbd></p></td>
+<td><p>ノードを作るメニュー（Tab メニュー）を開く。ノードの名前の一部を入力すると絞り込める。</p></td>
+</tr>
+<tr class="row-odd"><td><p>MMB でドラッグ</p></td>
+<td><p>表示を平行移動する。</p></td>
+</tr>
+<tr class="row-even"><td><p>マウスホイール</p></td>
+<td><p>表示を拡大、縮小する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">H</kbd></p></td>
+<td><p>全てのノードが見えるようにする。</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">G</kbd></p></td>
+<td><p>選択しているノードが見えるようにする。</p></td>
+</tr>
+<tr class="row-odd"><td><p>ノードをダブルクリック、または選択して <kbd class="kbd docutils literal notranslate">Enter</kbd> か <kbd class="kbd docutils literal notranslate">I</kbd></p></td>
+<td><p>ノードの中のネットワークに入る。</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">U</kbd></p></td>
+<td><p>1 つ上の階層のネットワークに戻る。</p></td>
+</tr>
+<tr class="row-odd"><td><p>ノードの出力から別のノードの入力へドラッグ</p></td>
+<td><p>ワイヤーでつなぐ。</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Y</kbd> を押しながらワイヤーを横切るようにドラッグ</p></td>
+<td><p>ワイヤーを切る。</p></td>
+</tr>
+<tr class="row-odd"><td><p>ノードの上で MMB を押し続ける</p></td>
+<td><p>ノードの情報（要素の数、アトリビュート、エラーなど）を表示する。</p></td>
+</tr>
+</tbody>
+</table>
+<p>ノードの上側の突起が入力（input）、下側の突起が出力（output）である。データは上から下へ流れる。ノードの両端にある色の付いた部分はフラグである。フラグについては <a class="reference internal" href="nodes.html"><span class="doc">ノードとネットワーク</span></a> で説明する。</p>
+</section>
+<section id="id6">
+<h2>パラメーターエディターの操作<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>ネットワークエディターでノードを選ぶと、パラメーターエディターにそのノードのパラメーターが表示される。</p>
+<ul class="simple">
+<li><p>値を変えるには、入力欄に数値を入力して <kbd class="kbd docutils literal notranslate">Enter</kbd> を押す。数値の入力欄では、数式（例えば <code class="docutils literal notranslate"><span class="pre">1.2</span> <span class="pre">/</span> <span class="pre">2</span></code>）や、他のパラメーターを参照する式も使える（<a class="reference internal" href="expressions.html"><span class="doc">パラメーターとエクスプレッション</span></a>）。</p></li>
+<li><p>入力欄の上で MMB を押してドラッグすると、値を連続的に変えられる。</p></li>
+<li><p>パラメーターのラベルの上で <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + MMB をクリックすると、値が既定値に戻る。</p></li>
+<li><p>パラメーターのラベルにマウスを重ねると、内部名（Python や VEX から参照するときの名前）を含む説明が表示される。例えば Box ノードの <span class="guilabel">Size</span> の内部名は <code class="docutils literal notranslate"><span class="pre">size</span></code> で、その 3 つの成分の内部名は <code class="docutils literal notranslate"><span class="pre">sizex</span></code>、<code class="docutils literal notranslate"><span class="pre">sizey</span></code>、<code class="docutils literal notranslate"><span class="pre">sizez</span></code> である。</p></li>
+<li><p>パラメーターのラベルの上で RMB をクリックすると、パラメーターの値のコピー、参照の貼り付け、キーフレームの設定などのメニューが開く。</p></li>
+</ul>
+</section>
+<section id="id7">
+<h2>ファイルの保存<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>作業したシーンは、<span class="menuselection">File ‣ Save</span>（<kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">S</kbd>）で保存する。Houdini のシーンファイルを hip ファイルと呼ぶ。Apprentice で保存すると、非商用の形式（拡張子 <code class="docutils literal notranslate"><span class="pre">.hipnc</span></code>）になる。</p>
+<p>hip ファイルを保存したディレクトリは、<code class="docutils literal notranslate"><span class="pre">$HIP</span></code> という変数で参照できる。例えば、シミュレーションの結果やレンダリングの画像を <code class="docutils literal notranslate"><span class="pre">$HIP/render/table.jpg</span></code> のように hip ファイルからの相対的な場所に書き出すと、hip ファイルとその出力をまとめて別の場所に移せる。</p>
+<p>hip ファイルには、ノードのネットワークとパラメーターが保存される。ネットワークから計算できる形状そのものは、基本的には保存されない。開いたときに、ネットワークから計算し直される。</p>
+</section>
+<section id="id8">
+<h2>ヘルプの引き方<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>Houdini には、詳しいヘルプが付属している。</p>
+<ul class="simple">
+<li><p>パラメーターエディターの右上にある <span class="guilabel">?</span> のボタンを押すと、選択中のノードのヘルプが開く。ノードの機能と全てのパラメーターの説明が載っている。</p></li>
+<li><p><span class="menuselection">Help</span> メニューから、ヘルプ全体の目次を開ける。VEX の関数や Python（HOM）のリファレンスもヘルプに含まれている。</p></li>
+</ul>
+<p>同じ内容は SideFX 社のウェブサイトでも公開されている（<a class="reference internal" href="references.html"><span class="doc">参考文献</span></a>）。ウェブサイトのヘルプは最新のバージョンの内容なので、使っているバージョンと異なる場合がある。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cg_basics.html" class="btn btn-neutral float-left" title="3DCG の基礎知識" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nodes.html" class="btn btn-neutral float-right" title="ノードとネットワーク" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

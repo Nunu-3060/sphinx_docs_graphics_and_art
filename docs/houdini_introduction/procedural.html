@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>プロシージャルモデリングの実践 &mdash; Houdini 入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9f2b073c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=35a8b989"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="Python による操作" href="python.html" />
+    <link rel="prev" title="VEX 入門" href="vex.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Houdini 入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Houdini とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cg_basics.html">3DCG の基礎知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">画面と基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodes.html">ノードとネットワーク</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modeling.html">はじめてのモデリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">ジオメトリとアトリビュート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">パラメーターとエクスプレッション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vex.html">VEX 入門</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">プロシージャルモデリングの実践</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">設計の考え方</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#copy-to-points">Copy to Points が使うアトリビュート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">作例 1: 階段</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">作例 2: 建物群</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">区画を作る</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#for-each-1">For-Each ループで区画を 1 個ずつ押し出す</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">色を付けて仕上げる</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">ループを使わない方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python による操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hda.html">デジタルアセット</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">マテリアルとレンダリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">シミュレーション入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="next.html">次のステップ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">サンプルコード一覧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Houdini 入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">プロシージャルモデリングの実践</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>プロシージャルモデリングの実践<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>この章では、ここまでに学んだノード、アトリビュート、VEX を組み合わせて、パラメーターを変えるだけで形が変わるモデルを 2 つ作る。1 つ目は段数や寸法を変えられる階段、2 つ目は乱数で高さの決まる建物群である。</p>
+<section id="id2">
+<h2>設計の考え方<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>プロシージャルなモデルを作るときは、次の順に考えるとよい。</p>
+<ol class="arabic simple">
+<li><p><strong>何をパラメーターにするか決める。</strong> 使う人が変えたい値（段数、寸法、乱数の種など）を挙げる。</p></li>
+<li><p><strong>ポイントで配置を表す。</strong> 部品を置く位置をポイントとして作り、部品ごとに変えたい値（大きさ、向き、色など）をアトリビュートとしてポイントに持たせる。</p></li>
+<li><p><strong>部品をポイントにコピーする。</strong> Copy to Points ノードが、ポイントのアトリビュートを読んで部品の大きさや向きを変える。</p></li>
+</ol>
+<p>配置を決める処理と、部品の形を作る処理を分けておくと、部品だけを差し替えたり、配置のルールだけを変えたりしやすい。</p>
+</section>
+<section id="copy-to-points">
+<h2>Copy to Points が使うアトリビュート<a class="headerlink" href="#copy-to-points" title="Link to this heading"></a></h2>
+<p>Copy to Points ノードは、コピー先のポイントの次のアトリビュートを読んで、コピーごとの変換を決める。</p>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-number">表 26 </span><span class="caption-text">Copy to Points が読む主なアトリビュート</span><a class="headerlink" href="#id8" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 25.0%" />
+<col style="width: 55.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>アトリビュート</p></th>
+<th class="head"><p>型</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">P</span></code></p></td>
+<td><p>ベクトル</p></td>
+<td><p>コピーの位置</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pscale</span></code></p></td>
+<td><p>浮動小数点数</p></td>
+<td><p>全ての軸に共通の拡大率</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scale</span></code></p></td>
+<td><p>ベクトル</p></td>
+<td><p>軸ごとの拡大率（<code class="docutils literal notranslate"><span class="pre">pscale</span></code> があれば掛け合わされる）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
+<td><p>ベクトル</p></td>
+<td><p>コピーの +Z 軸の向き（<code class="docutils literal notranslate"><span class="pre">orient</span></code> が無い場合）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">up</span></code></p></td>
+<td><p>ベクトル</p></td>
+<td><p>コピーの +Y 軸の向き（<code class="docutils literal notranslate"><span class="pre">orient</span></code> が無い場合）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">orient</span></code></p></td>
+<td><p>4 個の浮動小数点数</p></td>
+<td><p>コピーの向き（四元数）。あれば <code class="docutils literal notranslate"><span class="pre">N</span></code> と <code class="docutils literal notranslate"><span class="pre">up</span></code> より優先される。</p></td>
+</tr>
+</tbody>
+</table>
+<p>これ以外のポイントのアトリビュート（例えば <code class="docutils literal notranslate"><span class="pre">Cd</span></code>）をコピーした形状に引き継ぐかどうかは、<span class="guilabel">Attributes from Target</span> で指定する。<span class="guilabel">Reset Attributes from Target</span> のボタンを押すと、標準的な設定（変換に使うもの以外の全てのアトリビュートを引き継ぐ）が入る。</p>
+<p><a class="reference internal" href="modeling.html"><span class="doc">はじめてのモデリング</span></a> で脚が倒れてしまったのは、<code class="docutils literal notranslate"><span class="pre">N</span></code> が無いときに面の向きが <code class="docutils literal notranslate"><span class="pre">N</span></code> の代わりに使われたためである。</p>
+</section>
+<section id="id3">
+<h2>作例 1: 階段<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>段数、1 段の高さ、奥行き、幅を変えられる階段を作る（<a class="reference internal" href="#fig-stairs"><span class="std std-numref">図 17</span></a>）。</p>
+<figure class="align-default" id="id9">
+<span id="fig-stairs"></span><img alt="階段のポイントと、そこにコピーした箱を横から見た図" src="_images/stairs.png" />
+<figcaption>
+<p><span class="caption-number">図 17 </span><span class="caption-text">階段を横から見た図（5 段の場合）</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>i 段目（i は 0 から数える）を、高さ <code class="docutils literal notranslate"><span class="pre">step_height</span> <span class="pre">x</span> <span class="pre">(i</span> <span class="pre">+</span> <span class="pre">1)</span></code>、奥行き <code class="docutils literal notranslate"><span class="pre">step_depth</span></code> の箱で表す。箱の中心は、高さの半分の位置にある。そこで、各段の箱の中心にポイントを 1 個ずつ作り、箱の大きさを <code class="docutils literal notranslate"><span class="pre">scale</span></code> アトリビュートとして持たせる。1 辺が 1 の箱を Copy to Points で各ポイントにコピーすると、<code class="docutils literal notranslate"><span class="pre">scale</span></code> の大きさに拡大された箱が並ぶ。</p>
+<p>ネットワークは <a class="reference internal" href="#fig-stairs-network"><span class="std std-numref">図 18</span></a> のとおりである。サンプルコードの <code class="docutils literal notranslate"><span class="pre">build_stairs.py</span></code> でも同じネットワークを作れる。</p>
+<figure class="align-default" id="fig-stairs-network">
+<div class="graphviz"><object data="_images/graphviz-94d5554f990639bcb35e61d784f1e3bf1c32c831.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph stairs {
+  node [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#d4e8f7&quot;, fontsize=11];
+  points [label=&quot;step_points（Attribute Wrangle）\nポイントと scale を作る&quot;];
+  box [label=&quot;unit_box（Box）\n1 辺 1 の箱&quot;];
+  copy [label=&quot;copy_steps（Copy to Points）&quot;];
+  out [label=&quot;OUT（Null）&quot;, fillcolor=&quot;#fff3b0&quot;];
+  box -&gt; copy; points -&gt; copy; copy -&gt; out;
+}</p></object></div>
+<figcaption>
+<p><span class="caption-number">図 18 </span><span class="caption-text">階段のネットワーク</span><a class="headerlink" href="#fig-stairs-network" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">/obj</span></code> に Geometry ノード <code class="docutils literal notranslate"><span class="pre">stairs</span></code> を作り、その中で次のように作る。</p>
+<ol class="arabic">
+<li><p>Attribute Wrangle ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">step_points</span></code> にする。入力には何もつながない。<span class="guilabel">Run Over</span> を <span class="guilabel">Detail (only once)</span> にし、<span class="guilabel">VEXpression</span> に次のコードを入力する。</p>
+<div class="highlight-vex notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1">// 階段の段ごとに 1 個のポイントを作る（Run Over: Detail）。</span>
+<span class="linenos"> 2</span><span class="c1">// 各ポイントには、そこにコピーする箱の大きさを scale アトリビュートで持たせる。</span>
+<span class="linenos"> 3</span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chi</span><span class="p">(</span><span class="s">&quot;step_count&quot;</span><span class="p">);</span><span class="w">     </span><span class="c1">// 段数</span>
+<span class="linenos"> 4</span><span class="kt">float</span><span class="w"> </span><span class="n">rise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;step_height&quot;</span><span class="p">);</span><span class="w">   </span><span class="c1">// 1 段の高さ</span>
+<span class="linenos"> 5</span><span class="kt">float</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;step_depth&quot;</span><span class="p">);</span><span class="w">     </span><span class="c1">// 1 段の奥行き</span>
+<span class="linenos"> 6</span><span class="kt">float</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;width&quot;</span><span class="p">);</span><span class="w">        </span><span class="c1">// 階段の幅</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rise</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">      </span><span class="c1">// i 段目の箱の高さ（床から段の上面まで）</span>
+<span class="linenos">10</span><span class="w">    </span><span class="nb">vector</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="p">));</span>
+<span class="linenos">11</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">addpoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">pos</span><span class="p">);</span>
+<span class="linenos">12</span><span class="w">    </span><span class="n">setpointattrib</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;scale&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="n">set</span><span class="p">(</span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">run</span><span class="p">));</span>
+<span class="linenos">13</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><span class="guilabel">VEXpression</span> の右にある、スペアパラメーターを作るボタンを押す。<span class="guilabel">Step Count</span>、<span class="guilabel">Step Height</span>、<span class="guilabel">Step Depth</span>、<span class="guilabel">Width</span> の 4 個のパラメーターができる。初期値は 0 なので、それぞれ <code class="docutils literal notranslate"><span class="pre">10</span></code>、<code class="docutils literal notranslate"><span class="pre">0.18</span></code>、<code class="docutils literal notranslate"><span class="pre">0.28</span></code>、<code class="docutils literal notranslate"><span class="pre">1</span></code> にする。</p></li>
+<li><p>Box ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">unit_box</span></code> にする。パラメーターは既定のまま（1 辺 1 の立方体）にする。</p></li>
+<li><p>Copy to Points ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">copy_steps</span></code> にする。1 番目の入力に <code class="docutils literal notranslate"><span class="pre">unit_box</span></code>、2 番目の入力に <code class="docutils literal notranslate"><span class="pre">step_points</span></code> をつなぐ。</p></li>
+<li><p>Null ノード <code class="docutils literal notranslate"><span class="pre">OUT</span></code> をつなぎ、Display フラグを立てる。</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">step_points</span></code> を選んで Geometry Spreadsheet を見ると、10 個のポイントに <code class="docutils literal notranslate"><span class="pre">P</span></code> と <code class="docutils literal notranslate"><span class="pre">scale</span></code> があることを確かめられる。VEX のコードで <code class="docutils literal notranslate"><span class="pre">setpointattrib</span></code> に渡した <code class="docutils literal notranslate"><span class="pre">set(width,</span> <span class="pre">h,</span> <span class="pre">run)</span></code> が、それぞれのポイントの <code class="docutils literal notranslate"><span class="pre">scale</span></code> になっている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">step_points</span></code> のパラメーターを変えると、階段全体が作り直される。例えば <span class="guilabel">Step Count</span> を <code class="docutils literal notranslate"><span class="pre">20</span></code> にすると、20 段の階段になる。階段の全体の高さは <code class="docutils literal notranslate"><span class="pre">step_height</span> <span class="pre">x</span> <span class="pre">step_count</span></code> で、既定の値では 1.8 m になる。</p>
+</section>
+<section id="id4">
+<h2>作例 2: 建物群<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>次に、グリッドのマスを区画とみなし、区画ごとに乱数で高さを決めて建物を建てる。空き地もランダムに作る。完成すると、100 m 四方に高さの異なる建物が並んだ街のような形状になる。</p>
+<p><a class="reference internal" href="#fig-city-lots"><span class="std std-numref">図 19</span></a> は、区画を作って高さを決めるまでの流れを上から見た図である。</p>
+<figure class="align-default" id="id10">
+<span id="fig-city-lots"></span><img alt="グリッドのマス、縮めた区画、区画ごとの高さを示す 3 枚の図" src="_images/city_lots.png" />
+<figcaption>
+<p><span class="caption-number">図 19 </span><span class="caption-text">区画を作り、高さを決めるまでの流れ（5 x 5 のマスの場合の模式図）</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>ネットワークは <a class="reference internal" href="#fig-city-network"><span class="std std-numref">図 20</span></a> のとおりである。サンプルコードの <code class="docutils literal notranslate"><span class="pre">build_city.py</span></code> でも同じネットワークを作れる。</p>
+<figure class="align-default" id="fig-city-network">
+<div class="graphviz"><object data="_images/graphviz-2718e8adc5a06ee409c645375ccfd3b765a779ea.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph city {
+  node [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#d4e8f7&quot;, fontsize=11];
+  ground [label=&quot;ground（Grid）&quot;];
+  lots [label=&quot;make_lots（PolyExtrude）\nマスを縮めて区画にする&quot;];
+  attrs [label=&quot;lot_attributes（Attribute Wrangle）\nheight を決め、空き地を消す&quot;];
+  begin [label=&quot;foreach_begin（Block Begin）&quot;, fillcolor=&quot;#e7d4f0&quot;];
+  extrude [label=&quot;extrude_building（PolyExtrude）\n区画を height まで押し出す&quot;, fillcolor=&quot;#e7d4f0&quot;];
+  end [label=&quot;foreach_end（Block End）&quot;, fillcolor=&quot;#e7d4f0&quot;];
+  color [label=&quot;building_color（Attribute Wrangle）\n高さで色を付ける&quot;];
+  merge [label=&quot;merge（Merge）&quot;];
+  out [label=&quot;OUT（Null）&quot;, fillcolor=&quot;#fff3b0&quot;];
+  ground -&gt; lots -&gt; attrs -&gt; begin -&gt; extrude -&gt; end -&gt; color -&gt; merge;
+  ground -&gt; merge;
+  merge -&gt; out;
+}</p></object></div>
+<figcaption>
+<p><span class="caption-number">図 20 </span><span class="caption-text">建物群のネットワーク</span><a class="headerlink" href="#fig-city-network" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="id5">
+<h3>区画を作る<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><code class="docutils literal notranslate"><span class="pre">/obj</span></code> に Geometry ノード <code class="docutils literal notranslate"><span class="pre">city</span></code> を作り、その中に Grid ノード <code class="docutils literal notranslate"><span class="pre">ground</span></code> を作る。<span class="guilabel">Size</span> を <code class="docutils literal notranslate"><span class="pre">100</span></code>、<code class="docutils literal notranslate"><span class="pre">100</span></code>、<span class="guilabel">Rows</span> と <span class="guilabel">Columns</span> を <code class="docutils literal notranslate"><span class="pre">11</span></code> にする。10 x 10 の 100 個のマス（プリミティブ）ができる。</p></li>
+<li><p>PolyExtrude ノード <code class="docutils literal notranslate"><span class="pre">make_lots</span></code> をつなぎ、次のパラメーターを設定する。</p>
+<ul class="simple">
+<li><p><span class="guilabel">Divide Into</span>: <span class="guilabel">Individual Elements</span>（マスごとに別々に処理する）</p></li>
+<li><p><span class="guilabel">Inset</span>: <code class="docutils literal notranslate"><span class="pre">1.5</span></code></p></li>
+<li><p><span class="guilabel">Output Side</span>: オフ</p></li>
+</ul>
+<p>PolyExtrude ノードは面を押し出すノードだが、<span class="guilabel">Distance</span> が 0 のまま <span class="guilabel">Inset</span> を設定すると、面を内側に縮めるだけになる。<span class="guilabel">Output Side</span> をオフにして側面を作らないようにすると、マスの間に 3 m の隙間（道路）がある区画ができる。グリッドのマスは隣とポイントを共有しているが、<span class="guilabel">Individual Elements</span> で縮めた区画は、それぞれ独立したポイントを持つ。</p>
+</li>
+<li><p>Attribute Wrangle ノード <code class="docutils literal notranslate"><span class="pre">lot_attributes</span></code> をつなぐ。<span class="guilabel">Run Over</span> を <span class="guilabel">Primitives</span> にし、<span class="guilabel">VEXpression</span> に次のコードを入力する。スペアパラメーターのボタンを押し、<span class="guilabel">Seed</span> を <code class="docutils literal notranslate"><span class="pre">0</span></code>、<span class="guilabel">Empty Ratio</span> を <code class="docutils literal notranslate"><span class="pre">0.2</span></code>、<span class="guilabel">Min Height</span> を <code class="docutils literal notranslate"><span class="pre">6</span></code>、<span class="guilabel">Max Height</span> を <code class="docutils literal notranslate"><span class="pre">60</span></code> にする。</p>
+<div class="highlight-vex notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1">// 区画ごとに、建物を建てるかどうかと建物の高さを決める（Run Over: Primitives）。</span>
+<span class="linenos">2</span><span class="kt">float</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;seed&quot;</span><span class="p">);</span>
+<span class="linenos">3</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="nv">@primnum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">seed</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;empty_ratio&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">4</span><span class="w">    </span><span class="n">removeprim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nv">@primnum</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">    </span><span class="c1">// 空き地にする（ポイントも一緒に消す）</span>
+<span class="linenos">5</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">6</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="nv">@primnum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+<span class="linenos">7</span><span class="w">    </span><span class="nv">f@height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fit01</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;min_height&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;max_height&quot;</span><span class="p">));</span>
+<span class="linenos">8</span><span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">rand(&#64;primnum</span> <span class="pre">+</span> <span class="pre">seed)</span></code> は、区画の番号と種から決まる 0 から 1 の乱数である。この値が <span class="guilabel">Empty Ratio</span> より小さい区画（全体の約 2 割）は <code class="docutils literal notranslate"><span class="pre">removeprim</span></code> で消して空き地にする。残った区画には、別の乱数を 6 から 60 に換算した値を <code class="docutils literal notranslate"><span class="pre">height</span></code> として持たせる。<span class="guilabel">Seed</span> を変えると、空き地と高さの組み合わせが変わる。</p>
+</li>
+</ol>
+</section>
+<section id="for-each-1">
+<h3>For-Each ループで区画を 1 個ずつ押し出す<a class="headerlink" href="#for-each-1" title="Link to this heading"></a></h3>
+<p>区画ごとに <code class="docutils literal notranslate"><span class="pre">height</span></code> の分だけ押し出したい。PolyExtrude ノードの <span class="guilabel">Distance</span> は 1 個の値なので、区画を 1 個ずつ取り出して押し出し、最後にまとめる。この繰り返しには For-Each ループを使う。</p>
+<p>For-Each ループは、Block Begin ノードと Block End ノードの組で作る。2 つのノードの間に置いたノードが、入力の要素（ピース）ごとに繰り返し実行される。プログラムの <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">piece</span> <span class="pre">in</span> <span class="pre">pieces:</span></code> に相当する。</p>
+<ol class="arabic">
+<li><p><kbd class="kbd docutils literal notranslate">Tab</kbd> メニューで <span class="guilabel">For-Each Primitive</span> を選ぶ。Block Begin ノードと Block End ノードが、<code class="docutils literal notranslate"><span class="pre">foreach_begin1</span></code>、<code class="docutils literal notranslate"><span class="pre">foreach_end1</span></code> のような名前で 1 組作られる。名前をそれぞれ <code class="docutils literal notranslate"><span class="pre">foreach_begin</span></code>、<code class="docutils literal notranslate"><span class="pre">foreach_end</span></code> に変え、<code class="docutils literal notranslate"><span class="pre">foreach_begin</span></code> の入力に <code class="docutils literal notranslate"><span class="pre">lot_attributes</span></code> をつなぐ。</p></li>
+<li><p>Block Begin ノードと Block End ノードの間に PolyExtrude ノード <code class="docutils literal notranslate"><span class="pre">extrude_building</span></code> を挿入する。<span class="guilabel">Distance</span> と <span class="guilabel">Divisions</span> に次の式を入力する。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>prim(opinputpath(&quot;.&quot;, 0), 0, &quot;height&quot;, 0)
+<span class="linenos">2</span>max(1, floor(prim(opinputpath(&quot;.&quot;, 0), 0, &quot;height&quot;, 0) / 3))
+</pre></div>
+</div>
+<p>1 行目が <span class="guilabel">Distance</span>、2 行目が <span class="guilabel">Divisions</span> の式である。<code class="docutils literal notranslate"><span class="pre">opinputpath(&quot;.&quot;,</span> <span class="pre">0)</span></code> は、このノードの 1 番目の入力につながっているノードのパスを返す。<code class="docutils literal notranslate"><span class="pre">prim(パス,</span> <span class="pre">0,</span> <span class="pre">&quot;height&quot;,</span> <span class="pre">0)</span></code> は、そのノードの出力のプリミティブ 0 番の <code class="docutils literal notranslate"><span class="pre">height</span></code> を読む。ループの中では、入力には処理中の区画 1 個だけが入っているので、プリミティブ 0 番がその区画である。<span class="guilabel">Divisions</span> は側面の分割数で、側面がおよそ 3 m ごとに分割されて、建物の階のように見える。</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foreach_end</span></code> に Display フラグを立てて、全ての区画が押し出されたことを確かめる。</p></li>
+</ol>
+<p>For-Each Primitive で作った Block End ノードは、<span class="guilabel">Iteration Method</span> が <span class="guilabel">By Pieces or Points</span>、<span class="guilabel">Gather Method</span> が <span class="guilabel">Merge Each Iteration</span>、<span class="guilabel">Piece Elements</span> が <span class="guilabel">Primitives</span> に設定されている。つまり、プリミティブを 1 個ずつ取り出して処理し、全ての結果をまとめて出力する。</p>
+</section>
+<section id="id6">
+<h3>色を付けて仕上げる<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p>Attribute Wrangle ノード <code class="docutils literal notranslate"><span class="pre">building_color</span></code> をループの後ろにつなぐ。<span class="guilabel">Run Over</span> は <span class="guilabel">Points</span> のままにして、次のコードを入力する。スペアパラメーターの <span class="guilabel">Max Height</span> を <code class="docutils literal notranslate"><span class="pre">60</span></code> にする。</p>
+<div class="highlight-vex notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1">// 高さに応じて色を付ける（Run Over: Points）。低い所は暗く、高い所は明るくする。</span>
+<span class="linenos">2</span><span class="kt">float</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fit</span><span class="p">(</span><span class="nv">@P</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;max_height&quot;</span><span class="p">),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
+<span class="linenos">3</span><span class="nv">@Cd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lerp</span><span class="p">({</span><span class="mf">0.25</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">0.85</span><span class="p">,</span><span class="w"> </span><span class="mf">0.88</span><span class="p">,</span><span class="w"> </span><span class="mf">0.95</span><span class="p">},</span><span class="w"> </span><span class="n">t</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>Merge ノード <code class="docutils literal notranslate"><span class="pre">merge</span></code> を作り、<code class="docutils literal notranslate"><span class="pre">ground</span></code> と <code class="docutils literal notranslate"><span class="pre">building_color</span></code> をつなぐ。地面のグリッドに建物を重ねる。</p></li>
+<li><p>Null ノード <code class="docutils literal notranslate"><span class="pre">OUT</span></code> をつなぎ、Display フラグを立てる。</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">lot_attributes</span></code> の <span class="guilabel">Seed</span>、<span class="guilabel">Empty Ratio</span>、<span class="guilabel">Max Height</span> を変えて、街の形が変わることを確かめてほしい。</p>
+</section>
+<section id="id7">
+<h3>ループを使わない方法<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>For-Each ループは分かりやすいが、要素を 1 個ずつ処理するため、要素が多いと遅くなる。多くのノードは、要素ごとに値を変える仕組みをアトリビュートで用意している。</p>
+<p>PolyExtrude ノードの場合、<span class="guilabel">Local Control</span> タブで <span class="guilabel">Distance Scale</span> をオンにすると、プリミティブの <code class="docutils literal notranslate"><span class="pre">zscale</span></code> アトリビュートの値を <span class="guilabel">Distance</span> に掛けた距離だけ押し出す。<code class="docutils literal notranslate"><span class="pre">lot_attributes</span></code> のコードで <code class="docutils literal notranslate"><span class="pre">f&#64;zscale</span> <span class="pre">=</span> <span class="pre">f&#64;height;</span></code> とし、PolyExtrude の <span class="guilabel">Distance</span> を <code class="docutils literal notranslate"><span class="pre">1</span></code> にすれば、ループを使わずに同じ高さの建物を作れる。</p>
+<p>ループを使う前に、ノードのヘルプでアトリビュートによる制御ができないかを調べるとよい。Python のループを NumPy の配列の計算に置き換えるのと同じ考え方である。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="vex.html" class="btn btn-neutral float-left" title="VEX 入門" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="python.html" class="btn btn-neutral float-right" title="Python による操作" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

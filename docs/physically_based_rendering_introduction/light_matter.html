@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. 光と物質の相互作用 &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="6. BRDF" href="brdf.html" />
+    <link rel="prev" title="4. 放射測定（ラジオメトリ）" href="radiometry.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. 光と物質の相互作用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">5.1. 反射と屈折</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">5.2. フレネル反射率</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#schlick">5.3. Schlick 近似</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">5.4. 金属と誘電体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">5.5. 拡散反射の正体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">5.6. 表面下散乱</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">5.7. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5. </span>光と物質の相互作用</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">5. </span>光と物質の相互作用<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>光が物体の表面に当たると、一部は反射し、一部は物体の内部に入る。内部に入った光は、吸収されたり、散乱して再び表面から出てきたりする。本章では、これらの現象を物理的に整理し、次章以降の BRDF の土台とする。</p>
+<section id="id2">
+<h2><span class="section-number">5.1. </span>反射と屈折<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>滑らかな境界面に光が当たると、光は反射光と屈折光（透過光）に分かれる（<a class="reference internal" href="#fig-snell"><span class="std std-numref">図 5.1</span></a>）。</p>
+<figure class="align-center" id="fig-snell">
+<a class="reference internal image-reference" href="_images/snell.png"><img alt="_images/snell.png" src="_images/snell.png" style="width: 55%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 5.1 </span><span class="caption-text">境界面での反射と屈折</span><a class="headerlink" href="#fig-snell" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<dl>
+<dt>反射の法則</dt><dd><p>反射光は、法線に関して入射光と対称な方向に進む。入射角と反射角は等しい。この方向を正反射方向と呼ぶ。</p>
+</dd>
+<dt>スネルの法則</dt><dd><p>屈折光の方向は、2 つの媒質の屈折率 <span class="math notranslate nohighlight">\(n_1\)</span>, <span class="math notranslate nohighlight">\(n_2\)</span> によって決まる。入射角を <span class="math notranslate nohighlight">\(\theta_1\)</span>、屈折角を <span class="math notranslate nohighlight">\(\theta_2\)</span> とすると、次の関係が成り立つ。</p>
+<div class="math notranslate nohighlight" id="equation-snell">
+<span class="eqno">(5.1)<a class="headerlink" href="#equation-snell" title="Link to this equation"></a></span>\[n_1 \sin\theta_1 = n_2 \sin\theta_2\]</div>
+</dd>
+</dl>
+<p>屈折率は、真空中の光の速さと媒質中の光の速さの比である。主な物質の屈折率を<a class="reference internal" href="#table-ior"><span class="std std-numref">表 5.1</span></a> に示す。</p>
+<table class="docutils align-default" id="table-ior">
+<caption><span class="caption-number">表 5.1 </span><span class="caption-text">主な物質の屈折率（可視光での概略値）</span><a class="headerlink" href="#table-ior" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>物質</p></th>
+<th class="head"><p>屈折率</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>真空</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>空気</p></td>
+<td><p>約 1.0003</p></td>
+</tr>
+<tr class="row-even"><td><p>水</p></td>
+<td><p>約 1.33</p></td>
+</tr>
+<tr class="row-odd"><td><p>ガラス</p></td>
+<td><p>約 1.5</p></td>
+</tr>
+<tr class="row-even"><td><p>ダイヤモンド</p></td>
+<td><p>約 2.42</p></td>
+</tr>
+</tbody>
+</table>
+<p>屈折率の大きい媒質から小さい媒質へ光が進む場合（水中から空気中へ、など）、入射角がある角度を超えると、式 <a class="reference internal" href="#equation-snell">(5.1)</a> を満たす <span class="math notranslate nohighlight">\(\theta_2\)</span> が存在しなくなり、光はすべて反射する。これを全反射と呼び、その境目の角度 <span class="math notranslate nohighlight">\(\theta_c = \arcsin(n_2 / n_1)\)</span> を臨界角と呼ぶ。水から空気への臨界角は約 49 度である。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">5.2. </span>フレネル反射率<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>境界面に当たった光のうち、どれだけの割合が反射するかを表すのがフレネル反射率である。フレネル反射率は、屈折率と入射角によって決まり、マクスウェル方程式から導かれるフレネルの式で計算できる。</p>
+<p>光の電場の振動方向（偏光）によって反射率は異なる。入射面（入射光と法線を含む平面）に垂直に振動する成分（s 偏光）と、入射面に平行に振動する成分（p 偏光）の反射率は、それぞれ次の式で表される。</p>
+<div class="math notranslate nohighlight" id="equation-fresnel">
+<span class="eqno">(5.2)<a class="headerlink" href="#equation-fresnel" title="Link to this equation"></a></span>\[R_s = \left| \frac{n_1 \cos\theta_1 - n_2 \cos\theta_2}{n_1 \cos\theta_1 + n_2 \cos\theta_2} \right|^2, \qquad
+R_p = \left| \frac{n_2 \cos\theta_1 - n_1 \cos\theta_2}{n_2 \cos\theta_1 + n_1 \cos\theta_2} \right|^2\]</div>
+<p>太陽光や電球の光のように偏光していない光に対しては、両者の平均 <span class="math notranslate nohighlight">\(F = (R_s + R_p)/2\)</span> を反射率とする。残りの <span class="math notranslate nohighlight">\(1 - F\)</span> が屈折光になる。境界面での反射と屈折だけを考えれば、反射光と屈折光のエネルギーの和は入射光のエネルギーに等しい。</p>
+<p>光が垂直に入射する場合（<span class="math notranslate nohighlight">\(\theta_1 = 0\)</span>）、空気（<span class="math notranslate nohighlight">\(n_1 = 1\)</span>）から屈折率 <span class="math notranslate nohighlight">\(n\)</span> の物質への反射率は、次の簡単な式になる。この値を <span class="math notranslate nohighlight">\(F_0\)</span> と書く。</p>
+<div class="math notranslate nohighlight" id="equation-f0">
+<span class="eqno">(5.3)<a class="headerlink" href="#equation-f0" title="Link to this equation"></a></span>\[F_0 = \left( \frac{n - 1}{n + 1} \right)^2\]</div>
+<p>ガラス（<span class="math notranslate nohighlight">\(n = 1.5\)</span>）では <span class="math notranslate nohighlight">\(F_0 = 0.04\)</span>、水（<span class="math notranslate nohighlight">\(n = 1.33\)</span>）では <span class="math notranslate nohighlight">\(F_0 \approx 0.02\)</span> となる。つまり、ガラスや水に正面から光が当たると、反射するのはわずか数%であり、ほとんどの光は内部に入る。</p>
+<p>入射角とフレネル反射率の関係を<a class="reference internal" href="#fig-fresnel"><span class="std std-numref">図 5.2</span></a> に示す。</p>
+<figure class="align-center" id="fig-fresnel">
+<a class="reference internal image-reference" href="_images/fresnel.png"><img alt="_images/fresnel.png" src="_images/fresnel.png" style="width: 75%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 5.2 </span><span class="caption-text">入射角とフレネル反射率の関係（実線はフレネルの式、破線は Schlick 近似）</span><a class="headerlink" href="#fig-fresnel" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>この図から次のことが読み取れる。</p>
+<ul class="simple">
+<li><p>水やガラスの反射率は、入射角が 45 度程度までは <span class="math notranslate nohighlight">\(F_0\)</span> からあまり変わらないが、それを超えると急激に大きくなり、90 度（表面すれすれの入射）で 1 に近づく。</p></li>
+<li><p>アルミニウムのような金属は、正面からでも反射率が非常に高い。</p></li>
+</ul>
+<p>1 つ目の性質は、日常でも観察できる。湖を真上から見下ろすと水中が透けて見えるが、遠くの水面を浅い角度で見ると、空や対岸の景色が鏡のように映り込む。また、机の天板や床を浅い角度から見ると、照明が映り込んで見える。このように、どのような物質でも浅い角度から見ると強く光を反射する現象をフレネル効果と呼ぶ。PBR で作られた画像が自然に見える理由の 1 つは、この効果を正しく再現していることにある。</p>
+</section>
+<section id="schlick">
+<h2><span class="section-number">5.3. </span>Schlick 近似<a class="headerlink" href="#schlick" title="Link to this heading"></a></h2>
+<p>フレネルの式は計算がやや重いため、レンダリングでは次の Schlick 近似 <a class="reference internal" href="references.html#schlick1994" id="id4"><span>[Schlick1994]</span></a> がよく使われる。</p>
+<div class="math notranslate nohighlight" id="equation-schlick">
+<span class="eqno">(5.4)<a class="headerlink" href="#equation-schlick" title="Link to this equation"></a></span>\[F(\theta) \approx F_0 + (1 - F_0)(1 - \cos\theta)^5\]</div>
+<p><a class="reference internal" href="#fig-fresnel"><span class="std std-numref">図 5.2</span></a> の破線が Schlick 近似である。水やガラス（後述する誘電体）ではフレネルの式とよく一致している。金属では、80 度付近で反射率がわずかに下がる現象を再現できないが、見た目への影響は小さい。Schlick 近似の利点は、物質の性質を <span class="math notranslate nohighlight">\(F_0\)</span> という 1 つの値（RGB なら 3 つの値）だけで指定できることである。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">5.4. </span>金属と誘電体<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>物質は、光学的な性質から大きく金属（導体）と誘電体（非金属）に分けられる。PBR では、この区別が材質を表現するうえで最も基本的な分類になる。</p>
+<dl class="simple">
+<dt>金属</dt><dd><p>金属の内部には自由に動ける電子が多数あり、内部に入った光はごく浅い距離（数十 nm 程度）で吸収される。そのため、金属の見た目はほぼ表面での反射だけで決まる。金属の屈折率は複素数 <span class="math notranslate nohighlight">\(n + ik\)</span> で表され、虚部 <span class="math notranslate nohighlight">\(k\)</span>（消衰係数）が大きいほど吸収が強い。<span class="math notranslate nohighlight">\(F_0\)</span> は 0.5 から 1 程度と高い。金や銅のように、波長によって <span class="math notranslate nohighlight">\(F_0\)</span> が大きく異なる金属は、反射光そのものに色が付く。</p>
+</dd>
+<dt>誘電体</dt><dd><p>ガラス、水、プラスチック、木、石、布など、金属以外のほとんどの物質が誘電体である。多くの誘電体の <span class="math notranslate nohighlight">\(F_0\)</span> は 0.02 から 0.05 程度と低く（ダイヤモンドなど屈折率の高い宝石は例外）、波長によってほとんど変わらないため、表面での反射光には色が付かない（照明の色がそのまま映る）。内部に入った光は、透明な物質ではそのまま通り抜け、不透明な物質では内部で散乱・吸収されたのち、一部が表面から出てくる。</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="#table-f0"><span class="std std-numref">表 5.2</span></a> に、代表的な物質の <span class="math notranslate nohighlight">\(F_0\)</span> を示す。</p>
+<table class="docutils align-default" id="table-f0">
+<caption><span class="caption-number">表 5.2 </span><span class="caption-text">代表的な物質の <span class="math notranslate nohighlight">\(F_0\)</span>（線形な RGB 値。誘電体は屈折率からの計算値、金属は <a class="reference internal" href="references.html#rtr4" id="id6"><span>[RTR4]</span></a> による）</span><a class="headerlink" href="#table-f0" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 25.0%" />
+<col style="width: 45.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>物質</p></th>
+<th class="head"><p>分類</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(F_0\)</span> (R, G, B)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>水</p></td>
+<td><p>誘電体</p></td>
+<td><p>0.02, 0.02, 0.02</p></td>
+</tr>
+<tr class="row-odd"><td><p>ガラス、プラスチック</p></td>
+<td><p>誘電体</p></td>
+<td><p>0.04, 0.04, 0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>ダイヤモンド</p></td>
+<td><p>誘電体</p></td>
+<td><p>0.17, 0.17, 0.17</p></td>
+</tr>
+<tr class="row-odd"><td><p>鉄</p></td>
+<td><p>金属</p></td>
+<td><p>0.56, 0.57, 0.58</p></td>
+</tr>
+<tr class="row-even"><td><p>銅</p></td>
+<td><p>金属</p></td>
+<td><p>0.96, 0.64, 0.54</p></td>
+</tr>
+<tr class="row-odd"><td><p>金</p></td>
+<td><p>金属</p></td>
+<td><p>1.00, 0.78, 0.34</p></td>
+</tr>
+<tr class="row-even"><td><p>アルミニウム</p></td>
+<td><p>金属</p></td>
+<td><p>0.91, 0.92, 0.92</p></td>
+</tr>
+<tr class="row-odd"><td><p>銀</p></td>
+<td><p>金属</p></td>
+<td><p>0.97, 0.96, 0.92</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id7">
+<h2><span class="section-number">5.5. </span>拡散反射の正体<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>不透明な誘電体（塗装面、プラスチック、紙など）の色は、主に内部で散乱して表面から出てくる光によって決まる。内部に入った光は、顔料などの粒子に当たって何度も向きを変え、その間に特定の波長が吸収される。たとえば赤いプラスチックは、青や緑の光を多く吸収し、赤い光を多く残して外に返す。</p>
+<p>何度も散乱を繰り返した光は、入射した方向の情報を失い、あらゆる方向にほぼ均等に出ていく。これが拡散反射（diffuse reflection）である。これに対し、表面で直接反射する光を鏡面反射（specular reflection）と呼ぶ。</p>
+<p>つまり、不透明な誘電体の見た目は次の 2 つの成分の和として表せる。</p>
+<ul class="simple">
+<li><p>鏡面反射：表面での反射。色は付かず、反射率はフレネル反射率に従う。</p></li>
+<li><p>拡散反射：内部で散乱して出てくる光。物体固有の色が付く。</p></li>
+</ul>
+<p>一方、金属には拡散反射がほとんどなく、鏡面反射だけで見た目が決まる。「<a class="reference internal" href="practical_pbr.html"><span class="doc">実用 PBR ワークフロー</span></a>」で説明するメタリック／ラフネスワークフローは、この物理的な区別をそのままパラメーターにしたものである。</p>
+</section>
+<section id="id8">
+<h2><span class="section-number">5.6. </span>表面下散乱<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>上の説明では、内部で散乱した光は入射した点のすぐ近くから出てくると仮定した。実際には、光は内部で横方向にも移動し、入射点から離れた場所から出てくる。この移動距離が画素の大きさに比べて無視できない物質では、この現象を明示的に扱う必要がある。これを表面下散乱（subsurface scattering）と呼ぶ。</p>
+<p>人間の肌、大理石、牛乳、ろうそくなどは、表面下散乱が顕著な物質である。耳に後ろから光が当たると赤く透けて見えるのは、光が皮膚の内部を通り抜けてくるためである。表面下散乱の扱いは本書の範囲を超えるため、「<a class="reference internal" href="advanced.html"><span class="doc">発展的な話題</span></a>」で簡単に紹介するにとどめる。</p>
+</section>
+<section id="id9">
+<h2><span class="section-number">5.7. </span>まとめ<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>滑らかな境界面では、光は反射の法則とスネルの法則に従って反射・屈折する。</p></li>
+<li><p>反射する割合はフレネル反射率で決まり、浅い角度ほど大きくなる。レンダリングでは Schlick 近似がよく使われる。</p></li>
+<li><p>金属は表面での反射だけで見た目が決まり、反射光に色が付くことがある。誘電体は表面での色の付かない反射と、内部散乱による色の付いた拡散反射の両方を持つ。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="radiometry.html" class="btn btn-neutral float-left" title="4. 放射測定（ラジオメトリ）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="brdf.html" class="btn btn-neutral float-right" title="6. BRDF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

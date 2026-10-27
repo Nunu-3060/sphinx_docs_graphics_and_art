@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7. キャラクターを描く &mdash; ドット絵作成入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d9143941" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="8. タイルと背景" href="tiles.html" />
+    <link rel="prev" title="6. 陰影と立体感" href="shading.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ドット絵作成入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_pixel_art.html">2. ドット絵とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">3. 道具を準備する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lines.html">4. 線を描く</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colors.html">5. 色を選ぶ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shading.html">6. 陰影と立体感</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. キャラクターを描く</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">7.1. 描く前に決めること</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">7.2. 描く手順</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">7.2.1. 1. シルエットを描く</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">7.2.2. 2. 基本色を塗る</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">7.2.3. 3. 陰影を付ける</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">7.2.4. 4. アウトラインを調整する</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">7.3. アウトライン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">7.4. 見え方を確認する</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tiles.html">8. タイルと背景</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">9. アニメーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postprocess.html">10. Python で後処理する</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ドット絵作成入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7. </span>キャラクターを描く</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">7. </span>キャラクターを描く<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>これまでの章で説明した線、色、陰影の規則を使って、16×16 ピクセルのキャラクターを描く。この章では、本書のサンプルの主人公を例にして、描く手順とアウトラインの扱い、見え方の確認方法を説明する。</p>
+<section id="id2">
+<h2><span class="section-number">7.1. </span>描く前に決めること<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>描き始める前に、次のことを決めておく。</p>
+<ul class="simple">
+<li><p><strong>大きさ</strong>：ここでは 16×16 ピクセルとする。</p></li>
+<li><p><strong>向き</strong>：最初は正面向きが描きやすい。左右対称に近い形になるので、片側を描いてから反転してコピーできる。</p></li>
+<li><p><strong>頭身</strong>：16×16 ピクセルでは、顔に表情を描く広さを確保するため、頭を大きくした 2 頭身前後にすることが多い。主人公も、高さ 14 ピクセルのうち頭が 7 ピクセルを占める。</p></li>
+<li><p><strong>パレット</strong>：髪、肌、服、ズボン、靴、ベルトに、それぞれ 1 色から 2 色を割り当てる。</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2><span class="section-number">7.2. </span>描く手順<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>主人公を描く手順を <a class="reference internal" href="#fig-character-steps"><span class="std std-numref">図 7.1</span></a> に示す。</p>
+<figure class="align-center" id="id10">
+<span id="fig-character-steps"></span><img alt="キャラクターをシルエット、基本色、陰影、アウトラインの調整の順に描いていく過程" class="pixelated" src="_images/character_steps.png" />
+<figcaption>
+<p><span class="caption-number">図 7.1 </span><span class="caption-text">キャラクターを描く手順。左から、シルエット、基本色、陰影、アウトラインの調整。</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="id4">
+<h3><span class="section-number">7.2.1. </span>1. シルエットを描く<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>最初に、1 色だけで全体の形（<a class="reference internal" href="glossary.html#term-13"><span class="xref std std-term">シルエット</span></a>）を描く。シルエットだけで何の絵か分かることが、良いキャラクターの条件である。ゲームの画面ではキャラクターは小さく、動き回るので、細部よりも形で見分けられることが多いからである。</p>
+<p>このとき、頭、胴、腕、脚の位置と大きさを決める。主人公では、横に広い頭、左右に張り出した手、2 本に分かれた脚が、シルエットだけで分かるようにしている。</p>
+</section>
+<section id="id5">
+<h3><span class="section-number">7.2.2. </span>2. 基本色を塗る<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>シルエットの内側を、部位ごとの基本色で塗り分ける。この段階で、隣り合う部位の明るさに差があるかを確認する。たとえば、髪と肌、服とズボンの明るさが近いと、等倍で見たときに境界が分からなくなる。</p>
+<p>顔は特に重要である。16×16 ピクセルの主人公では、目を 1 ピクセルずつ、間を 4 ピクセル空けて置いている。口は描いていない。この大きさでは、口を描くと顔が窮屈になり、かえって表情が分かりにくくなることが多い。</p>
+</section>
+<section id="id6">
+<h3><span class="section-number">7.2.3. </span>3. 陰影を付ける<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>第 6 章と同じく、左上に光源があるものとして、各部位の右側と下側に陰の色を置く。主人公では、髪の右端、顔の右側とあごの下、服の右側、左右の脚それぞれの右半分に陰を付けている。</p>
+<p>小さなキャラクターでは、陰は部位ごとに 1 色で十分である。明部やハイライトまで入れると、ピクセルの数が足りずにノイズになりやすい。</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">7.2.4. </span>4. アウトラインを調整する<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>最後に、輪郭の線（<a class="reference internal" href="glossary.html#term-0"><span class="xref std std-term">アウトライン</span></a>）の色を調整する。次の節で説明する。</p>
+<p>主人公のデータは <code class="docutils literal notranslate"><span class="pre">sprite_data.py</span></code> の <code class="docutils literal notranslate"><span class="pre">HERO</span></code> にあり、第 2 章で説明した形式で書かれている。エディタで描く前に、方眼紙やテキストエディタで文字を並べて形を考えるのも、エンジニアには取り組みやすい方法である。</p>
+</section>
+</section>
+<section id="id8">
+<h2><span class="section-number">7.3. </span>アウトライン<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>アウトラインは、キャラクターを背景から切り離して見やすくする。アウトラインの付け方には、いくつかの種類がある。</p>
+<figure class="align-center" id="id11">
+<span id="fig-outline-styles"></span><img alt="暗い色のアウトライン、色付きのアウトライン、セルアウト、アウトラインなしの比較" class="pixelated" src="_images/outline_styles.png" />
+<figcaption>
+<p><span class="caption-number">図 7.2 </span><span class="caption-text">アウトラインの種類。左から、暗い色のアウトライン、色付きのアウトライン、セルアウト、アウトラインなし。</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<table class="docutils align-default" id="id12">
+<caption><span class="caption-number">表 7.1 </span><span class="caption-text">アウトラインの種類</span><a class="headerlink" href="#id12" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>種類</p></th>
+<th class="head"><p>特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>暗い色のアウトライン</p></td>
+<td><p>すべての輪郭を同じ暗い色で描く。最も簡単で、どんな背景の上でもくっきり見える。純粋な黒（<code class="docutils literal notranslate"><span class="pre">#000000</span></code>）より、少し色味のある暗い色のほうがなじみやすい。本書では紺に近い <code class="docutils literal notranslate"><span class="pre">#222034</span></code> を使っている。</p></td>
+</tr>
+<tr class="row-odd"><td><p>色付きのアウトライン</p></td>
+<td><p>輪郭の色を、内側に接する部位の色を暗くした色にする。髪の輪郭は暗い茶色、服の輪郭は暗い青になり、柔らかい印象になる。</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="glossary.html#term-17"><span class="xref std std-term">セルアウト</span></a></p></td>
+<td><p>色付きのアウトラインのうち、光の当たる側（上と左）の輪郭を明るめに、陰の側を暗めにしたもの。輪郭にも光の向きが表れ、立体感が増す。</p></td>
+</tr>
+<tr class="row-odd"><td><p>アウトラインなし</p></td>
+<td><p>輪郭を描かない。キャラクターに使える面積が増えるが、背景と区別しにくくなる。</p></td>
+</tr>
+</tbody>
+</table>
+<p>どれを選ぶかは作品の雰囲気と背景によるが、最初は暗い色のアウトラインから始めるとよい。描くのが簡単で、失敗が少ないからである。色付きのアウトラインやセルアウトは、アウトラインの色が増えるぶんパレットの色数も増える点に注意する。</p>
+</section>
+<section id="id9">
+<h2><span class="section-number">7.4. </span>見え方を確認する<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<p>描き終わったら、実際に使う状況に近い条件で見え方を確認する。</p>
+<figure class="align-center" id="id13">
+<span id="fig-visibility"></span><img alt="明るい背景、草地、暗い背景の上に置いた主人公" class="pixelated" src="_images/visibility.png" />
+<figcaption>
+<p><span class="caption-number">図 7.3 </span><span class="caption-text">明るい背景、草地、暗い背景の上に置いた主人公。上段は 4 倍、下段は等倍。</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-visibility"><span class="std std-numref">図 7.3</span></a> の右の暗い背景では、暗い色のアウトラインが背景に溶け込み、髪や服の外形がぼやけている。暗い背景が多い作品では、アウトラインを少し明るくするか、セルアウトを使うとよい。</p>
+<p>確認するときは、次の点を見る。</p>
+<ul class="simple">
+<li><p><strong>等倍で見る</strong>：下段のような実際の大きさで、何の絵か分かるか。</p></li>
+<li><p><strong>背景を変える</strong>：使う予定の背景の上で、輪郭が埋もれていないか。</p></li>
+<li><p><strong>シルエットで見る</strong>：他のキャラクターと並べたとき、シルエットだけで区別できるか。</p></li>
+<li><p><strong>しばらく時間を空ける</strong>：描いた直後は、自分の意図で補って見てしまう。時間を空けると、気付かなかった問題が見えることが多い。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="shading.html" class="btn btn-neutral float-left" title="6. 陰影と立体感" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tiles.html" class="btn btn-neutral float-right" title="8. タイルと背景" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

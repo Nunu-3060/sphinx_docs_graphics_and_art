@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9. モンテカルロ積分 &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="10. パストレーシングの実装" href="path_tracing.html" />
+    <link rel="prev" title="8. レンダリング方程式" href="rendering_equation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">9. モンテカルロ積分</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">9.1. 確率の復習</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">9.2. モンテカルロ推定量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">9.3. 例：円周率の推定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">9.4. 半球上の積分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">9.5. 重点サンプリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">9.6. 多重重点サンプリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">9.7. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">9. </span>モンテカルロ積分</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">9. </span>モンテカルロ積分<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>前章で見たように、レンダリング方程式を解くことは、高次元の積分を計算することに帰着する。本章では、乱数を使って積分を推定するモンテカルロ積分を説明する。モンテカルロ積分は、物理ベースレンダリングを計算機で実現するための中心的な道具である。</p>
+<section id="id2">
+<h2><span class="section-number">9.1. </span>確率の復習<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>必要となる確率の概念を簡単に復習する。</p>
+<dl>
+<dt>確率変数と確率密度関数</dt><dd><p>値が確率的に決まる変数を確率変数と呼ぶ。連続的な値をとる確率変数 <span class="math notranslate nohighlight">\(X\)</span> について、<span class="math notranslate nohighlight">\(X\)</span> が区間 <span class="math notranslate nohighlight">\([a, b]\)</span> に入る確率が <span class="math notranslate nohighlight">\(\int_a^b p(x) \, dx\)</span> で与えられるとき、<span class="math notranslate nohighlight">\(p(x)\)</span> を <span class="math notranslate nohighlight">\(X\)</span> の確率密度関数（Probability Density Function、PDF）と呼ぶ。<span class="math notranslate nohighlight">\(p(x) \ge 0\)</span> であり、全範囲で積分すると 1 になる。</p>
+</dd>
+<dt>期待値</dt><dd><p>確率変数 <span class="math notranslate nohighlight">\(X\)</span> の関数 <span class="math notranslate nohighlight">\(g(X)\)</span> の期待値（平均）は次の式で定義される。</p>
+<div class="math notranslate nohighlight" id="equation-expectation">
+<span class="eqno">(9.1)<a class="headerlink" href="#equation-expectation" title="Link to this equation"></a></span>\[E[g(X)] = \int g(x) \, p(x) \, dx\]</div>
+</dd>
+<dt>分散</dt><dd><p>値のばらつきの大きさを表す量で、<span class="math notranslate nohighlight">\(V[Y] = E[(Y - E[Y])^2]\)</span> で定義される。その平方根を標準偏差と呼ぶ。独立な確率変数 <span class="math notranslate nohighlight">\(Y_1, \dots, Y_N\)</span> が同じ分布に従うとき、それらの平均の分散は <span class="math notranslate nohighlight">\(V[Y] / N\)</span> になる。</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h2><span class="section-number">9.2. </span>モンテカルロ推定量<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>関数 <span class="math notranslate nohighlight">\(f(x)\)</span> の積分 <span class="math notranslate nohighlight">\(I = \int f(x) \, dx\)</span> を求めたいとする。確率密度関数 <span class="math notranslate nohighlight">\(p(x)\)</span> に従う乱数 <span class="math notranslate nohighlight">\(X_1, \dots, X_N\)</span> を生成し、次の値を計算する。</p>
+<div class="math notranslate nohighlight" id="equation-mc-estimator">
+<span class="eqno">(9.2)<a class="headerlink" href="#equation-mc-estimator" title="Link to this equation"></a></span>\[\langle I \rangle_N = \frac{1}{N} \sum_{k=1}^{N} \frac{f(X_k)}{p(X_k)}\]</div>
+<p>これをモンテカルロ推定量と呼ぶ。この値の期待値は、式 <a class="reference internal" href="#equation-expectation">(9.1)</a> を使うと</p>
+<div class="math notranslate nohighlight">
+\[E\left[ \langle I \rangle_N \right] = E\left[ \frac{f(X)}{p(X)} \right] = \int \frac{f(x)}{p(x)} \, p(x) \, dx = \int f(x) \, dx = I\]</div>
+<p>となり、求めたい積分に一致する。このように、期待値が真の値に一致する推定量を不偏推定量と呼ぶ。ただし、<span class="math notranslate nohighlight">\(f(x) \ne 0\)</span> となるすべての <span class="math notranslate nohighlight">\(x\)</span> で <span class="math notranslate nohighlight">\(p(x) &gt; 0\)</span> でなければならない。</p>
+<p>推定量の分散は <span class="math notranslate nohighlight">\(V[f(X)/p(X)] / N\)</span> なので、誤差の大きさ（標準偏差）は <span class="math notranslate nohighlight">\(1/\sqrt{N}\)</span> に比例して小さくなる。重要なのは、この収束の速さが積分の次元によらないことである。前章で述べたように、格子状に区切る数値積分は次元が増えると急激に効率が落ちるが、モンテカルロ積分は高次元でも同じ速さで収束する。これが、レンダリングでモンテカルロ積分が使われる理由である。</p>
+<p>一方で、<span class="math notranslate nohighlight">\(1/\sqrt{N}\)</span> という収束は遅い。誤差を半分にするには 4 倍のサンプル数が、10 分の 1 にするには 100 倍のサンプル数が必要になる。</p>
+</section>
+<section id="id4">
+<h2><span class="section-number">9.3. </span>例：円周率の推定<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>モンテカルロ積分の簡単な例として、円周率を推定してみる。一辺が 1 の正方形 <span class="math notranslate nohighlight">\([0, 1]^2\)</span> の中に一様な乱数で点を打つと、点が原点を中心とする半径 1 の四分円に入る確率は、四分円の面積 <span class="math notranslate nohighlight">\(\pi / 4\)</span> に等しい。したがって、四分円に入った点の割合を 4 倍すれば円周率の推定値になる。これは、四分円の内部で 1、外部で 0 となる関数を正方形上で積分することにあたる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">28</span><span class="k">def</span><span class="w"> </span><span class="nf">estimate_pi</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rng</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="linenos">29</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;n 個の乱数点を使って円周率を推定する。&quot;&quot;&quot;</span>
+<span class="linenos">30</span>    <span class="n">x</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos">31</span>    <span class="n">y</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos">32</span>    <span class="n">inside</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+<span class="linenos">33</span>    <span class="k">return</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">inside</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>サンプル数 <span class="math notranslate nohighlight">\(N\)</span> を変えて推定を 100 回ずつ繰り返し、誤差の二乗平均平方根を求めた結果を<a class="reference internal" href="#fig-mc-convergence"><span class="std std-numref">図 9.1</span></a> に示す。誤差が <span class="math notranslate nohighlight">\(1/\sqrt{N}\)</span> に比例して小さくなることがわかる。</p>
+<figure class="align-center" id="fig-mc-convergence">
+<a class="reference internal image-reference" href="_images/mc_convergence.png"><img alt="_images/mc_convergence.png" src="_images/mc_convergence.png" style="width: 75%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 9.1 </span><span class="caption-text">円周率の推定におけるサンプル数と誤差の関係</span><a class="headerlink" href="#fig-mc-convergence" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>レンダリングにおける誤差は、画像上のノイズとして現れる。パストレーシングの画像がざらざらして見えるのは、画素ごとの推定値がばらついているためである。サンプル数を増やせばノイズは減るが、上で述べたとおり、その減り方はゆっくりである。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">9.4. </span>半球上の積分<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>レンダリングでよく現れるのは、半球上の方向についての積分である。最も単純な方法は、半球上の方向を一様に選ぶことである。半球の立体角は <span class="math notranslate nohighlight">\(2\pi\)</span> なので、確率密度関数は <span class="math notranslate nohighlight">\(p(\omega) = 1 / (2\pi)\)</span> となる。</p>
+<p>例として、次の積分を考える。厳密値は <span class="math notranslate nohighlight">\(\pi / 2\)</span> である（<span class="math notranslate nohighlight">\(\int_0^{2\pi} \int_0^{\pi/2} \cos^3\theta \sin\theta \, d\theta \, d\phi = 2\pi \cdot 1/4\)</span>）。</p>
+<div class="math notranslate nohighlight" id="equation-cos3-integral">
+<span class="eqno">(9.3)<a class="headerlink" href="#equation-cos3-integral" title="Link to this equation"></a></span>\[I = \int_{\Omega} \cos^3\theta \, d\omega = \frac{\pi}{2}\]</div>
+<p>半球上で一様に方向を選ぶと、<span class="math notranslate nohighlight">\(\cos\theta\)</span> は区間 <span class="math notranslate nohighlight">\([0, 1]\)</span> の一様分布に従う。この被積分関数は <span class="math notranslate nohighlight">\(\theta\)</span> だけに依存するので、<span class="math notranslate nohighlight">\(\cos\theta\)</span> だけをサンプリングすれば推定できる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">45</span><span class="k">def</span><span class="w"> </span><span class="nf">estimate_uniform</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rng</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="linenos">46</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;半球上の一様サンプリング（pdf = 1 / 2π）による推定値。</span>
+<span class="linenos">47</span>
+<span class="linenos">48</span><span class="sd">    半球上の一様な方向では cosθ が [0, 1] の一様分布に従う。</span>
+<span class="linenos">49</span><span class="sd">    被積分関数が θ だけに依存するので、cosθ だけをサンプリングすればよい。</span>
+<span class="linenos">50</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">51</span>    <span class="n">cos_theta</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos">52</span>    <span class="n">pdf</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="linenos">53</span>    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">integrand</span><span class="p">(</span><span class="n">cos_theta</span><span class="p">)</span> <span class="o">/</span> <span class="n">pdf</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h2><span class="section-number">9.5. </span>重点サンプリング<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>式 <a class="reference internal" href="#equation-mc-estimator">(9.2)</a> の推定量は、どのような <span class="math notranslate nohighlight">\(p(x)\)</span> を使っても不偏であるが、分散は <span class="math notranslate nohighlight">\(p(x)\)</span> の選び方によって大きく変わる。<span class="math notranslate nohighlight">\(f(x)/p(x)\)</span> がなるべく一定になるように、すなわち <span class="math notranslate nohighlight">\(p(x)\)</span> が <span class="math notranslate nohighlight">\(f(x)\)</span> に近い形になるように選ぶと、分散は小さくなる。被積分関数の値が大きいところを重点的にサンプリングするこの手法を、重点サンプリング（importance sampling）と呼ぶ。</p>
+<p>極端な場合として、<span class="math notranslate nohighlight">\(p(x) = f(x) / I\)</span> とすると、<span class="math notranslate nohighlight">\(f(X)/p(X)\)</span> は常に <span class="math notranslate nohighlight">\(I\)</span> になり、分散は 0 になる。ただし、この <span class="math notranslate nohighlight">\(p(x)\)</span> を作るには求めたい <span class="math notranslate nohighlight">\(I\)</span> 自体が必要なので、実際には使えない。実用上は、被積分関数の一部の形に合わせた確率密度関数を使う。</p>
+<p>レンダリング方程式の被積分関数には、必ず <span class="math notranslate nohighlight">\(\cos\theta_i\)</span> が含まれる。そこで、<span class="math notranslate nohighlight">\(\cos\theta\)</span> に比例する確率密度関数</p>
+<div class="math notranslate nohighlight" id="equation-cosine-pdf">
+<span class="eqno">(9.4)<a class="headerlink" href="#equation-cosine-pdf" title="Link to this equation"></a></span>\[p(\omega) = \frac{\cos\theta}{\pi}\]</div>
+<p>で方向をサンプリングする方法がよく使われる。これをコサイン重み付きサンプリングと呼ぶ。この分布に従う方向は、区間 <span class="math notranslate nohighlight">\([0, 1)\)</span> の一様乱数 <span class="math notranslate nohighlight">\(\xi_1\)</span>, <span class="math notranslate nohighlight">\(\xi_2\)</span> から次の式で生成できる。導出は「<a class="reference internal" href="appendix_math.html"><span class="doc">付録 A 数学的準備</span></a>」で示す。</p>
+<div class="math notranslate nohighlight" id="equation-cosine-sampling">
+<span class="eqno">(9.5)<a class="headerlink" href="#equation-cosine-sampling" title="Link to this equation"></a></span>\[\cos\theta = \sqrt{1 - \xi_1}, \qquad \phi = 2\pi \xi_2\]</div>
+<p>式 <a class="reference internal" href="#equation-cos3-integral">(9.3)</a> をコサイン重み付きサンプリングで推定するコードを次に示す。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">56</span><span class="k">def</span><span class="w"> </span><span class="nf">estimate_cosine</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rng</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="linenos">57</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;コサイン重み付きサンプリング（pdf = cosθ / π）による推定値。&quot;&quot;&quot;</span>
+<span class="linenos">58</span>    <span class="n">cos_theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="linenos">59</span>    <span class="n">pdf</span> <span class="o">=</span> <span class="n">cos_theta</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+<span class="linenos">60</span>    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">integrand</span><span class="p">(</span><span class="n">cos_theta</span><span class="p">)</span> <span class="o">/</span> <span class="n">pdf</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>2 つの方法の誤差を比べた結果を<a class="reference internal" href="#fig-mc-importance"><span class="std std-numref">図 9.2</span></a> に示す。どちらも誤差は <span class="math notranslate nohighlight">\(1/\sqrt{N}\)</span> に比例して減るが、コサイン重み付きサンプリングのほうが同じサンプル数での誤差が小さい。この例では、同じ誤差を得るのに必要なサンプル数が約 4 分の 1 になっている。</p>
+<figure class="align-center" id="fig-mc-importance">
+<a class="reference internal image-reference" href="_images/mc_importance.png"><img alt="_images/mc_importance.png" src="_images/mc_importance.png" style="width: 75%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 9.2 </span><span class="caption-text">一様サンプリングとコサイン重み付きサンプリングの誤差の比較</span><a class="headerlink" href="#fig-mc-importance" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>ランバート BRDF の場合、被積分関数のうち <span class="math notranslate nohighlight">\(f_r \cos\theta_i = (\rho/\pi) \cos\theta_i\)</span> の部分は、コサイン重み付きサンプリングの確率密度関数と完全に比例する。そのため、<span class="math notranslate nohighlight">\(f_r \cos\theta_i / p = \rho\)</span> となり、残る変動は入射光 <span class="math notranslate nohighlight">\(L_i\)</span> に由来するものだけになる。マイクロファセット BRDF に対しても、確率密度 <span class="math notranslate nohighlight">\(D(\mathbf{h}) (\mathbf{n} \cdot \mathbf{h})\)</span> でハーフベクトルをサンプリングする方法が知られている。これらは次章のパストレーサーで使う。</p>
+</section>
+<section id="id7">
+<h2><span class="section-number">9.6. </span>多重重点サンプリング<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>被積分関数が複数の要素の積になっている場合、1 つの確率密度関数ですべての要素の形に合わせることは難しい。レンダリング方程式の場合、BRDF の形に合わせたサンプリングと、光源の位置に合わせたサンプリングのどちらが有利かは状況によって異なる。</p>
+<ul class="simple">
+<li><p>鋭い鏡面反射を持つ表面に大きな光源が映る場合、BRDF に合わせてサンプリングするほうがよい。</p></li>
+<li><p>粗い表面を小さな光源が照らす場合、光源に合わせてサンプリングするほうがよい。</p></li>
+</ul>
+<p>多重重点サンプリング（Multiple Importance Sampling、MIS）<a class="reference internal" href="references.html#veachguibas1995" id="id8"><span>[VeachGuibas1995]</span></a> は、複数のサンプリング手法で得たサンプルを、重みを付けて組み合わせる方法である。サンプリング手法 <span class="math notranslate nohighlight">\(s\)</span> で得たサンプル <span class="math notranslate nohighlight">\(x\)</span> に対して、たとえば次の重みを使う。</p>
+<div class="math notranslate nohighlight" id="equation-balance-heuristic">
+<span class="eqno">(9.6)<a class="headerlink" href="#equation-balance-heuristic" title="Link to this equation"></a></span>\[w_s(x) = \frac{p_s(x)}{\sum_t p_t(x)}\]</div>
+<p>これはバランスヒューリスティック（各手法のサンプル数が等しい場合の形）と呼ばれ、そのサンプルを生成しやすい手法ほど大きな重みを与える。重みの和が 1 になるように選べば、組み合わせた推定量も不偏になる。MIS を使うと、どちらかの手法が得意な状況では自動的にその手法の寄与が大きくなり、さまざまな状況で安定してノイズの少ない画像が得られる。実用的なレンダラーではほぼ必ず使われており、本書のパストレーサーでも、光源のサンプリングと BRDF のサンプリングを MIS で組み合わせている（「<a class="reference internal" href="path_tracing.html"><span class="doc">パストレーシングの実装</span></a>」）。</p>
+</section>
+<section id="id9">
+<h2><span class="section-number">9.7. </span>まとめ<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>モンテカルロ積分は、確率密度関数 <span class="math notranslate nohighlight">\(p\)</span> に従う乱数を使って、<span class="math notranslate nohighlight">\(f/p\)</span> の平均で積分を推定する。</p></li>
+<li><p>誤差は <span class="math notranslate nohighlight">\(1/\sqrt{N}\)</span> に比例して減り、その速さは積分の次元によらない。</p></li>
+<li><p>被積分関数に近い形の確率密度関数を使う重点サンプリングで、誤差を減らせる。</p></li>
+<li><p>複数のサンプリング手法を組み合わせる多重重点サンプリングにより、さまざまな状況で安定した推定ができる。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="rendering_equation.html" class="btn btn-neutral float-left" title="8. レンダリング方程式" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="path_tracing.html" class="btn btn-neutral float-right" title="10. パストレーシングの実装" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

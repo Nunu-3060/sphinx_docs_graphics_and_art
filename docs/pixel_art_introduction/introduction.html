@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. はじめに &mdash; ドット絵作成入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d9143941" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="2. ドット絵とは" href="what_is_pixel_art.html" />
+    <link rel="prev" title="ドット絵作成入門" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ドット絵作成入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. はじめに</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">1.1. 本書の目的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">1.2. 対象読者と前提知識</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">1.3. 本書の構成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">1.4. 制作の流れ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">1.5. サンプルコード</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">1.6. 動作確認環境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">1.7. 表記について</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_pixel_art.html">2. ドット絵とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">3. 道具を準備する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lines.html">4. 線を描く</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colors.html">5. 色を選ぶ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shading.html">6. 陰影と立体感</a></li>
+<li class="toctree-l1"><a class="reference internal" href="characters.html">7. キャラクターを描く</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tiles.html">8. タイルと背景</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">9. アニメーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postprocess.html">10. Python で後処理する</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ドット絵作成入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1. </span>はじめに</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">1. </span>はじめに<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="id2">
+<h2><span class="section-number">1.1. </span>本書の目的<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>ゲームを自作しようとしたエンジニアが最初につまずくのは、プログラムではなく絵であることが多い。素材集を使う方法もあるが、キャラクターやアイコンを少しだけ自分で用意したい場面は意外に多い。</p>
+<p><a class="reference internal" href="glossary.html#term-21"><span class="xref std std-term">ドット絵</span></a>は、こうした場面で最初に取り組む絵の形式として向いている。扱うピクセルの数が少なく、1 つ 1 つのピクセルを意図をもって置くため、「なぜその色をそこに置くのか」を言葉で説明しやすい。つまり、絵の経験が無くても、規則と手順を理解すれば一定の品質に到達できる。</p>
+<p>本書の目的は、ドット絵の基本的な規則と制作の手順を理解し、16×16 ピクセル程度のキャラクターやタイルを自分で描けるようになることである。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">1.2. </span>対象読者と前提知識<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>本書は次のような読者を想定している。</p>
+<ul class="simple">
+<li><p>ゲーム制作の経験は無いが、Python などでプログラムを書いたことがある。</p></li>
+<li><p>絵を描いた経験はほとんど無いが、自作のゲームやツールで使う絵を自分で用意したい。</p></li>
+</ul>
+<p>絵画やデザインの知識は前提としない。Python の知識は、サンプルコードを読んで実行するために使う。ドット絵を描くこと自体には Python は不要である。</p>
+</section>
+<section id="id4">
+<h2><span class="section-number">1.3. </span>本書の構成<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>本書の構成を次の表に示す。第 2 章から第 3 章で準備を整え、第 4 章から第 9 章で描き方を学び、第 10 章で Python による後処理を扱う。</p>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-number">表 1.1 </span><span class="caption-text">本書の構成</span><a class="headerlink" href="#id9" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 25.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>章</p></th>
+<th class="head"><p>タイトル</p></th>
+<th class="head"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>はじめに</p></td>
+<td><p>本書の目的、構成、サンプルコードの使い方</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>ドット絵とは</p></td>
+<td><p>ピクセルと解像度、代表的な大きさ、拡大の方法</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>道具を準備する</p></td>
+<td><p>エディタの選び方と設定、保存形式</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>線を描く</p></td>
+<td><p>きれいな直線と曲線、避けるべき線</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>色を選ぶ</p></td>
+<td><p>パレットとカラーランプ、色相をずらす方法</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>陰影と立体感</p></td>
+<td><p>光源、陰とハイライト、ディザリング、アンチエイリアス</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>キャラクターを描く</p></td>
+<td><p>シルエットから仕上げまでの手順、アウトライン</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>タイルと背景</p></td>
+<td><p>継ぎ目の無いタイル、マップの組み立て</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>アニメーション</p></td>
+<td><p>フレームとタイミング、スプライトシート</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>Python で後処理する</p></td>
+<td><p>拡大、減色、検査などの自動化</p></td>
+</tr>
+</tbody>
+</table>
+<p>巻末には<a class="reference internal" href="glossary.html"><span class="doc">用語集</span></a>と<a class="reference internal" href="references.html"><span class="doc">参考文献</span></a>を付けた。本文中の用語のリンクから用語集の説明を参照できる。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">1.4. </span>制作の流れ<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>本書で扱うドット絵の制作の流れを次の図に示す。第 4 章から第 9 章は、おおむねこの順に並んでいる。</p>
+<figure class="align-center" id="id10">
+<div class="graphviz"><object data="_images/graphviz-37cbbc79649b7bde8896e249690b5c7582730369.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph flow {
+    rankdir=LR;
+    node [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#e8ecf0&quot;, color=&quot;#222034&quot;, fontsize=11];
+    edge [color=&quot;#222034&quot;];
+    plan [label=&quot;大きさと\nパレットを決める&quot;];
+    silhouette [label=&quot;シルエットを\n描く&quot;];
+    line [label=&quot;線を整える&quot;];
+    color [label=&quot;基本色を塗る&quot;];
+    shade [label=&quot;陰影を付ける&quot;];
+    polish [label=&quot;仕上げ\n（アウトライン調整）&quot;];
+    export [label=&quot;書き出し・\n後処理&quot;];
+    plan -&gt; silhouette -&gt; line -&gt; color -&gt; shade -&gt; polish -&gt; export;
+}</p></object></div>
+<figcaption>
+<p><span class="caption-number">図 1.1 </span><span class="caption-text">ドット絵の制作の流れ</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>一度で完成させる必要は無い。陰影を付けてから形を直したり、配色を変えたりするのは普通のことである。ただし、前の段階に戻るほど修正の手間が増えるため、シルエットと配色はなるべく早い段階で固めておくとよい。</p>
+</section>
+<section id="id6">
+<h2><span class="section-number">1.5. </span>サンプルコード<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>本書のサンプルコードは次の表のとおりである。各ファイルはリンクからダウンロードできる。すべてをまとめた <a class="reference download internal" download="" href="_downloads/b65c1036c13a343a56ae6f0b7a03daa5/examples.zip"><code class="xref download docutils literal notranslate"><span class="pre">examples.zip</span></code></a> も用意した。</p>
+<table class="docutils align-default" id="id11">
+<caption><span class="caption-number">表 1.2 </span><span class="caption-text">サンプルコードの一覧</span><a class="headerlink" href="#id11" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 50.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ファイル</p></th>
+<th class="head"><p>内容</p></th>
+<th class="head"><p>関連する章</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference download internal" download="" href="_downloads/8c4e64b8bd9dbdd177c72927e859c717/sprite_data.py"><code class="xref download docutils literal notranslate"><span class="pre">sprite_data.py</span></code></a></p></td>
+<td><p>本書で使うドット絵のデータ（他のサンプルから利用する）</p></td>
+<td><p>2、7、9</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference download internal" download="" href="_downloads/a50dfeea954d4ef9065bc5cfdceed3fa/scale_nearest.py"><code class="xref download docutils literal notranslate"><span class="pre">scale_nearest.py</span></code></a></p></td>
+<td><p>整数倍に拡大する</p></td>
+<td><p>2、10</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference download internal" download="" href="_downloads/e437c4aee3d48c7f04e414d458ef15f8/bresenham_line.py"><code class="xref download docutils literal notranslate"><span class="pre">bresenham_line.py</span></code></a></p></td>
+<td><p>ブレゼンハムのアルゴリズムで直線を描く</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference download internal" download="" href="_downloads/6fe36ebf99d3d8c94924cbb0e222727b/make_palette.py"><code class="xref download docutils literal notranslate"><span class="pre">make_palette.py</span></code></a></p></td>
+<td><p>色相をずらしたカラーランプを作る</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference download internal" download="" href="_downloads/9e87494d5b481cf6a62fa89eb48a8901/tile_preview.py"><code class="xref download docutils literal notranslate"><span class="pre">tile_preview.py</span></code></a></p></td>
+<td><p>タイルを敷き詰めて継ぎ目を確認する</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference download internal" download="" href="_downloads/1ae3a3ab3f2c754c727f4faed5b32517/sprite_sheet.py"><code class="xref download docutils literal notranslate"><span class="pre">sprite_sheet.py</span></code></a></p></td>
+<td><p>スプライトシートと GIF アニメーションを作る</p></td>
+<td><p>9</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference download internal" download="" href="_downloads/bef6c484cae62adf34558753834b0c6e/pyxel_walk.py"><code class="xref download docutils literal notranslate"><span class="pre">pyxel_walk.py</span></code></a></p></td>
+<td><p>Pyxel で歩行アニメーションを再生する</p></td>
+<td><p>9</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference download internal" download="" href="_downloads/74726250660c7f91d734e2bb7f31fa07/check_sprite.py"><code class="xref download docutils literal notranslate"><span class="pre">check_sprite.py</span></code></a></p></td>
+<td><p>色数や半透明のピクセルを検査する</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference download internal" download="" href="_downloads/91fa482098bf40435051538aa5bf72cb/reduce_colors.py"><code class="xref download docutils literal notranslate"><span class="pre">reduce_colors.py</span></code></a></p></td>
+<td><p>画像を縮小・減色して下書きを作る</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference download internal" download="" href="_downloads/9a7d4e6baa469aeaeb4d02338f479f5a/setup.cfg"><code class="xref download docutils literal notranslate"><span class="pre">setup.cfg</span></code></a></p></td>
+<td><p>flake8 と mypy の設定</p></td>
+<td><p>－</p></td>
+</tr>
+</tbody>
+</table>
+<p>サンプルコードは Pillow を使う。<code class="docutils literal notranslate"><span class="pre">pyxel_walk.py</span></code> だけは Pyxel も使う。次のようにインストールする。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="go">python -m pip install pillow pyxel</span>
+</pre></div>
+</div>
+<p>サンプルコードは、すべてのファイルを同じフォルダに置き、そのフォルダをカレントディレクトリにして実行する。出力は <code class="docutils literal notranslate"><span class="pre">output</span></code> フォルダに保存される。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="go">cd examples</span>
+<span class="linenos">2</span><span class="go">python sprite_data.py</span>
+<span class="linenos">3</span><span class="go">python scale_nearest.py</span>
+</pre></div>
+</div>
+<p>サンプルコードには型ヒントを付けてあり、<code class="docutils literal notranslate"><span class="pre">examples</span></code> フォルダで <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">flake8</span></code> と <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">mypy</span> <span class="pre">.</span></code> を実行すると、<code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> の設定（行長 120 文字、mypy の <code class="docutils literal notranslate"><span class="pre">strict</span></code> モード）で検査できる。</p>
+</section>
+<section id="id7">
+<h2><span class="section-number">1.6. </span>動作確認環境<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>本書のサンプルコードと図は、次の環境で動作を確認した。</p>
+<table class="docutils align-default" id="id12">
+<caption><span class="caption-number">表 1.3 </span><span class="caption-text">動作確認環境</span><a class="headerlink" href="#id12" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ソフトウェア</p></th>
+<th class="head"><p>バージョン</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Windows</p></td>
+<td><p>11</p></td>
+</tr>
+<tr class="row-odd"><td><p>Python</p></td>
+<td><p>3.14.6</p></td>
+</tr>
+<tr class="row-even"><td><p>Pillow</p></td>
+<td><p>13.0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pyxel</p></td>
+<td><p>2.9.9</p></td>
+</tr>
+<tr class="row-even"><td><p>matplotlib（図の作成のみ）</p></td>
+<td><p>3.11.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sphinx（本書のビルドのみ）</p></td>
+<td><p>9.1.0</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id8">
+<h2><span class="section-number">1.7. </span>表記について<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>本書では、画像を構成する最小の単位を「ピクセル」と呼ぶ。「ドット」は「ドット絵」や「ダブルドット」のような決まった言い方にだけ使う。また、図はすべて本書のために作成したもので、多くは拡大して表示している。図の説明で「8 倍」とある場合は、元のドット絵の 1 ピクセルを 8×8 ピクセルの正方形で表示していることを表す。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="ドット絵作成入門" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="what_is_pixel_art.html" class="btn btn-neutral float-right" title="2. ドット絵とは" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

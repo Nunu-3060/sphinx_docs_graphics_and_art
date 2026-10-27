@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>デジタルアセット &mdash; Houdini 入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9f2b073c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=35a8b989"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="マテリアルとレンダリング" href="rendering.html" />
+    <link rel="prev" title="Python による操作" href="python.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Houdini 入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Houdini とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cg_basics.html">3DCG の基礎知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">画面と基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodes.html">ノードとネットワーク</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modeling.html">はじめてのモデリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">ジオメトリとアトリビュート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">パラメーターとエクスプレッション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vex.html">VEX 入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="procedural.html">プロシージャルモデリングの実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python による操作</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">デジタルアセット</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">デジタルアセットとは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">名前とバージョン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">作例: 階段をデジタルアセットにする</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">サブネットワークにまとめる</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">デジタルアセットを作る</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">パラメーターを公開する</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">インスタンスを増やす</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">デジタルアセットを編集する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">デジタルアセットを使う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">スクリプトで作る</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#apprentice">Apprentice での制限</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">マテリアルとレンダリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">シミュレーション入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="next.html">次のステップ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">サンプルコード一覧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Houdini 入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">デジタルアセット</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>デジタルアセット<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>ネットワークがある程度の大きさになると、使う人に見せたいパラメーターは数個だけで、中の細かいノードは隠しておきたくなる。また、作ったネットワークを別のシーンでも使いたくなる。Houdini では、ネットワークを 1 個の新しい種類のノードとしてまとめられる。これをデジタルアセット（Houdini Digital Asset、HDA）と呼ぶ。</p>
+<section id="id2">
+<h2>デジタルアセットとは<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>デジタルアセットは、プログラミングで言えば関数やライブラリの定義に当たる。</p>
+<ul class="simple">
+<li><p><strong>定義（ノードの種類）</strong>: 中のネットワークと、外に見せるパラメーター（インターフェース）の組。ファイルに保存される。</p></li>
+<li><p><strong>インスタンス（ノード）</strong>: 定義から作った個々のノード。Box ノードと同じように、Tab メニューからいくつでも作れる。パラメーターの値はインスタンスごとに違ってよい。</p></li>
+</ul>
+<p>定義を変更すると、その定義から作った全てのインスタンスに変更が反映される。関数の中身を直すと、その関数を呼んでいる全ての場所の動作が変わるのと同じである。</p>
+<p>デジタルアセットの定義は、ライブラリファイルに保存する。商用版の拡張子は <code class="docutils literal notranslate"><span class="pre">.hda</span></code> だが、Apprentice では <code class="docutils literal notranslate"><span class="pre">.hdanc</span></code> になる。</p>
+</section>
+<section id="id3">
+<h2>名前とバージョン<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>デジタルアセットには、内部名とラベルを付ける。</p>
+<ul class="simple">
+<li><p><strong>ラベル</strong>: Tab メニューなどの画面に表示される名前。例えば <code class="docutils literal notranslate"><span class="pre">Intro</span> <span class="pre">Stairs</span></code>。後から変えられる。</p></li>
+<li><p><strong>内部名</strong>: ノードの種類を区別する名前。<code class="docutils literal notranslate"><span class="pre">intro::stairs::1.0</span></code> のように、名前空間、名前、バージョンを <code class="docutils literal notranslate"><span class="pre">::</span></code> でつなぐ。作った後は変えられない。</p></li>
+</ul>
+<p>名前空間は、自分の作ったノードの名前が、Houdini に付属するノードや他の人の作ったノードの名前と重ならないようにするためのものである。バージョンは、インターフェースを互換性の無い形で変えたいときに、古いバージョンを残したまま新しいバージョンを作るために使う。<a class="reference internal" href="python.html"><span class="doc">Python による操作</span></a> で見た <code class="docutils literal notranslate"><span class="pre">polybevel::3.0</span></code> も、同じ仕組みでバージョンが付けられている。</p>
+</section>
+<section id="id4">
+<h2>作例: 階段をデジタルアセットにする<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="procedural.html"><span class="doc">プロシージャルモデリングの実践</span></a> で作った階段を、デジタルアセットにする。完成すると、<span class="guilabel">Step Count</span>、<span class="guilabel">Step Height</span>、<span class="guilabel">Step Depth</span>、<span class="guilabel">Width</span> の 4 個のパラメーターだけを持つ <code class="docutils literal notranslate"><span class="pre">Intro</span> <span class="pre">Stairs</span></code> ノードができる。サンプルコードの <code class="docutils literal notranslate"><span class="pre">build_hda.py</span></code> でも同じものを作れる。</p>
+<section id="id5">
+<h3>サブネットワークにまとめる<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="procedural.html"><span class="doc">プロシージャルモデリングの実践</span></a> で作った <code class="docutils literal notranslate"><span class="pre">/obj/stairs</span></code> を開く。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">step_points</span></code>、<code class="docutils literal notranslate"><span class="pre">unit_box</span></code>、<code class="docutils literal notranslate"><span class="pre">copy_steps</span></code> の 3 個のノードを選ぶ（<code class="docutils literal notranslate"><span class="pre">OUT</span></code> は含めない）。</p></li>
+<li><p>選んだノードの上で RMB をクリックし、<span class="menuselection">Actions ‣ Collapse to Subnet</span> を選ぶ。3 個のノードが、1 個の Subnetwork ノードの中に移される。</p></li>
+<li><p>Subnetwork ノードの名前を <code class="docutils literal notranslate"><span class="pre">stairs</span></code> にする。</p></li>
+</ol>
+<p>Subnetwork ノードは、ノードをまとめて入れておくための入れ物である。この時点では、まだ新しい種類のノードにはなっていない。</p>
+</section>
+<section id="id6">
+<h3>デジタルアセットを作る<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">stairs</span></code> の上で RMB をクリックし、<span class="guilabel">Create Digital Asset</span> を選ぶ。</p></li>
+<li><p>開いたウィンドウで、次のように入力する。</p>
+<ul class="simple">
+<li><p><span class="guilabel">Label</span>: <code class="docutils literal notranslate"><span class="pre">Intro</span> <span class="pre">Stairs</span></code></p></li>
+<li><p><span class="guilabel">Internal Name</span>: <code class="docutils literal notranslate"><span class="pre">intro::stairs::1.0</span></code>（名前空間 <code class="docutils literal notranslate"><span class="pre">intro</span></code>、名前 <code class="docutils literal notranslate"><span class="pre">stairs</span></code>、バージョン <code class="docutils literal notranslate"><span class="pre">1.0</span></code>）</p></li>
+<li><p><span class="guilabel">Save To</span>: ライブラリファイルの保存先。既定の場所（ユーザーの Houdini の設定ディレクトリの中）のままでよい。</p></li>
+</ul>
+</li>
+<li><p><span class="guilabel">Create</span> を押す。デジタルアセットが作られ、<code class="docutils literal notranslate"><span class="pre">stairs</span></code> ノードはその最初のインスタンスになる。続いて、ノードの種類の設定を行う Type Properties ウィンドウが開く。</p></li>
+</ol>
+</section>
+<section id="id7">
+<h3>パラメーターを公開する<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>作ったばかりのデジタルアセットには、パラメーターが無い。中の <code class="docutils literal notranslate"><span class="pre">step_points</span></code> のパラメーターを、デジタルアセットのパラメーターとして外に出す。これをパラメーターの昇格（promote）と呼ぶ。</p>
+<ol class="arabic simple">
+<li><p>Type Properties ウィンドウを開いたまま、ネットワークエディターで <code class="docutils literal notranslate"><span class="pre">stairs</span></code> の中に入り、<code class="docutils literal notranslate"><span class="pre">step_points</span></code> を選ぶ。パラメーターエディターに、<span class="guilabel">Step Count</span> などが表示される。</p></li>
+<li><p>Type Properties ウィンドウの <span class="guilabel">Parameters</span> タブを開く。パラメーターエディターの <span class="guilabel">Step Count</span> のラベルを、<span class="guilabel">Parameters</span> タブのパラメーターの一覧にドラッグする。<span class="guilabel">Step Height</span>、<span class="guilabel">Step Depth</span>、<span class="guilabel">Width</span> も同じようにドラッグする。</p></li>
+<li><p><span class="guilabel">Accept</span> を押す。</p></li>
+</ol>
+<p>ドラッグで追加したパラメーターは、デジタルアセットのパラメーターとして作られる。同時に、中の <code class="docutils literal notranslate"><span class="pre">step_points</span></code> の元のパラメーターには、新しいパラメーターを参照する式（<code class="docutils literal notranslate"><span class="pre">ch(&quot;../step_count&quot;)</span></code> のような式）が設定される。</p>
+<p><code class="docutils literal notranslate"><span class="pre">stairs</span></code> の外に出て <code class="docutils literal notranslate"><span class="pre">stairs</span></code> ノードを選ぶと、4 個のパラメーターだけが表示される。値を変えると階段の形が変わる。</p>
+</section>
+<section id="id8">
+<h3>インスタンスを増やす<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>Tab メニューで <code class="docutils literal notranslate"><span class="pre">Intro</span> <span class="pre">Stairs</span></code> を検索すると、新しいノードとして作れる。2 個目のインスタンスを作り、<span class="guilabel">Width</span> を <code class="docutils literal notranslate"><span class="pre">3</span></code> にすると、幅 3 m の階段ができる。1 個目のインスタンスの値は変わらない。</p>
+</section>
+</section>
+<section id="id9">
+<h2>デジタルアセットを編集する<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<p>デジタルアセットのインスタンスは、通常は中のネットワークを編集できないようにロックされている。定義を編集するには、次の操作を行う。</p>
+<ol class="arabic simple">
+<li><p>インスタンスの上で RMB をクリックし、<span class="guilabel">Allow Editing of Contents</span> を選ぶ。中のネットワークを編集できるようになる。</p></li>
+<li><p>中のネットワークを編集する。</p></li>
+<li><p>インスタンスの上で RMB をクリックし、<span class="guilabel">Save Node Type</span> を選ぶ。編集した内容が定義として保存され、他の全てのインスタンスにも反映される。</p></li>
+</ol>
+<p>編集を取り消して保存済みの定義に戻すには、<span class="guilabel">Match Current Definition</span> を選ぶ。パラメーターの追加や並べ替えは、Type Properties ウィンドウ（インスタンスの RMB メニューの <span class="guilabel">Type Properties</span>）で行う。</p>
+</section>
+<section id="id10">
+<h2>デジタルアセットを使う<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<p>既定の保存先のライブラリファイルは、Houdini の起動時に自動的に読み込まれる。別の場所に保存したライブラリファイルは、<span class="menuselection">File ‣ Import ‣ Houdini Digital Asset</span> で読み込む。読み込まれているライブラリファイルとデジタルアセットの一覧は、<span class="menuselection">Windows ‣ Asset Manager</span> で確かめられる。</p>
+<p>デジタルアセットの中で別のネットワークの値を参照する場合は、<code class="docutils literal notranslate"><span class="pre">/obj/table/top</span></code> のような絶対パスではなく、<code class="docutils literal notranslate"><span class="pre">../top</span></code> のような相対パスを使う。絶対パスで参照すると、別のシーンに持っていったときに参照先が見つからなくなる。</p>
+</section>
+<section id="id11">
+<h2>スクリプトで作る<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">build_hda.py</span></code> は、Python でデジタルアセットを作る例である。Subnetwork ノードの <code class="docutils literal notranslate"><span class="pre">createDigitalAsset()</span></code> メソッドで定義を作り、<code class="docutils literal notranslate"><span class="pre">hou.HDADefinition</span></code> のパラメーターのテンプレート（<code class="docutils literal notranslate"><span class="pre">parmTemplateGroup()</span></code>）にパラメーターを追加している。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">def</span><span class="w"> </span><span class="nf">setup_interface</span><span class="p">(</span><span class="n">asset</span><span class="p">:</span> <span class="n">hou</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;HDA にパラメーターを追加し、中の Wrangle から参照させる。&quot;&quot;&quot;</span>
+<span class="linenos"> 3</span>    <span class="n">definition</span> <span class="o">=</span> <span class="n">asset</span><span class="o">.</span><span class="n">type</span><span class="p">()</span><span class="o">.</span><span class="n">definition</span><span class="p">()</span>
+<span class="linenos"> 4</span>    <span class="n">group</span> <span class="o">=</span> <span class="n">definition</span><span class="o">.</span><span class="n">parmTemplateGroup</span><span class="p">()</span>
+<span class="linenos"> 5</span>    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">default</span> <span class="ow">in</span> <span class="n">PARMS</span><span class="p">:</span>
+<span class="linenos"> 6</span>        <span class="n">template</span><span class="p">:</span> <span class="n">hou</span><span class="o">.</span><span class="n">ParmTemplate</span>
+<span class="linenos"> 7</span>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+<span class="linenos"> 8</span>            <span class="n">template</span> <span class="o">=</span> <span class="n">hou</span><span class="o">.</span><span class="n">IntParmTemplate</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="p">(</span><span class="n">default</span><span class="p">,),</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos"> 9</span>        <span class="k">else</span><span class="p">:</span>
+<span class="linenos">10</span>            <span class="n">template</span> <span class="o">=</span> <span class="n">hou</span><span class="o">.</span><span class="n">FloatParmTemplate</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="p">(</span><span class="n">default</span><span class="p">,))</span>
+<span class="linenos">11</span>        <span class="n">group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+<span class="linenos">12</span>    <span class="n">definition</span><span class="o">.</span><span class="n">setParmTemplateGroup</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>    <span class="c1"># VEX の chi(&quot;step_count&quot;) などは Wrangle 自身のパラメーターを読む。そこで</span>
+<span class="linenos">15</span>    <span class="c1"># Wrangle にも同じ名前のパラメーターを作り、Hscript の ch() で HDA の値を参照させる。</span>
+<span class="linenos">16</span>    <span class="n">wrangle</span> <span class="o">=</span> <span class="n">asset</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">&quot;step_points&quot;</span><span class="p">)</span>
+<span class="linenos">17</span>    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">default</span> <span class="ow">in</span> <span class="n">PARMS</span><span class="p">:</span>
+<span class="linenos">18</span>        <span class="n">template</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="linenos">19</span>        <span class="n">wrangle</span><span class="o">.</span><span class="n">addSpareParmTuple</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+<span class="linenos">20</span>        <span class="n">wrangle</span><span class="o">.</span><span class="n">parm</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">setExpression</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ch(&quot;../</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot;)&#39;</span><span class="p">)</span>
+<span class="linenos">21</span>    <span class="n">definition</span><span class="o">.</span><span class="n">updateFromNode</span><span class="p">(</span><span class="n">asset</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>画面の操作ではパラメーターをドラッグするだけで参照が作られたが、スクリプトでは参照を自分で設定する。<code class="docutils literal notranslate"><span class="pre">step_points</span></code> の VEX のコードは <code class="docutils literal notranslate"><span class="pre">chi(&quot;step_count&quot;)</span></code> のように <code class="docutils literal notranslate"><span class="pre">step_points</span></code> 自身のパラメーターを読むので、<code class="docutils literal notranslate"><span class="pre">step_points</span></code> に同じ名前のパラメーターを作り、そこにデジタルアセットのパラメーターを参照する Hscript の式 <code class="docutils literal notranslate"><span class="pre">ch(&quot;../step_count&quot;)</span></code> を設定している。Hscript の <code class="docutils literal notranslate"><span class="pre">ch()</span></code> は整数のパラメーターにも使える（Hscript に <code class="docutils literal notranslate"><span class="pre">chi()</span></code> という関数は無い）。</p>
+<p>hython で <code class="docutils literal notranslate"><span class="pre">build_hda.py</span></code> を実行すると、デジタルアセットを一時ディレクトリに保存し、2 個のインスタンスに異なる値を設定して、それぞれの大きさを表示する。</p>
+</section>
+<section id="apprentice">
+<h2>Apprentice での制限<a class="headerlink" href="#apprentice" title="Link to this heading"></a></h2>
+<p>Apprentice で作ったデジタルアセットは、Apprentice の形式（<code class="docutils literal notranslate"><span class="pre">.hdanc</span></code>）で保存される。<a class="reference internal" href="overview.html"><span class="doc">Houdini とは</span></a> で述べたとおり、Houdini Engine（Unreal Engine や Unity などの中でデジタルアセットを動かす仕組み）では使えない。商用版の Houdini で読み込むと、その Houdini が非商用の扱いになる点にも注意する。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="python.html" class="btn btn-neutral float-left" title="Python による操作" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rendering.html" class="btn btn-neutral float-right" title="マテリアルとレンダリング" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

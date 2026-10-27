@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4. 放射測定（ラジオメトリ） &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="5. 光と物質の相互作用" href="light_matter.html" />
+    <link rel="prev" title="3. 光と色の基礎" href="light_and_color.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. 放射測定（ラジオメトリ）</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">4.1. 立体角</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">4.2. 放射量の定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">4.3. 投影面積とコサイン則</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">4.4. なぜ放射輝度が主役なのか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">4.5. 点光源と逆二乗の法則</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">4.6. 放射照度と放射輝度の関係</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">4.7. 測光量との違い</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">4.8. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4. </span>放射測定（ラジオメトリ）</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">4. </span>放射測定（ラジオメトリ）<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>「明るさ」という言葉は日常的には曖昧に使われるが、物理的に正しい計算をするには、光の量を厳密に定義する必要がある。光のエネルギーを測る体系を放射測定（ラジオメトリ、radiometry）と呼ぶ。本章では、レンダリングで最も重要な物理量である放射輝度を定義する。</p>
+<section id="id2">
+<h2><span class="section-number">4.1. </span>立体角<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>平面上の角度が「円周上の弧の長さ」で測れるように、空間内の方向の広がりは「球面上の面積」で測れる。これを立体角（solid angle）と呼ぶ。</p>
+<p>半径 <span class="math notranslate nohighlight">\(r\)</span> の球の中心から見て、球面上の面積 <span class="math notranslate nohighlight">\(A\)</span> の領域が張る立体角 <span class="math notranslate nohighlight">\(\sigma\)</span> は次の式で定義される。単位はステラジアン（sr）である。</p>
+<div class="math notranslate nohighlight" id="equation-solid-angle">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-solid-angle" title="Link to this equation"></a></span>\[\sigma = \frac{A}{r^2}\]</div>
+<p>半径 1 の球（単位球）で考えれば、立体角は単位球面上の面積そのものである（<a class="reference internal" href="#fig-solid-angle"><span class="std std-numref">図 4.1</span></a> の左）。球面全体の面積は <span class="math notranslate nohighlight">\(4\pi r^2\)</span> なので、全方向の立体角は <span class="math notranslate nohighlight">\(4\pi\)</span> sr、半球の立体角は <span class="math notranslate nohighlight">\(2\pi\)</span> sr となる。</p>
+<figure class="align-center" id="fig-solid-angle">
+<a class="reference internal image-reference" href="_images/solid_angle.png"><img alt="_images/solid_angle.png" src="_images/solid_angle.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 4.1 </span><span class="caption-text">立体角（左）と投影面積（右）</span><a class="headerlink" href="#fig-solid-angle" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>微小な立体角 <span class="math notranslate nohighlight">\(d\omega\)</span> は、方向を球面座標の天頂角 <span class="math notranslate nohighlight">\(\theta\)</span>（基準となる軸からの角度）と方位角 <span class="math notranslate nohighlight">\(\phi\)</span> で表すと、次のように書ける。</p>
+<div class="math notranslate nohighlight" id="equation-d-omega">
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-d-omega" title="Link to this equation"></a></span>\[d\omega = \sin\theta \, d\theta \, d\phi\]</div>
+<p>レンダリングでは、表面の法線 <span class="math notranslate nohighlight">\(\mathbf{n}\)</span> を天頂（<span class="math notranslate nohighlight">\(\theta = 0\)</span>）とする座標系をよく使う。この式の導出は「<a class="reference internal" href="appendix_math.html"><span class="doc">付録 A 数学的準備</span></a>」で示す。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">4.2. </span>放射量の定義<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>レンダリングで使う主な放射量を順に定義する。</p>
+<dl>
+<dt>放射束</dt><dd><p>単位時間あたりに流れる光のエネルギーで、記号 <span class="math notranslate nohighlight">\(\Phi\)</span>、単位はワット（W）である。光源全体が放つ光の総量などを表す。</p>
+</dd>
+<dt>放射照度</dt><dd><p>表面の単位面積あたりに入射する放射束で、記号 <span class="math notranslate nohighlight">\(E\)</span>、単位は W/m² である。「面がどれだけ照らされているか」を表す。</p>
+<div class="math notranslate nohighlight" id="equation-irradiance">
+<span class="eqno">(4.3)<a class="headerlink" href="#equation-irradiance" title="Link to this equation"></a></span>\[E = \frac{d\Phi}{dA}\]</div>
+<p>なお、表面から出ていく単位面積あたりの放射束は放射発散度（radiant exitance）と呼び、記号 <span class="math notranslate nohighlight">\(M\)</span> で表す。</p>
+</dd>
+<dt>放射強度</dt><dd><p>光源から単位立体角あたりに放たれる放射束で（主に点光源に対して用いる）、記号 <span class="math notranslate nohighlight">\(I\)</span>、単位は W/sr である。「点光源がその方向にどれだけ強く光っているか」を表す。</p>
+<div class="math notranslate nohighlight" id="equation-intensity">
+<span class="eqno">(4.4)<a class="headerlink" href="#equation-intensity" title="Link to this equation"></a></span>\[I = \frac{d\Phi}{d\omega}\]</div>
+</dd>
+<dt>放射輝度</dt><dd><p>単位投影面積・単位立体角あたりの放射束で、記号 <span class="math notranslate nohighlight">\(L\)</span>、単位は W/(m²·sr) である。</p>
+<div class="math notranslate nohighlight" id="equation-radiance">
+<span class="eqno">(4.5)<a class="headerlink" href="#equation-radiance" title="Link to this equation"></a></span>\[L = \frac{d^2\Phi}{dA \cos\theta \, d\omega}\]</div>
+<p>ここで <span class="math notranslate nohighlight">\(\theta\)</span> は、面の法線と光の進む方向とのなす角である。</p>
+</dd>
+</dl>
+<p>これらの量を<a class="reference internal" href="#table-radiometry"><span class="std std-numref">表 4.1</span></a> にまとめる。</p>
+<table class="docutils align-default" id="table-radiometry">
+<caption><span class="caption-number">表 4.1 </span><span class="caption-text">主な放射量</span><a class="headerlink" href="#table-radiometry" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 15.0%" />
+<col style="width: 25.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>記号</p></th>
+<th class="head"><p>単位</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>放射束</p></td>
+<td><p><span class="math notranslate nohighlight">\(\Phi\)</span></p></td>
+<td><p>W</p></td>
+<td><p>単位時間あたりのエネルギー</p></td>
+</tr>
+<tr class="row-odd"><td><p>放射照度</p></td>
+<td><p><span class="math notranslate nohighlight">\(E\)</span></p></td>
+<td><p>W/m²</p></td>
+<td><p>単位面積あたりに入射する放射束</p></td>
+</tr>
+<tr class="row-even"><td><p>放射強度</p></td>
+<td><p><span class="math notranslate nohighlight">\(I\)</span></p></td>
+<td><p>W/sr</p></td>
+<td><p>単位立体角あたりの放射束</p></td>
+</tr>
+<tr class="row-odd"><td><p>放射輝度</p></td>
+<td><p><span class="math notranslate nohighlight">\(L\)</span></p></td>
+<td><p>W/(m²·sr)</p></td>
+<td><p>単位投影面積・単位立体角あたりの放射束</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id4">
+<h2><span class="section-number">4.3. </span>投影面積とコサイン則<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>放射輝度の定義に現れる <span class="math notranslate nohighlight">\(\cos\theta\)</span> の意味を考える。</p>
+<p><a class="reference internal" href="#fig-solid-angle"><span class="std std-numref">図 4.1</span></a> の右のように、平行な光の束が面に斜めから当たると、同じ光の束がより広い面積に広がる。光の束に垂直な断面の面積を <span class="math notranslate nohighlight">\(dA_\perp\)</span> とすると、面の上での面積は <span class="math notranslate nohighlight">\(dA = dA_\perp / \cos\theta\)</span> となる。したがって、光の束に垂直な面での放射照度を <span class="math notranslate nohighlight">\(E_\perp\)</span> とすると、面の放射照度は次のようになる。</p>
+<div class="math notranslate nohighlight" id="equation-cosine-law">
+<span class="eqno">(4.6)<a class="headerlink" href="#equation-cosine-law" title="Link to this equation"></a></span>\[E = E_\perp \cos\theta\]</div>
+<p>斜めから光が当たるほど面は暗くなる。これをランバートの余弦則と呼ぶ。冬の太陽の光が夏よりも弱く感じられるのは、太陽の高度が低く、地面に対して斜めに光が当たるためである。</p>
+<p>放射輝度の定義で <span class="math notranslate nohighlight">\(dA\)</span> ではなく <span class="math notranslate nohighlight">\(dA \cos\theta\)</span>（投影面積）で割っているのは、この見かけの面積の変化を打ち消すためである。こうすることで、放射輝度は面の向きによらず、光そのものの強さを表す量になる。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">4.4. </span>なぜ放射輝度が主役なのか<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>レンダリングで計算したい量は放射輝度である。その理由は 2 つある。</p>
+<dl class="simple">
+<dt>カメラや目が測っているのは放射輝度である</dt><dd><p>カメラの 1 つの画素は、レンズを通して、シーン中のある方向から届く光を、ある面積で受け取る。画素の値は、その方向の小さな立体角から来る光を、画素の面積で受けた量に比例する。これはまさに放射輝度である。</p>
+</dd>
+<dt>放射輝度は光線に沿って変化しない</dt><dd><p>真空中（あるいは光を吸収・散乱しない空気中）では、放射輝度は光線に沿って一定である。白い壁を 1 m の距離から見ても 10 m の距離から見ても、壁の見かけの明るさは同じである。遠ざかると壁から目に届く光の総量は減るが、壁が視野に占める立体角も同じ割合で小さくなるため、単位立体角あたりの量である放射輝度は変わらない。</p>
+</dd>
+</dl>
+<p>2 つ目の性質は、レイトレーシングにとって重要である。カメラから飛ばしたレイが表面上の点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> に当たったとき、カメラに届く放射輝度は、点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> からカメラの方向に出ていく放射輝度に等しい。途中の距離を考える必要はない。</p>
+</section>
+<section id="id6">
+<h2><span class="section-number">4.5. </span>点光源と逆二乗の法則<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>一方、点光源からの放射照度は距離の 2 乗に反比例して小さくなる。放射強度 <span class="math notranslate nohighlight">\(I\)</span> の点光源から距離 <span class="math notranslate nohighlight">\(r\)</span> だけ離れた面の放射照度は、面の法線と光源方向のなす角を <span class="math notranslate nohighlight">\(\theta\)</span> として、次の式で表される。</p>
+<div class="math notranslate nohighlight" id="equation-inverse-square">
+<span class="eqno">(4.7)<a class="headerlink" href="#equation-inverse-square" title="Link to this equation"></a></span>\[E = \frac{I \cos\theta}{r^2}\]</div>
+<p>面が遠ざかると、点光源から見た面の立体角が <span class="math notranslate nohighlight">\(1/r^2\)</span> に比例して小さくなるためである。放射輝度が距離によらないことと、放射照度が距離の 2 乗に反比例することは矛盾しない。前者は「1 点から見た明るさ」、後者は「面の単位面積が受け取る光の量」を表している。</p>
+</section>
+<section id="id7">
+<h2><span class="section-number">4.6. </span>放射照度と放射輝度の関係<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>ある点が受け取る放射照度は、その点の上側の半球 <span class="math notranslate nohighlight">\(\Omega\)</span> 内のあらゆる方向から入射する放射輝度 <span class="math notranslate nohighlight">\(L_i(\omega)\)</span> を、コサイン則で重み付けして足し合わせたものである。</p>
+<div class="math notranslate nohighlight" id="equation-irradiance-integral">
+<span class="eqno">(4.8)<a class="headerlink" href="#equation-irradiance-integral" title="Link to this equation"></a></span>\[E = \int_{\Omega} L_i(\omega) \cos\theta \, d\omega\]</div>
+<p>特に、すべての方向から同じ放射輝度 <span class="math notranslate nohighlight">\(L\)</span> の光が届く場合（一様な曇り空の下など）、式 <a class="reference internal" href="#equation-d-omega">(4.2)</a> を使って積分を計算すると、次のようになる。</p>
+<div class="math notranslate nohighlight" id="equation-uniform-irradiance">
+<span class="eqno">(4.9)<a class="headerlink" href="#equation-uniform-irradiance" title="Link to this equation"></a></span>\[E = L \int_0^{2\pi} \int_0^{\pi/2} \cos\theta \sin\theta \, d\theta \, d\phi = L \cdot 2\pi \cdot \frac{1}{2} = \pi L\]</div>
+<p>半球の立体角は <span class="math notranslate nohighlight">\(2\pi\)</span> だが、コサインの重みがかかるため、結果は <span class="math notranslate nohighlight">\(\pi L\)</span> になる。この <span class="math notranslate nohighlight">\(\pi\)</span> は、次章以降で何度も登場する。</p>
+</section>
+<section id="id8">
+<h2><span class="section-number">4.7. </span>測光量との違い<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>放射量はエネルギーそのものを測るのに対し、人間の目の感度で重み付けした量を測光量と呼ぶ。人間の目は緑色（波長 555 nm 付近）の光に最も敏感で、赤や青には鈍感である。測光量の単位には、ルーメン（lm、放射束に対応）、ルクス（lx、放射照度に対応）、カンデラ（cd、放射強度に対応）、cd/m²（放射輝度に対応する輝度の単位）がある。照明器具のカタログやディスプレイの仕様ではこちらが使われる。</p>
+<p>RGB で計算するレンダラーでは、各成分を「その色の帯域の放射量」とみなして計算するのが一般的であり、本書もそれに従う。</p>
+</section>
+<section id="id9">
+<h2><span class="section-number">4.8. </span>まとめ<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>方向の広がりは立体角で測る。半球の立体角は <span class="math notranslate nohighlight">\(2\pi\)</span> sr である。</p></li>
+<li><p>放射輝度は、単位投影面積・単位立体角あたりの放射束であり、カメラの画素が測る量である。</p></li>
+<li><p>放射輝度は光線に沿って変化しない。</p></li>
+<li><p>放射照度は、入射する放射輝度をコサインで重み付けして半球上で積分したものである。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="light_and_color.html" class="btn btn-neutral float-left" title="3. 光と色の基礎" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="light_matter.html" class="btn btn-neutral float-right" title="5. 光と物質の相互作用" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

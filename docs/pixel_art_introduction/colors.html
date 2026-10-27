@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. 色を選ぶ &mdash; ドット絵作成入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d9143941" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="6. 陰影と立体感" href="shading.html" />
+    <link rel="prev" title="4. 線を描く" href="lines.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ドット絵作成入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_pixel_art.html">2. ドット絵とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">3. 道具を準備する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lines.html">4. 線を描く</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. 色を選ぶ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">5.1. 色数を制限する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">5.2. 色の表し方</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">5.3. カラーランプ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">5.4. 色相をずらす</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">5.5. ランプを作るプログラム</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">5.6. 既存のパレットを使う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">5.7. 明るさの差を確認する</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shading.html">6. 陰影と立体感</a></li>
+<li class="toctree-l1"><a class="reference internal" href="characters.html">7. キャラクターを描く</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tiles.html">8. タイルと背景</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">9. アニメーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postprocess.html">10. Python で後処理する</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ドット絵作成入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5. </span>色を選ぶ</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">5. </span>色を選ぶ<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>ドット絵は使う色が少ないため、1 色 1 色の選び方が全体の印象を決める。この章では、色数を制限する理由と、陰影に使う色の組み合わせ（カラーランプ）の作り方を説明する。</p>
+<section id="id2">
+<h2><span class="section-number">5.1. </span>色数を制限する<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>ドット絵では、あらかじめ使う色を決めておき、その中からだけ色を選んで描く。この色の組を<a class="reference internal" href="glossary.html#term-24"><span class="xref std std-term">パレット</span></a>と呼ぶ。<a class="reference internal" href="what_is_pixel_art.html#fig-pixel-grid"><span class="std std-numref">図 2.1</span></a> のスライムは 5 色、第 7 章の主人公は 11 色で描いている。</p>
+<p>色数を制限することには、次の利点がある。</p>
+<ul class="simple">
+<li><p><strong>統一感が出る</strong>：同じ色を何度も使うため、キャラクターと背景、複数のキャラクターの間で色調がそろう。</p></li>
+<li><p><strong>迷いが減る</strong>：色の候補が少ないので、どの色を置くかの判断が速くなる。</p></li>
+<li><p><strong>ピクセルの役割がはっきりする</strong>：似た色が何色もあると、拡大しないと区別できないピクセルが増え、ノイズのように見える。</p></li>
+</ul>
+<p>目安として、16×16 ピクセルのキャラクター 1 体なら 4 色から 12 色程度、ゲーム全体でも 16 色から 32 色程度のパレットで十分に表現できる。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">5.2. </span>色の表し方<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>画面に表示される色は、光の三原色である赤（R）、緑（G）、青（B）の強さの組で表す。これを <a class="reference internal" href="glossary.html#term-RGB"><span class="xref std std-term">RGB</span></a> と呼び、各成分を 0 から 255 の整数で表すことが多い。<code class="docutils literal notranslate"><span class="pre">#4fb05a</span></code> のような表記は、RGB の各成分を 2 桁の 16 進数で並べたものである。</p>
+<p>RGB はコンピューターにとっては扱いやすいが、人が色を選ぶときには直感的でない。色を選ぶときは、次の 3 つの値で色を表す <a class="reference internal" href="glossary.html#term-HSV"><span class="xref std std-term">HSV</span></a> のほうが考えやすい。</p>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-number">表 5.1 </span><span class="caption-text">HSV の 3 つの値</span><a class="headerlink" href="#id9" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>値</p></th>
+<th class="head"><p>範囲</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>色相（H）</p></td>
+<td><p>0 度～360 度</p></td>
+<td><p>赤、黄、緑、青などの色味。0 度が赤、120 度が緑、240 度が青で、360 度で赤に戻る。</p></td>
+</tr>
+<tr class="row-odd"><td><p>彩度（S）</p></td>
+<td><p>0～1</p></td>
+<td><p>色の鮮やかさ。0 で灰色になる。</p></td>
+</tr>
+<tr class="row-even"><td><p>明度（V）</p></td>
+<td><p>0～1</p></td>
+<td><p>色の明るさ。0 で黒になる。</p></td>
+</tr>
+</tbody>
+</table>
+<p>多くのエディタのカラーピッカーは HSV（または似た考え方の HSL や HSB）で色を指定できる。Python では標準ライブラリの <code class="docutils literal notranslate"><span class="pre">colorsys</span></code> モジュールで RGB と HSV を相互に変換できる。</p>
+</section>
+<section id="id4">
+<h2><span class="section-number">5.3. </span>カラーランプ<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>陰影を付けるには、同じ物体の明るい部分から暗い部分までを表す、明るさの異なる色の組が必要になる。この色の組を明度の順に並べたものを<a class="reference internal" href="glossary.html#term-7"><span class="xref std std-term">カラーランプ</span></a>（以下、ランプ）と呼ぶ。<a class="reference internal" href="what_is_pixel_art.html#fig-pixel-grid"><span class="std std-numref">図 2.1</span></a> のスライムは、陰、基本色、明部、ハイライトの 4 色からなる緑のランプと、輪郭の色でできている。</p>
+<p>ランプの色数は、16×16 ピクセルのキャラクターなら 3 色から 5 色程度で足りる。色数を増やしても、それを置くための広さが無ければ区別がつかないからである。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">5.4. </span>色相をずらす<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>ランプを作るとき、最も単純なのは色相を固定し、明度だけを変える方法である。しかし、この方法で作ったランプは、暗い色が濁り、明るい色が白っぽく抜けて、生気の無い印象になりやすい。</p>
+<p>そこでドット絵では、明度に応じて色相を少しずつずらすことが多い。これを<a class="reference internal" href="glossary.html#term-28"><span class="xref std std-term">ヒューシフト</span></a>と呼ぶ。よく使われるのは、暗い色ほど色相を青（寒色）の側へ、明るい色ほど黄（暖色）の側へずらす方法である。太陽の光は暖かい色をしており、光の当たらない部分は青い空からの光に照らされる、という現実の見え方に近づけることになる。</p>
+<figure class="align-center" id="id10">
+<span id="fig-ramps"></span><img alt="色相を固定したランプと、色相をずらしたランプ" class="pixelated" src="_images/ramps.png" />
+<figcaption>
+<p><span class="caption-number">図 5.1 </span><span class="caption-text">緑のランプ（6 色）。上は色相を 120 度に固定したランプ、下は色相を最大 30 度ずらしたランプ。</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id11">
+<span id="fig-ramp-hsv"></span><img alt="2 つのランプの色相、彩度、明度の変化を示すグラフ" src="_images/ramp_hsv.png" />
+<figcaption>
+<p><span class="caption-number">図 5.2 </span><span class="caption-text"><a class="reference internal" href="#fig-ramps"><span class="std std-numref">図 5.1</span></a> の 2 つのランプの色相（Hue）、彩度（Saturation）、明度（Value）。横軸は暗い色から明るい色への順番、shift は色相をずらす量（度）である。</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-ramp-hsv"><span class="std std-numref">図 5.2</span></a> のように、2 つのランプは彩度と明度が同じで、色相だけが異なる。どちらのランプも、彩度は中央の色で最も高く、両端の色ほど低くしている。暗い色や明るい色の彩度を高くしすぎると、どぎつい印象になるからである。</p>
+<p>ヒューシフトの効果は、同じ形を塗り比べるとよく分かる。</p>
+<figure class="align-center" id="id12">
+<span id="fig-ramp-spheres"></span><img alt="色相を固定したランプと、色相をずらしたランプで塗った球" class="pixelated" src="_images/ramp_spheres.png" />
+<figcaption>
+<p><span class="caption-number">図 5.3 </span><span class="caption-text">赤い球。左は色相を固定したランプ、右は色相をずらしたランプで塗った。</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-ramp-spheres"><span class="std std-numref">図 5.3</span></a> の右の球は、明部が暖かい橙色に、陰が紫寄りの色になっている。左の球より光の色が感じられ、立体感も強い。ただし、ずらしすぎると別の色の物体に見えてしまう。ずらす量は、隣り合う色の間で 10 度から 20 度程度を目安にし、見た目で調整する。</p>
+</section>
+<section id="id6">
+<h2><span class="section-number">5.5. </span>ランプを作るプログラム<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">make_palette.py</span></code> は、色相、色数、色相をずらす量を指定してランプを作る。次のリストはランプを作る関数である。</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-number">リスト 5.1 </span><span class="caption-text">make_palette.py（ランプを作る関数）</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">30</span><span class="k">def</span><span class="w"> </span><span class="nf">make_ramp</span><span class="p">(</span><span class="n">hue</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">shift</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">20.0</span><span class="p">,</span>
+<span class="linenos">31</span>              <span class="n">value_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">),</span>
+<span class="linenos">32</span>              <span class="n">saturation_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">RGB</span><span class="p">]:</span>
+<span class="linenos">33</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;暗い色から明るい色へ並んだカラーランプを返す。</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span><span class="sd">    Args:</span>
+<span class="linenos">36</span><span class="sd">        hue: 中央の色の色相（度）</span>
+<span class="linenos">37</span><span class="sd">        steps: 色数（2 以上）</span>
+<span class="linenos">38</span><span class="sd">        shift: 両端の色で色相をずらす量（度）。0 にすると色相は一定になる。</span>
+<span class="linenos">39</span><span class="sd">        value_range: 明度の最小値と最大値（0.0 から 1.0）</span>
+<span class="linenos">40</span><span class="sd">        saturation_range: 彩度の最小値と最大値（0.0 から 1.0）</span>
+<span class="linenos">41</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">42</span>    <span class="k">if</span> <span class="n">steps</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+<span class="linenos">43</span>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;色数は 2 以上にする&quot;</span><span class="p">)</span>
+<span class="linenos">44</span>    <span class="n">colors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">RGB</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">45</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+<span class="linenos">46</span>        <span class="n">t</span> <span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">steps</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 0.0（最も暗い）から 1.0（最も明るい）</span>
+<span class="linenos">47</span>        <span class="c1"># 中央からの距離に比例して、暗い側は青（240 度）、明るい側は黄（60 度）へ近づける</span>
+<span class="linenos">48</span>        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+<span class="linenos">49</span>            <span class="n">h</span> <span class="o">=</span> <span class="n">shift_hue_toward</span><span class="p">(</span><span class="n">hue</span><span class="p">,</span> <span class="mf">240.0</span><span class="p">,</span> <span class="n">shift</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">50</span>        <span class="k">else</span><span class="p">:</span>
+<span class="linenos">51</span>            <span class="n">h</span> <span class="o">=</span> <span class="n">shift_hue_toward</span><span class="p">(</span><span class="n">hue</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="n">shift</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">52</span>        <span class="c1"># 彩度は中央で最大、両端で低くする</span>
+<span class="linenos">53</span>        <span class="n">s_min</span><span class="p">,</span> <span class="n">s_max</span> <span class="o">=</span> <span class="n">saturation_range</span>
+<span class="linenos">54</span>        <span class="n">s</span> <span class="o">=</span> <span class="n">s_max</span> <span class="o">-</span> <span class="p">(</span><span class="n">s_max</span> <span class="o">-</span> <span class="n">s_min</span><span class="p">)</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="linenos">55</span>        <span class="n">v_min</span><span class="p">,</span> <span class="n">v_max</span> <span class="o">=</span> <span class="n">value_range</span>
+<span class="linenos">56</span>        <span class="n">v</span> <span class="o">=</span> <span class="n">v_min</span> <span class="o">+</span> <span class="p">(</span><span class="n">v_max</span> <span class="o">-</span> <span class="n">v_min</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span>
+<span class="linenos">57</span>        <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">colorsys</span><span class="o">.</span><span class="n">hsv_to_rgb</span><span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mf">360.0</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="linenos">58</span>        <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">round</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="mi">255</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">g</span> <span class="o">*</span> <span class="mi">255</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)))</span>
+<span class="linenos">59</span>    <span class="k">return</span> <span class="n">colors</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">t</span></code> は暗い側の端を 0.0、明るい側の端を 1.0 とした位置である。中央より暗い色は色相を 240 度（青）へ、明るい色は 60 度（黄）へ近づける。近づける量は中央からの距離に比例させ、両端で <code class="docutils literal notranslate"><span class="pre">shift</span></code> 度になるようにしている。<code class="docutils literal notranslate"><span class="pre">shift_hue_toward</span></code> は、色相環の上で近いほうの向きに色相を回す関数である。</p>
+<p>次のように実行すると、ランプの各色が表示され、色見本の <code class="docutils literal notranslate"><span class="pre">output/ramp.png</span></code> と、パレットファイルの <code class="docutils literal notranslate"><span class="pre">output/ramp.gpl</span></code> が保存される。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="go">python make_palette.py --hue 120 --steps 5 --shift 20</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">.gpl</span></code> は GIMP のパレット形式で、GIMP や Aseprite などで読み込める。作ったランプはそのまま使うのではなく、出発点として、エディタ上で実際に塗りながら調整するとよい。</p>
+</section>
+<section id="id7">
+<h2><span class="section-number">5.6. </span>既存のパレットを使う<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>パレットを一から作るのは難しい。最初は、公開されている既存のパレットを使うのがよい。Lospec のパレット一覧（<a class="reference internal" href="references.html"><span class="doc">参考文献</span></a>を参照）には、色数や用途ごとに多くのパレットが登録されており、各種エディタ向けの形式でダウンロードできる。Pyxel エディタを使う場合は、<a class="reference internal" href="tools.html#fig-pyxel-palette"><span class="std std-numref">図 3.1</span></a> の既定の 16 色から始めてもよい。</p>
+<p>既存のパレットを選ぶときは、次の点を確認する。</p>
+<ul class="simple">
+<li><p>描きたいものの色（肌、草、空、金属など）のランプが作れるか。</p></li>
+<li><p>最も暗い色と最も明るい色の差が十分にあるか。</p></li>
+<li><p>色相の異なるランプの暗い色どうし、明るい色どうしがなじむか。</p></li>
+</ul>
+</section>
+<section id="id8">
+<h2><span class="section-number">5.7. </span>明るさの差を確認する<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>色を選んだら、明るさの差が十分にあるかを確認する。色相や彩度が違っても明るさが近い色どうしは、等倍で見たときに区別しにくい。画像を<a class="reference internal" href="glossary.html#term-9"><span class="xref std std-term">グレースケール</span></a>に変換してみると、明るさの差だけを確認できる。多くのエディタにはグレースケールで表示する機能があり、Python では Pillow で次のように変換できる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;output/slime.png&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;LA&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;output/slime_gray.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">&quot;LA&quot;</span></code> は明るさと透明度の 2 つの値を持つ形式である。グレースケールにした画像で、輪郭と陰、陰と基本色などの境界が見分けにくい場合は、どちらかの色の明度を調整する。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lines.html" class="btn btn-neutral float-left" title="4. 線を描く" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="shading.html" class="btn btn-neutral float-right" title="6. 陰影と立体感" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

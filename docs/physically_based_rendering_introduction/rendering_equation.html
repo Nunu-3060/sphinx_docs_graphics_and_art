@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8. レンダリング方程式 &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="9. モンテカルロ積分" href="monte_carlo.html" />
+    <link rel="prev" title="7. マイクロファセット理論" href="microfacet.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. レンダリング方程式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id3">8.1. レンダリング方程式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">8.2. 入射光はどこから来るか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">8.3. 反射の回数で分解する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">8.4. なぜ数値的に解くのか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">8.5. レンダリング方程式が扱わないもの</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">8.6. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8. </span>レンダリング方程式</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">8. </span>レンダリング方程式<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>前章までで、光の量（放射輝度）と、表面での反射の仕方（BRDF）を表す道具がそろった。本章では、これらを組み合わせて、シーン全体での光の伝わり方を 1 つの式で表す。この式をレンダリング方程式と呼ぶ。1986 年に Kajiya <a class="reference internal" href="references.html#kajiya1986" id="id2"><span>[Kajiya1986]</span></a> によって定式化されたもので、現在の物理ベースレンダリングの理論的な基礎となっている。</p>
+<section id="id3">
+<h2><span class="section-number">8.1. </span>レンダリング方程式<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>表面上の点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> から方向 <span class="math notranslate nohighlight">\(\omega_o\)</span> へ出ていく放射輝度 <span class="math notranslate nohighlight">\(L_o\)</span> は、その点自身が放つ光と、ほかの方向から入射して反射された光の和である。後者は反射方程式（式 <a class="reference internal" href="brdf.html#equation-reflection-equation">(6.2)</a>）で表されるので、次の式が成り立つ。</p>
+<div class="math notranslate nohighlight" id="equation-rendering-equation">
+<span class="eqno">(8.1)<a class="headerlink" href="#equation-rendering-equation" title="Link to this equation"></a></span>\[L_o(\mathbf{x}, \omega_o) = L_e(\mathbf{x}, \omega_o) + \int_{\Omega} f_r(\mathbf{x}, \omega_i, \omega_o) \, L_i(\mathbf{x}, \omega_i) \, (\mathbf{n} \cdot \omega_i) \, d\omega_i\]</div>
+<p>各量の意味を<a class="reference internal" href="#fig-rendering-equation"><span class="std std-numref">図 8.1</span></a> と次の表に示す。</p>
+<figure class="align-center" id="fig-rendering-equation">
+<a class="reference internal image-reference" href="_images/rendering_equation.png"><img alt="_images/rendering_equation.png" src="_images/rendering_equation.png" style="width: 75%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 8.1 </span><span class="caption-text">レンダリング方程式に現れる量</span><a class="headerlink" href="#fig-rendering-equation" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>記号</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(L_o(\mathbf{x}, \omega_o)\)</span></p></td>
+<td><p>点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> から方向 <span class="math notranslate nohighlight">\(\omega_o\)</span> へ出ていく放射輝度。求めたい量。</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(L_e(\mathbf{x}, \omega_o)\)</span></p></td>
+<td><p>点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> が方向 <span class="math notranslate nohighlight">\(\omega_o\)</span> へ自ら放つ放射輝度。光源以外では 0。</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(f_r(\mathbf{x}, \omega_i, \omega_o)\)</span></p></td>
+<td><p>点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> の BRDF。</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(L_i(\mathbf{x}, \omega_i)\)</span></p></td>
+<td><p>方向 <span class="math notranslate nohighlight">\(\omega_i\)</span> から点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> に入射する放射輝度。</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mathbf{n} \cdot \omega_i\)</span></p></td>
+<td><p>入射角の余弦 <span class="math notranslate nohighlight">\(\cos\theta_i\)</span>。コサイン則による重み。</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\Omega\)</span></p></td>
+<td><p>点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> の法線側の半球。</p></td>
+</tr>
+</tbody>
+</table>
+<p>この式が言っていることは単純である。「ある点がある方向に放つ光は、自分で出す光と、周囲から受けた光を BRDF に従って反射した光の和である」。</p>
+</section>
+<section id="id4">
+<h2><span class="section-number">8.2. </span>入射光はどこから来るか<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>式 <a class="reference internal" href="#equation-rendering-equation">(8.1)</a> の右辺の <span class="math notranslate nohighlight">\(L_i\)</span> は、どこから来るのだろうか。</p>
+<p>点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> から方向 <span class="math notranslate nohighlight">\(\omega_i\)</span> へレイを飛ばし、最初に当たる表面上の点を <span class="math notranslate nohighlight">\(\mathbf{x}'\)</span> とする。「<a class="reference internal" href="radiometry.html"><span class="doc">放射測定（ラジオメトリ）</span></a>」で見たように、放射輝度は光線に沿って変化しないので、点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> に方向 <span class="math notranslate nohighlight">\(\omega_i\)</span> から入射する放射輝度は、点 <span class="math notranslate nohighlight">\(\mathbf{x}'\)</span> から逆向き <span class="math notranslate nohighlight">\(-\omega_i\)</span> に出ていく放射輝度に等しい。</p>
+<div class="math notranslate nohighlight" id="equation-incoming-radiance">
+<span class="eqno">(8.2)<a class="headerlink" href="#equation-incoming-radiance" title="Link to this equation"></a></span>\[L_i(\mathbf{x}, \omega_i) = L_o(\mathbf{x}', -\omega_i)\]</div>
+<p>つまり、左辺で求めたい <span class="math notranslate nohighlight">\(L_o\)</span> が、右辺の積分の中にも（別の点での値として）現れる。ある点の明るさを求めるにはほかの点の明るさが必要であり、その点の明るさを求めるにはさらに別の点の明るさが必要になる。このように、未知の関数が積分の中に現れる方程式を積分方程式と呼ぶ。レンダリング方程式は、シーン中のすべての点の間で光がやりとりされる様子を表す積分方程式である。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">8.3. </span>反射の回数で分解する<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>レンダリング方程式の解は、光が反射した回数ごとの寄与の和として理解できる。光源から出た光がカメラに届くまでの経路は、反射の回数で次のように分類できる。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 40.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>反射回数</p></th>
+<th class="head"><p>経路</p></th>
+<th class="head"><p>対応する現象</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0 回</p></td>
+<td><p>光源 → カメラ</p></td>
+<td><p>光源そのものが見える</p></td>
+</tr>
+<tr class="row-odd"><td><p>1 回</p></td>
+<td><p>光源 → 表面 → カメラ</p></td>
+<td><p>直接照明。影もここで決まる</p></td>
+</tr>
+<tr class="row-even"><td><p>2 回以上</p></td>
+<td><p>光源 → 表面 → … → 表面 → カメラ</p></td>
+<td><p>間接照明。カラーブリーディング、映り込みなど</p></td>
+</tr>
+</tbody>
+</table>
+<p>式 <a class="reference internal" href="#equation-rendering-equation">(8.1)</a> の右辺の <span class="math notranslate nohighlight">\(L_i\)</span> に、再び式 <a class="reference internal" href="#equation-rendering-equation">(8.1)</a> を代入することを繰り返すと、この分類どおりに、反射 0 回の項、1 回の項、2 回の項、…の無限和が得られる。物理的には、表面は入射した光の一部しか反射しない（エネルギー保存）ので、反射の回数が増えるほど寄与は小さくなり、この無限和は収束する。</p>
+<p>局所照明は、この和を反射 1 回の項で打ち切ったものに相当する。大域照明は、すべての項を（実用上は十分な回数まで）計算する。</p>
+</section>
+<section id="id6">
+<h2><span class="section-number">8.4. </span>なぜ数値的に解くのか<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>レンダリング方程式を解析的に（式の変形だけで）解けるのは、ごく単純なシーンに限られる。現実的なシーンでは、次の理由から解析的に解くことはできない。</p>
+<ul class="simple">
+<li><p>物体の形状が複雑で、点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> から方向 <span class="math notranslate nohighlight">\(\omega_i\)</span> へ飛ばしたレイがどこに当たるか（可視性）が、方向によって不連続に変化する。</p></li>
+<li><p>BRDF や光源の分布が複雑である。</p></li>
+<li><p>反射 <span class="math notranslate nohighlight">\(k\)</span> 回の項は、<span class="math notranslate nohighlight">\(k\)</span> 回分の方向についての積分、つまり <span class="math notranslate nohighlight">\(2k\)</span> 次元の積分になる。反射回数が増えると、積分の次元が非常に高くなる。</p></li>
+</ul>
+<p>高次元の積分を通常の数値積分（積分範囲を格子状に区切る方法）で計算すると、計算量は次元に対して指数関数的に増える。そこで、次元によらずに使えるモンテカルロ積分が用いられる。次章では、モンテカルロ積分の考え方を説明する。</p>
+</section>
+<section id="id7">
+<h2><span class="section-number">8.5. </span>レンダリング方程式が扱わないもの<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>式 <a class="reference internal" href="#equation-rendering-equation">(8.1)</a> は、多くの現象を表せる一方で、次のものは扱っていない。</p>
+<ul class="simple">
+<li><p>透過（ガラスや水を通り抜ける光）。BRDF を透過も含む関数（BSDF）に一般化すれば扱える。</p></li>
+<li><p>霧や煙のように、空間を満たす物質（関与媒質）による光の吸収や散乱。放射輝度が光線に沿って変化しないという前提が成り立たなくなる。</p></li>
+<li><p>表面下散乱。入射点と出射点が異なるため、BRDF では表せない。</p></li>
+<li><p>偏光や干渉などの、光の波の性質に由来する現象。</p></li>
+</ul>
+<p>これらの拡張は「<a class="reference internal" href="advanced.html"><span class="doc">発展的な話題</span></a>」で簡単に紹介する。</p>
+</section>
+<section id="id8">
+<h2><span class="section-number">8.6. </span>まとめ<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>レンダリング方程式は、ある点から出ていく放射輝度を、自ら放つ光と、入射光を BRDF に従って反射した光の和として表す。</p></li>
+<li><p>入射光はほかの点から出ていく光であるため、レンダリング方程式は積分方程式になる。</p></li>
+<li><p>解は反射回数ごとの寄与の和として理解でき、反射 1 回の項が直接照明、2 回以上の項が間接照明にあたる。</p></li>
+<li><p>現実的なシーンでは解析的に解けず、高次元の積分になるため、モンテカルロ積分で数値的に解く。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="microfacet.html" class="btn btn-neutral float-left" title="7. マイクロファセット理論" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="monte_carlo.html" class="btn btn-neutral float-right" title="9. モンテカルロ積分" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

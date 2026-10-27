@@ -1,0 +1,211 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>用語集 &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="参考文献" href="references.html" />
+    <link rel="prev" title="付録 B サンプルコード" href="appendix_examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">用語集</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>用語集<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>本書で用いた主な用語を五十音順（英字で始まるものは先頭）にまとめる。括弧内は英語表記（記載のあるもの）と、主に説明している章である。</p>
+<dl class="simple glossary">
+<dt id="term-BRDF">BRDF<a class="headerlink" href="#term-BRDF" title="Link to this term"></a></dt><dd><p>双方向反射率分布関数（Bidirectional Reflectance Distribution Function）。ある方向から入射した光が、別の方向へどれだけ反射されるかを表す関数。単位は 1/sr。（「<a class="reference internal" href="brdf.html"><span class="doc">BRDF</span></a>」）</p>
+</dd>
+<dt id="term-BSDF">BSDF<a class="headerlink" href="#term-BSDF" title="Link to this term"></a></dt><dd><p>反射を表す BRDF と透過を表す BTDF をまとめた関数（Bidirectional Scattering Distribution Function）。（「<a class="reference internal" href="advanced.html"><span class="doc">発展的な話題</span></a>」）</p>
+</dd>
+<dt id="term-GGX">GGX<a class="headerlink" href="#term-GGX" title="Link to this term"></a></dt><dd><p>マイクロファセット理論で使われる法線分布関数の 1 つ。Trowbridge-Reitz 分布とも呼ぶ。裾が長く、実際の材料の測定結果とよく一致する。（「<a class="reference internal" href="microfacet.html"><span class="doc">マイクロファセット理論</span></a>」）</p>
+</dd>
+<dt id="term-HDR">HDR<a class="headerlink" href="#term-HDR" title="Link to this term"></a></dt><dd><p>高ダイナミックレンジ（High Dynamic Range）。ディスプレイで表示できる範囲を超える、広い範囲の明るさを持つこと。（「<a class="reference internal" href="light_and_color.html"><span class="doc">光と色の基礎</span></a>」）</p>
+</dd>
+<dt id="term-IBL">IBL<a class="headerlink" href="#term-IBL" title="Link to this term"></a></dt><dd><p>イメージベースドライティング（Image Based Lighting）。全方向の光の分布を記録した環境マップを光源として使う方法。（「<a class="reference internal" href="practical_pbr.html"><span class="doc">実用 PBR ワークフロー</span></a>」）</p>
+</dd>
+<dt id="term-PBR">PBR<a class="headerlink" href="#term-PBR" title="Link to this term"></a></dt><dd><p>物理ベースレンダリング（Physically Based Rendering）。光の放射、反射、伝達を物理法則に基づいてモデル化するレンダリングの考え方。（「<a class="reference internal" href="introduction.html"><span class="doc">はじめに</span></a>」）</p>
+</dd>
+<dt id="term-spp">spp<a class="headerlink" href="#term-spp" title="Link to this term"></a></dt><dd><p>1 画素あたりのサンプル数（samples per pixel）。パストレーシングでは、1 画素あたりに追跡するパスの本数を指す。（「<a class="reference internal" href="path_tracing.html"><span class="doc">パストレーシングの実装</span></a>」）</p>
+</dd>
+<dt id="term-sRGB">sRGB<a class="headerlink" href="#term-sRGB" title="Link to this term"></a></dt><dd><p>パソコンやウェブで標準的に使われる色空間。原色、白色点、伝達関数を定める。（「<a class="reference internal" href="light_and_color.html"><span class="doc">光と色の基礎</span></a>」）</p>
+</dd>
+<dt id="term-0">アルベド<a class="headerlink" href="#term-0" title="Link to this term"></a></dt><dd><p>表面に入射した光のうち、反射される光の割合。ある入射方向に対する値を方向アルベドと呼ぶ。（「<a class="reference internal" href="brdf.html"><span class="doc">BRDF</span></a>」）</p>
+</dd>
+<dt id="term-1">拡散反射<a class="headerlink" href="#term-1" title="Link to this term"></a></dt><dd><p>物体の内部で散乱した光が、あらゆる方向にほぼ均等に出ていく反射（diffuse reflection）。物体固有の色が付く。（「<a class="reference internal" href="light_matter.html"><span class="doc">光と物質の相互作用</span></a>」）</p>
+</dd>
+<dt id="term-2">幾何減衰項<a class="headerlink" href="#term-2" title="Link to this term"></a></dt><dd><p>マイクロファセットが、ほかのマイクロファセットに遮られて光が届かない、あるいは見えない効果を表す項。記号 G。（「<a class="reference internal" href="microfacet.html"><span class="doc">マイクロファセット理論</span></a>」）</p>
+</dd>
+<dt id="term-3">鏡面反射<a class="headerlink" href="#term-3" title="Link to this term"></a></dt><dd><p>表面で直接反射する光（specular reflection）。誘電体では色が付かず、金属では色が付くことがある。（「<a class="reference internal" href="light_matter.html"><span class="doc">光と物質の相互作用</span></a>」）</p>
+</dd>
+<dt id="term-4">金属<a class="headerlink" href="#term-4" title="Link to this term"></a></dt><dd><p>内部に自由電子を持ち、内部に入った光をすぐに吸収する物質。導体とも呼ぶ。見た目は表面での反射だけで決まる。（「<a class="reference internal" href="light_matter.html"><span class="doc">光と物質の相互作用</span></a>」）</p>
+</dd>
+<dt id="term-5">次イベント推定<a class="headerlink" href="#term-5" title="Link to this term"></a></dt><dd><p>パスの各交点で光源上の点を選び、直接届く光を明示的に計算する手法（Next Event Estimation、NEE）。（「<a class="reference internal" href="path_tracing.html"><span class="doc">パストレーシングの実装</span></a>」）</p>
+</dd>
+<dt id="term-6">重点サンプリング<a class="headerlink" href="#term-6" title="Link to this term"></a></dt><dd><p>被積分関数の値が大きいところを重点的にサンプリングすることで、モンテカルロ積分の分散を減らす手法（importance sampling）。（「<a class="reference internal" href="monte_carlo.html"><span class="doc">モンテカルロ積分</span></a>」）</p>
+</dd>
+<dt id="term-7">スループット<a class="headerlink" href="#term-7" title="Link to this term"></a></dt><dd><p>パストレーシングで、パスに沿って掛け合わされていく係数（BRDF × cos / 確率密度）の積。（「<a class="reference internal" href="path_tracing.html"><span class="doc">パストレーシングの実装</span></a>」）</p>
+</dd>
+<dt id="term-8">大域照明<a class="headerlink" href="#term-8" title="Link to this term"></a></dt><dd><p>物体の間での光の相互反射（間接照明）まで含めて計算する照明（global illumination）。（「<a class="reference internal" href="overview.html"><span class="doc">レンダリングの全体像</span></a>」）</p>
+</dd>
+<dt id="term-9">多重重点サンプリング<a class="headerlink" href="#term-9" title="Link to this term"></a></dt><dd><p>複数のサンプリング手法で得たサンプルを重みを付けて組み合わせる手法（Multiple Importance Sampling、MIS）。（「<a class="reference internal" href="monte_carlo.html"><span class="doc">モンテカルロ積分</span></a>」）</p>
+</dd>
+<dt id="term-10">トーンマッピング<a class="headerlink" href="#term-10" title="Link to this term"></a></dt><dd><p>HDR の値を、ディスプレイで表示できる範囲の値に変換する処理（tone mapping）。（「<a class="reference internal" href="practical_pbr.html"><span class="doc">実用 PBR ワークフロー</span></a>」）</p>
+</dd>
+<dt id="term-11">ハーフベクトル<a class="headerlink" href="#term-11" title="Link to this term"></a></dt><dd><p>光源の方向と観測者の方向の中間の方向を表す単位ベクトル。（「<a class="reference internal" href="microfacet.html"><span class="doc">マイクロファセット理論</span></a>」）</p>
+</dd>
+<dt id="term-12">パストレーシング<a class="headerlink" href="#term-12" title="Link to this term"></a></dt><dd><p>レンダリング方程式を、各交点で方向を 1 つずつ選ぶモンテカルロ積分で解く手法（path tracing）。（「<a class="reference internal" href="path_tracing.html"><span class="doc">パストレーシングの実装</span></a>」）</p>
+</dd>
+<dt id="term-13">表面下散乱<a class="headerlink" href="#term-13" title="Link to this term"></a></dt><dd><p>物体の内部に入った光が、内部を移動してから入射点と異なる場所から出てくる現象（subsurface scattering）。（「<a class="reference internal" href="light_matter.html"><span class="doc">光と物質の相互作用</span></a>」）</p>
+</dd>
+<dt id="term-14">フレネル反射率<a class="headerlink" href="#term-14" title="Link to this term"></a></dt><dd><p>境界面に当たった光のうち、反射される光の割合。屈折率と入射角で決まり、浅い角度ほど大きい。（「<a class="reference internal" href="light_matter.html"><span class="doc">光と物質の相互作用</span></a>」）</p>
+</dd>
+<dt id="term-15">放射輝度<a class="headerlink" href="#term-15" title="Link to this term"></a></dt><dd><p>単位投影面積・単位立体角あたりの放射束（radiance）。単位は W/(m²·sr)。カメラの画素が測る量であり、光線に沿って変化しない。（「<a class="reference internal" href="radiometry.html"><span class="doc">放射測定（ラジオメトリ）</span></a>」）</p>
+</dd>
+<dt id="term-16">放射強度<a class="headerlink" href="#term-16" title="Link to this term"></a></dt><dd><p>光源から単位立体角あたりに放たれる放射束（radiant intensity）。主に点光源に対して用いる。単位は W/sr。（「<a class="reference internal" href="radiometry.html"><span class="doc">放射測定（ラジオメトリ）</span></a>」）</p>
+</dd>
+<dt id="term-17">放射照度<a class="headerlink" href="#term-17" title="Link to this term"></a></dt><dd><p>表面の単位面積あたりに入射する放射束（irradiance）。単位は W/m²。（「<a class="reference internal" href="radiometry.html"><span class="doc">放射測定（ラジオメトリ）</span></a>」）</p>
+</dd>
+<dt id="term-18">放射束<a class="headerlink" href="#term-18" title="Link to this term"></a></dt><dd><p>単位時間あたりに流れる光のエネルギー（radiant flux）。単位は W。（「<a class="reference internal" href="radiometry.html"><span class="doc">放射測定（ラジオメトリ）</span></a>」）</p>
+</dd>
+<dt id="term-19">法線分布関数<a class="headerlink" href="#term-19" title="Link to this term"></a></dt><dd><p>マイクロファセットの法線の向きの分布を表す関数（Normal Distribution Function、NDF）。記号 D。（「<a class="reference internal" href="microfacet.html"><span class="doc">マイクロファセット理論</span></a>」）</p>
+</dd>
+<dt id="term-20">マイクロファセット<a class="headerlink" href="#term-20" title="Link to this term"></a></dt><dd><p>粗い表面を構成するとみなす、微小な鏡面（microfacet）。微小面とも呼ぶ。（「<a class="reference internal" href="microfacet.html"><span class="doc">マイクロファセット理論</span></a>」）</p>
+</dd>
+<dt id="term-21">メタリック／ラフネスワークフロー<a class="headerlink" href="#term-21" title="Link to this term"></a></dt><dd><p>ベースカラー、メタリック、ラフネスの 3 つのパラメーターで材質を表す PBR のワークフロー。（「<a class="reference internal" href="practical_pbr.html"><span class="doc">実用 PBR ワークフロー</span></a>」）</p>
+</dd>
+<dt id="term-22">モンテカルロ積分<a class="headerlink" href="#term-22" title="Link to this term"></a></dt><dd><p>乱数を使って積分を推定する手法。誤差はサンプル数の平方根に反比例して減り、その速さは積分の次元によらない。（「<a class="reference internal" href="monte_carlo.html"><span class="doc">モンテカルロ積分</span></a>」）</p>
+</dd>
+<dt id="term-23">誘電体<a class="headerlink" href="#term-23" title="Link to this term"></a></dt><dd><p>ガラス、水、プラスチックなど、金属以外の物質。表面での反射は弱く色が付かない。（「<a class="reference internal" href="light_matter.html"><span class="doc">光と物質の相互作用</span></a>」）</p>
+</dd>
+<dt id="term-24">ラフネス<a class="headerlink" href="#term-24" title="Link to this term"></a></dt><dd><p>表面の粗さを表すパラメーター（roughness）。0 が滑らか、1 が粗い。（「<a class="reference internal" href="microfacet.html"><span class="doc">マイクロファセット理論</span></a>」）</p>
+</dd>
+<dt id="term-25">ランバート BRDF<a class="headerlink" href="#term-25" title="Link to this term"></a></dt><dd><p>どの方向にも同じ値 <span class="math notranslate nohighlight">\(\rho / \pi\)</span> を持つ BRDF。理想的な拡散反射を表す。（「<a class="reference internal" href="brdf.html"><span class="doc">BRDF</span></a>」）</p>
+</dd>
+<dt id="term-26">立体角<a class="headerlink" href="#term-26" title="Link to this term"></a></dt><dd><p>方向の広がりを表す量。単位球面上の面積で測る。単位はステラジアン（sr）。（「<a class="reference internal" href="radiometry.html"><span class="doc">放射測定（ラジオメトリ）</span></a>」）</p>
+</dd>
+<dt id="term-27">リニアワークフロー<a class="headerlink" href="#term-27" title="Link to this term"></a></dt><dd><p>光の計算を線形な値で行い、表示の直前に符号化する手順。（「<a class="reference internal" href="light_and_color.html"><span class="doc">光と色の基礎</span></a>」）</p>
+</dd>
+<dt id="term-28">レイ<a class="headerlink" href="#term-28" title="Link to this term"></a></dt><dd><p>レイトレーシングで追跡する半直線（ray）。始点と方向で表す。（「<a class="reference internal" href="overview.html"><span class="doc">レンダリングの全体像</span></a>」）</p>
+</dd>
+<dt id="term-29">レンダリング方程式<a class="headerlink" href="#term-29" title="Link to this term"></a></dt><dd><p>ある点から出ていく放射輝度を、自ら放つ光と、入射光を BRDF に従って反射した光の和として表す積分方程式。（「<a class="reference internal" href="rendering_equation.html"><span class="doc">レンダリング方程式</span></a>」）</p>
+</dd>
+<dt id="term-30">ロシアンルーレット<a class="headerlink" href="#term-30" title="Link to this term"></a></dt><dd><p>パスを確率的に打ち切り、継続したパスの重みを増やすことで、推定に偏りを生じさせずに計算量を減らす手法。（「<a class="reference internal" href="path_tracing.html"><span class="doc">パストレーシングの実装</span></a>」）</p>
+</dd>
+</dl>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="appendix_examples.html" class="btn btn-neutral float-left" title="付録 B サンプルコード" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="references.html" class="btn btn-neutral float-right" title="参考文献" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

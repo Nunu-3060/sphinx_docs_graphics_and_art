@@ -1,0 +1,254 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>シミュレーション入門 &mdash; Houdini 入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9f2b073c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=35a8b989"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="次のステップ" href="next.html" />
+    <link rel="prev" title="マテリアルとレンダリング" href="rendering.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Houdini 入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Houdini とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cg_basics.html">3DCG の基礎知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">画面と基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodes.html">ノードとネットワーク</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modeling.html">はじめてのモデリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">ジオメトリとアトリビュート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">パラメーターとエクスプレッション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vex.html">VEX 入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="procedural.html">プロシージャルモデリングの実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python による操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hda.html">デジタルアセット</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">マテリアルとレンダリング</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">シミュレーション入門</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">シミュレーションの特徴</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dop-sop">DOP と SOP のソルバー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">作例: 箱の壁を崩す</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">キャッシュ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="next.html">次のステップ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">サンプルコード一覧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Houdini 入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">シミュレーション入門</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>シミュレーション入門<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>Houdini は、物理法則に従って物を動かすシミュレーションの機能が充実している。この章では、シミュレーションがここまでのプロシージャルなネットワークとどう違うかを説明し、剛体（変形しない固い物）のシミュレーションを 1 つ作る。</p>
+<section id="id2">
+<h2>シミュレーションの特徴<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>ここまでに作ったネットワークは、どのフレームの結果も、そのフレームの値だけから計算できた。例えば <a class="reference internal" href="expressions.html"><span class="doc">パラメーターとエクスプレッション</span></a> の弾むボールは、<code class="docutils literal notranslate"><span class="pre">$F</span></code> さえ分かれば、60 フレーム目の位置を直接計算できる。</p>
+<p>シミュレーションでは、あるフレームの状態を、1 つ前のフレームの状態から計算する。物の位置と速度に、重力や衝突による力を加えて、少しずつ時間を進める。そのため、次の性質がある。</p>
+<ul class="simple">
+<li><p>60 フレーム目の結果を得るには、最初のフレームから 59 フレーム目までを順に計算する必要がある。プレイバーで途中のフレームに飛ぶと、そこまでの計算が行われる。</p></li>
+<li><p>パラメーターを変えると、最初のフレームから計算し直しになる。</p></li>
+<li><p>計算に時間がかかるので、結果をファイルに保存（キャッシュ）しておき、後の工程ではそのファイルを読み込むのが一般的である。</p></li>
+</ul>
+<figure class="align-default" id="fig-simulation">
+<div class="graphviz"><object data="_images/graphviz-2d7ad704e79830aaf3e91373958aa4c5e0a6ac3e.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph sim {
+  rankdir=LR;
+  node [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#d4e8f7&quot;, fontsize=11];
+  subgraph cluster_proc {
+    label=&quot;プロシージャル（各フレームを独立に計算）&quot;; fontsize=11; style=rounded; color=&quot;#999999&quot;;
+    f1 [label=&quot;$F = 1&quot;]; r1 [label=&quot;結果 1&quot;, fillcolor=&quot;#fff3b0&quot;];
+    f60 [label=&quot;$F = 60&quot;]; r60 [label=&quot;結果 60&quot;, fillcolor=&quot;#fff3b0&quot;];
+    f1 -&gt; r1; f60 -&gt; r60;
+  }
+  subgraph cluster_sim {
+    label=&quot;シミュレーション（前のフレームから順に計算）&quot;; fontsize=11; style=rounded; color=&quot;#999999&quot;;
+    s1 [label=&quot;状態 1&quot;, fillcolor=&quot;#fff3b0&quot;]; s2 [label=&quot;状態 2&quot;, fillcolor=&quot;#fff3b0&quot;];
+    s3 [label=&quot;…&quot;, shape=plaintext, style=&quot;&quot;]; s60 [label=&quot;状態 60&quot;, fillcolor=&quot;#fff3b0&quot;];
+    s1 -&gt; s2 -&gt; s3 -&gt; s60;
+  }
+}</p></object></div>
+<figcaption>
+<p><span class="caption-number">図 22 </span><span class="caption-text">プロシージャルな計算とシミュレーションの違い</span><a class="headerlink" href="#fig-simulation" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="dop-sop">
+<h2>DOP と SOP のソルバー<a class="headerlink" href="#dop-sop" title="Link to this heading"></a></h2>
+<p>Houdini のシミュレーションは、DOP（Dynamics OPerator）のネットワークで行う。DOP では、シミュレーションする物（オブジェクト）、計算方法（ソルバー）、重力などの力を、それぞれノードで組み立てる。</p>
+<p>DOP のネットワークを一から組むのは手間がかかるため、よく使うシミュレーションには、SOP の中で使えるノードが用意されている。これらのノードは、内部に DOP のネットワークを持っていて、入力されたジオメトリをシミュレーションして結果を出力する。</p>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-number">表 31 </span><span class="caption-text">SOP で使える主なシミュレーションのノード</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ノード</p></th>
+<th class="head"><p>シミュレーションの対象</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RBD Bullet Solver</p></td>
+<td><p>剛体（積み木、壁の破片など）</p></td>
+</tr>
+<tr class="row-odd"><td><p>Vellum Solver</p></td>
+<td><p>布、髪の毛、柔らかい物</p></td>
+</tr>
+<tr class="row-even"><td><p>Pyro Solver</p></td>
+<td><p>煙と炎</p></td>
+</tr>
+</tbody>
+</table>
+<p>このほかに、液体（FLIP）、粒子（POP）、雪や砂のような物質（MPM）などのシミュレーションがある。シミュレーションの多くの機能は Houdini Core では使えないが、Apprentice では使える。</p>
+</section>
+<section id="id3">
+<h2>作例: 箱の壁を崩す<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>36 個の箱を積んだ壁に、球をぶつけて崩す。ネットワークは <a class="reference internal" href="#fig-rbd-network"><span class="std std-numref">図 23</span></a> のとおりである。サンプルコードの <code class="docutils literal notranslate"><span class="pre">build_rbd.py</span></code> でも同じネットワークを作れる。</p>
+<figure class="align-default" id="fig-rbd-network">
+<div class="graphviz"><object data="_images/graphviz-09ea8f4c252f2e973698e559bf6d05036797586c.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph rbd {
+  node [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#d4e8f7&quot;, fontsize=11];
+  pts [label=&quot;wall_points（Grid）\n6 x 6 のポイント&quot;];
+  brick [label=&quot;brick（Box）&quot;];
+  wall [label=&quot;wall（Copy to Points）&quot;];
+  ball [label=&quot;ball（Sphere）&quot;];
+  vel [label=&quot;ball_velocity（Attribute Wrangle）\n初速度 v を与える&quot;];
+  merge [label=&quot;merge（Merge）&quot;];
+  solver [label=&quot;rbd_solver（RBD Bullet Solver）&quot;];
+  out [label=&quot;OUT（Null）&quot;, fillcolor=&quot;#fff3b0&quot;];
+  brick -&gt; wall; pts -&gt; wall; wall -&gt; merge;
+  ball -&gt; vel -&gt; merge;
+  merge -&gt; solver -&gt; out;
+}</p></object></div>
+<figcaption>
+<p><span class="caption-number">図 23 </span><span class="caption-text">剛体シミュレーションのネットワーク</span><a class="headerlink" href="#fig-rbd-network" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">/obj</span></code> に Geometry ノード <code class="docutils literal notranslate"><span class="pre">rbd</span></code> を作り、その中で次のように作る。</p>
+<ol class="arabic">
+<li><p><strong>Grid</strong>（<code class="docutils literal notranslate"><span class="pre">wall_points</span></code>）: 壁の箱を置く位置を作る。次のパラメーターを設定する。</p>
+<ul class="simple">
+<li><p><span class="guilabel">Orientation</span>: <span class="guilabel">XY Plane</span>（正面を向いた縦の面）</p></li>
+<li><p><span class="guilabel">Size</span>: <code class="docutils literal notranslate"><span class="pre">2.5</span></code>、<code class="docutils literal notranslate"><span class="pre">2.5</span></code></p></li>
+<li><p><span class="guilabel">Rows</span>: <code class="docutils literal notranslate"><span class="pre">6</span></code>、<span class="guilabel">Columns</span>: <code class="docutils literal notranslate"><span class="pre">6</span></code></p></li>
+<li><p><span class="guilabel">Center</span> の Y: <code class="docutils literal notranslate"><span class="pre">1.5</span></code></p></li>
+</ul>
+<p>0.5 m 間隔で 6 x 6 のポイントができる。一番下の行のポイントの高さは 0.25 m である。</p>
+</li>
+<li><p><strong>Box</strong>（<code class="docutils literal notranslate"><span class="pre">brick</span></code>）: <span class="guilabel">Size</span> を <code class="docutils literal notranslate"><span class="pre">0.49</span></code>、<code class="docutils literal notranslate"><span class="pre">0.49</span></code>、<code class="docutils literal notranslate"><span class="pre">0.49</span></code> にする。箱の一辺を間隔の 0.5 m より少し小さくして、最初から箱どうしが重ならないようにする。</p></li>
+<li><p><strong>Copy to Points</strong>（<code class="docutils literal notranslate"><span class="pre">wall</span></code>）: 1 番目の入力に <code class="docutils literal notranslate"><span class="pre">brick</span></code>、2 番目の入力に <code class="docutils literal notranslate"><span class="pre">wall_points</span></code> をつなぐ。<span class="guilabel">Transform Using Implicit Target Point Normals If No Point N Attribute</span> をオフにする（<a class="reference internal" href="modeling.html"><span class="doc">はじめてのモデリング</span></a> を参照）。</p></li>
+<li><p><strong>Sphere</strong>（<code class="docutils literal notranslate"><span class="pre">ball</span></code>）: <span class="guilabel">Primitive Type</span> を <span class="guilabel">Polygon Mesh</span>、<span class="guilabel">Radius</span> を <code class="docutils literal notranslate"><span class="pre">0.6</span></code>、<code class="docutils literal notranslate"><span class="pre">0.6</span></code>、<code class="docutils literal notranslate"><span class="pre">0.6</span></code>、<span class="guilabel">Center</span> を <code class="docutils literal notranslate"><span class="pre">0</span></code>、<code class="docutils literal notranslate"><span class="pre">1.2</span></code>、<code class="docutils literal notranslate"><span class="pre">4</span></code> にする。壁の正面 4 m の位置に球を置く。</p></li>
+<li><p><strong>Attribute Wrangle</strong>（<code class="docutils literal notranslate"><span class="pre">ball_velocity</span></code>）: <code class="docutils literal notranslate"><span class="pre">ball</span></code> をつなぎ、<span class="guilabel">VEXpression</span> に次のコードを入力する。</p>
+<div class="highlight-vex notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="nv">v@v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">-12</span><span class="p">};</span><span class="w">   </span><span class="c1">// 毎秒 12 m で -Z 方向へ</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">v</span></code> は速度を表すアトリビュートである。RBD Bullet Solver は、シミュレーションを始めるときの速度として <code class="docutils literal notranslate"><span class="pre">v</span></code> を読む。</p>
+</li>
+<li><p><strong>Merge</strong>（<code class="docutils literal notranslate"><span class="pre">merge</span></code>）: <code class="docutils literal notranslate"><span class="pre">wall</span></code> と <code class="docutils literal notranslate"><span class="pre">ball_velocity</span></code> をつなぐ。</p></li>
+<li><p><strong>RBD Bullet Solver</strong>（<code class="docutils literal notranslate"><span class="pre">rbd_solver</span></code>）: <code class="docutils literal notranslate"><span class="pre">merge</span></code> を 1 番目の入力につなぐ。<span class="guilabel">Ground Type</span> を <span class="guilabel">Ground Plane</span> にすると、y = 0 の位置に地面ができる。</p></li>
+<li><p><strong>Null</strong>（<code class="docutils literal notranslate"><span class="pre">OUT</span></code>）: Display フラグを立てる。</p></li>
+</ol>
+<p>プレイバーで再生すると、球が壁にぶつかり、箱が崩れ落ちる。RBD Bullet Solver は、入力のジオメトリのうち、つながっている部分（ここでは箱 1 個、球 1 個）をそれぞれ 1 個の剛体として扱う。出力では、各剛体に <code class="docutils literal notranslate"><span class="pre">piece0</span></code>、<code class="docutils literal notranslate"><span class="pre">piece1</span></code> のような名前（<code class="docutils literal notranslate"><span class="pre">name</span></code> アトリビュート）が付く。</p>
+<p><code class="docutils literal notranslate"><span class="pre">build_rbd.py</span></code> を hython で実行すると、1、24、48 フレーム目のポイントの高さの平均を表示する。壁が崩れるにつれて値が小さくなることを確かめられる。</p>
+</section>
+<section id="id4">
+<h2>キャッシュ<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>シミュレーションの結果をファイルに保存するには、File Cache ノードを使う。RBD Bullet Solver の後ろ（<code class="docutils literal notranslate"><span class="pre">OUT</span></code> の前）に File Cache ノードをつなぎ、<span class="guilabel">Save to Disk</span> を押すと、全てのフレームの結果がファイルに書き出される。保存先は、<span class="guilabel">Base Folder</span>（既定は <code class="docutils literal notranslate"><span class="pre">$HIP/geo</span></code>）と <span class="guilabel">Base Name</span>（既定は hip ファイルの名前とノードの名前）から決まる。ファイルの形式は、Houdini のジオメトリの形式 <code class="docutils literal notranslate"><span class="pre">.bgeo.sc</span></code> である。</p>
+<p>書き出した後で <span class="guilabel">Load from Disk</span> をオンにすると、File Cache ノードはシミュレーションを計算せず、ファイルから結果を読み込む。どのフレームにもすぐに移動でき、後の工程（マテリアルやレンダリング）の作業が軽くなる。シミュレーションの設定を変えたときは、もう一度 <span class="guilabel">Save to Disk</span> を押して書き出し直す。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="rendering.html" class="btn btn-neutral float-left" title="マテリアルとレンダリング" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="next.html" class="btn btn-neutral float-right" title="次のステップ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

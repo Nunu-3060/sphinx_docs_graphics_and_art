@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6. BRDF &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="7. マイクロファセット理論" href="microfacet.html" />
+    <link rel="prev" title="5. 光と物質の相互作用" href="light_matter.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. BRDF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">6.1. BRDF の定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">6.2. 物理的に妥当な BRDF の条件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">6.3. ランバート BRDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">6.4. 完全鏡面反射</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">6.5. 従来の反射モデルとその問題点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">6.6. 実測 BRDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">6.7. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">6. </span>BRDF</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="brdf">
+<h1><span class="section-number">6. </span>BRDF<a class="headerlink" href="#brdf" title="Link to this heading"></a></h1>
+<p>前章では、表面に当たった光が鏡面反射と拡散反射に分かれることを見た。本章では、ある方向から来た光が、どの方向にどれだけ反射されるかを定量的に表す関数、BRDF を導入する。BRDF は PBR における「材質」の数学的な表現である。</p>
+<section id="id1">
+<h2><span class="section-number">6.1. </span>BRDF の定義<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>表面上の点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> に、方向 <span class="math notranslate nohighlight">\(\omega_i\)</span> から放射輝度 <span class="math notranslate nohighlight">\(L_i\)</span> の光が、微小な立体角 <span class="math notranslate nohighlight">\(d\omega_i\)</span> の範囲から入射しているとする。このとき点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> が受け取る放射照度は、式 <a class="reference internal" href="radiometry.html#equation-irradiance-integral">(4.8)</a> より <span class="math notranslate nohighlight">\(dE = L_i \cos\theta_i \, d\omega_i\)</span> である。この光によって、点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> から方向 <span class="math notranslate nohighlight">\(\omega_o\)</span> へ出ていく放射輝度が <span class="math notranslate nohighlight">\(dL_o\)</span> だけ増えるとする。</p>
+<p><span class="math notranslate nohighlight">\(dL_o\)</span> は <span class="math notranslate nohighlight">\(dE\)</span> に比例すると考えてよい。その比例係数を BRDF（Bidirectional Reflectance Distribution Function、双方向反射率分布関数）と呼び、<span class="math notranslate nohighlight">\(f_r\)</span> で表す。</p>
+<div class="math notranslate nohighlight" id="equation-brdf-def">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-brdf-def" title="Link to this equation"></a></span>\[f_r(\mathbf{x}, \omega_i, \omega_o) = \frac{dL_o(\mathbf{x}, \omega_o)}{dE(\mathbf{x}, \omega_i)} = \frac{dL_o(\mathbf{x}, \omega_o)}{L_i(\mathbf{x}, \omega_i) \cos\theta_i \, d\omega_i}\]</div>
+<p>単位は 1/sr である。本書では、<span class="math notranslate nohighlight">\(\omega_i\)</span> と <span class="math notranslate nohighlight">\(\omega_o\)</span> をどちらも点 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> から外向きの単位ベクトルとして表す。<span class="math notranslate nohighlight">\(\omega_i\)</span> は光が来る方向（光源の方向）、<span class="math notranslate nohighlight">\(\omega_o\)</span> は光が出ていく方向（観測者やカメラの方向）を指す。<span class="math notranslate nohighlight">\(\theta_i\)</span> は法線 <span class="math notranslate nohighlight">\(\mathbf{n}\)</span> と <span class="math notranslate nohighlight">\(\omega_i\)</span> のなす角であり、<span class="math notranslate nohighlight">\(\cos\theta_i = \mathbf{n} \cdot \omega_i\)</span> である。</p>
+<p>上側の半球 <span class="math notranslate nohighlight">\(\Omega\)</span> のあらゆる方向から光が入射する場合、方向 <span class="math notranslate nohighlight">\(\omega_o\)</span> へ出ていく放射輝度は、各方向からの寄与を足し合わせて次のように書ける。</p>
+<div class="math notranslate nohighlight" id="equation-reflection-equation">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-reflection-equation" title="Link to this equation"></a></span>\[L_o(\mathbf{x}, \omega_o) = \int_{\Omega} f_r(\mathbf{x}, \omega_i, \omega_o) \, L_i(\mathbf{x}, \omega_i) \cos\theta_i \, d\omega_i\]</div>
+<p>これを反射方程式と呼ぶ。BRDF がわかれば、入射する光から反射光を計算できる。この式は「<a class="reference internal" href="rendering_equation.html"><span class="doc">レンダリング方程式</span></a>」で中心的な役割を果たす。</p>
+<p>BRDF は一般に、入射方向と出射方向（それぞれ 2 つの角度で表される）の計 4 つの変数の関数である。多くの材質では、表面を法線のまわりに回転させても反射の仕方が変わらない。このような BRDF を等方性（isotropic）と呼ぶ。ヘアライン加工した金属のように、回転させると反射の仕方が変わるものは異方性（anisotropic）と呼ぶ。</p>
+</section>
+<section id="id2">
+<h2><span class="section-number">6.2. </span>物理的に妥当な BRDF の条件<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>どのような関数でも BRDF として物理的に意味があるわけではない。物理的に妥当な BRDF は、次の 3 つの条件を満たす。</p>
+<dl>
+<dt>非負性</dt><dd><p>反射光が負になることはないので、<span class="math notranslate nohighlight">\(f_r(\omega_i, \omega_o) \ge 0\)</span> である。</p>
+</dd>
+<dt>ヘルムホルツの相反性</dt><dd><p>入射方向と出射方向を入れ替えても値が変わらない。すなわち <span class="math notranslate nohighlight">\(f_r(\omega_i, \omega_o) = f_r(\omega_o, \omega_i)\)</span> である。光の経路は逆向きにたどっても同じ寄与を持つ、という性質であり、カメラ側からレイを飛ばすレイトレーシングの正当性を支えている。</p>
+</dd>
+<dt>エネルギー保存</dt><dd><p>表面は受け取った以上の光を反射しない。ある方向 <span class="math notranslate nohighlight">\(\omega_i\)</span> から入射した光のうち、反射される光の割合は 1 以下でなければならない。</p>
+<div class="math notranslate nohighlight" id="equation-energy-conservation">
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-energy-conservation" title="Link to this equation"></a></span>\[\rho(\omega_i) = \int_{\Omega} f_r(\omega_i, \omega_o) \cos\theta_o \, d\omega_o \le 1 \quad (\text{すべての } \omega_i \text{ について})\]</div>
+<p><span class="math notranslate nohighlight">\(\rho(\omega_i)\)</span> を方向アルベドと呼ぶ。1 との差は、表面で吸収される（あるいは透過する）光の割合である。</p>
+</dd>
+</dl>
+<p>PBR で用いる反射モデルは、これらの条件を満たすように（少なくとも大きく破らないように）作られている。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">6.3. </span>ランバート BRDF<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>最も単純な BRDF は、どの方向にも同じ値を持つ定数の BRDF である。</p>
+<div class="math notranslate nohighlight" id="equation-lambert">
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-lambert" title="Link to this equation"></a></span>\[f_r(\omega_i, \omega_o) = \frac{\rho}{\pi}\]</div>
+<p>ここで <span class="math notranslate nohighlight">\(\rho\)</span>（0 以上 1 以下）は反射率であり、RGB の各成分ごとに与えれば物体の色を表す。この BRDF を持つ面をランバート面と呼ぶ。理想的な拡散反射を表すモデルであり、紙、素焼きの陶器、つや消しの塗装面などのよい近似になる。</p>
+<p>分母の <span class="math notranslate nohighlight">\(\pi\)</span> は、エネルギー保存の式 <a class="reference internal" href="#equation-energy-conservation">(6.3)</a> から決まる。式 <a class="reference internal" href="radiometry.html#equation-uniform-irradiance">(4.9)</a> と同じ計算により <span class="math notranslate nohighlight">\(\int_{\Omega} \cos\theta_o \, d\omega_o = \pi\)</span> なので、</p>
+<div class="math notranslate nohighlight">
+\[\rho(\omega_i) = \int_{\Omega} \frac{\rho}{\pi} \cos\theta_o \, d\omega_o = \frac{\rho}{\pi} \cdot \pi = \rho\]</div>
+<p>となり、方向アルベドがちょうど <span class="math notranslate nohighlight">\(\rho\)</span> になる。<span class="math notranslate nohighlight">\(\pi\)</span> で割るのを忘れると、反射光が <span class="math notranslate nohighlight">\(\pi\)</span> 倍（約 3 倍）明るくなってしまう。これは実装でよくある誤りである。</p>
+<p>ランバート面からの反射光の放射輝度は、見る方向によらず一定である。ただし、現実の物体がすべてランバート面に近いわけではない。たとえば、ランバート面でできた球を正面から照らすと、縁に近いほど光が斜めに当たるため暗く見えるはずである。満月が縁まで一様な明るさの円盤に見えるのは、月面の反射がランバート面とは異なる性質を持つためである。</p>
+</section>
+<section id="id4">
+<h2><span class="section-number">6.4. </span>完全鏡面反射<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>ランバート面と対極にあるのが、完全な鏡である。完全な鏡は、入射光を正反射方向だけに反射する。このような BRDF は、正反射方向以外では 0、正反射方向でだけ無限大となる関数（ディラックのデルタ関数）を用いて表される。実装上は、BRDF を通常の関数として評価する代わりに「反射方向にレイを 1 本飛ばし、フレネル反射率を掛ける」という特別な扱いをする。</p>
+<p>現実の表面の多くは、ランバート面と完全な鏡の中間的な性質を持つ。その中間を物理的に表すのが、次章のマイクロファセット理論である。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">6.5. </span>従来の反射モデルとその問題点<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>PBR が普及する前に広く使われていたのが、Phong の反射モデル <a class="reference internal" href="references.html#phong1975" id="id6"><span>[Phong1975]</span></a> である。Phong モデルでは、光源方向を <span class="math notranslate nohighlight">\(\mathbf{l}\)</span>、観測者の方向を <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>、<span class="math notranslate nohighlight">\(\mathbf{l}\)</span> の正反射方向を <span class="math notranslate nohighlight">\(\mathbf{r}\)</span> として、反射光の強さを次のように計算する。</p>
+<div class="math notranslate nohighlight" id="equation-phong">
+<span class="eqno">(6.5)<a class="headerlink" href="#equation-phong" title="Link to this equation"></a></span>\[I = k_d \, (\mathbf{n} \cdot \mathbf{l}) + k_s \, (\mathbf{r} \cdot \mathbf{v})^s\]</div>
+<p>第 1 項が拡散反射、第 2 項がハイライト（鏡面反射）を表す。<span class="math notranslate nohighlight">\(k_d\)</span>, <span class="math notranslate nohighlight">\(k_s\)</span> は反射の強さ、<span class="math notranslate nohighlight">\(s\)</span> はハイライトの鋭さを決めるパラメーターである。Blinn は、<span class="math notranslate nohighlight">\(\mathbf{r} \cdot \mathbf{v}\)</span> の代わりに、<span class="math notranslate nohighlight">\(\mathbf{l}\)</span> と <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> の中間の方向（ハーフベクトル）<span class="math notranslate nohighlight">\(\mathbf{h}\)</span> を使った <span class="math notranslate nohighlight">\((\mathbf{n} \cdot \mathbf{h})^s\)</span> を用いる変形を提案した <a class="reference internal" href="references.html#blinn1977" id="id7"><span>[Blinn1977]</span></a>。これを Blinn-Phong モデルと呼ぶ。</p>
+<p>これらのモデルは計算が軽く、見た目もそれなりによいため長く使われてきたが、物理的には次の問題がある。</p>
+<ul class="simple">
+<li><p>エネルギー保存が保証されない。<span class="math notranslate nohighlight">\(s\)</span> を大きくするとハイライトは鋭くなるが、反射されるエネルギーの総量は小さくなる。<span class="math notranslate nohighlight">\(k_s\)</span> との組み合わせによっては、入射光より多くの光を反射することもある。</p></li>
+<li><p>フレネル効果がなく、浅い角度で反射が強くなる現象を再現できない。</p></li>
+<li><p>パラメーター <span class="math notranslate nohighlight">\(s\)</span> が物理的な性質と直接対応しない。</p></li>
+</ul>
+<p><a class="reference internal" href="#fig-brdf-lobes"><span class="std std-numref">図 6.1</span></a> は、入射角 45 度の光に対して、出射方向ごとの BRDF の値を入射面内で描いたものである。各曲線は最大値が 1 になるように正規化してある。</p>
+<figure class="align-center" id="fig-brdf-lobes">
+<a class="reference internal image-reference" href="_images/brdf_lobes.png"><img alt="_images/brdf_lobes.png" src="_images/brdf_lobes.png" style="width: 75%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 6.1 </span><span class="caption-text">入射面内での BRDF の形（入射角 45 度、最大値で正規化）</span><a class="headerlink" href="#fig-brdf-lobes" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>ランバート BRDF はすべての方向で一定なので半円になる。Phong モデルは、正反射方向（+45 度）を中心とした対称な山になる。次章で説明する GGX マイクロファセットモデルは、山の頂上が正反射方向よりも浅い角度の側にずれ、表面すれすれの方向へ裾が伸びた非対称な形になる。この「正反射方向からずれた山」は、実際の粗い表面で観測される性質である。</p>
+</section>
+<section id="id8">
+<h2><span class="section-number">6.6. </span>実測 BRDF<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>BRDF は、測定装置を使って実際の材料から測ることもできる。代表的なものに、100 種類の材料の等方性 BRDF を測定した MERL BRDF データベース <a class="reference internal" href="references.html#matusik2003" id="id9"><span>[Matusik2003]</span></a> がある。実測データは、新しい反射モデルの精度を評価する基準として使われている。</p>
+</section>
+<section id="id10">
+<h2><span class="section-number">6.7. </span>まとめ<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>BRDF は、入射方向から来た光が出射方向へどれだけ反射されるかを表す関数であり、PBR における材質の表現である。</p></li>
+<li><p>物理的に妥当な BRDF は、非負性、ヘルムホルツの相反性、エネルギー保存を満たす。</p></li>
+<li><p>ランバート BRDF <span class="math notranslate nohighlight">\(\rho / \pi\)</span> は理想的な拡散反射を表す。</p></li>
+<li><p>Phong モデルは物理的な条件を満たさず、PBR ではマイクロファセットモデルが使われる。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="light_matter.html" class="btn btn-neutral float-left" title="5. 光と物質の相互作用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="microfacet.html" class="btn btn-neutral float-right" title="7. マイクロファセット理論" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

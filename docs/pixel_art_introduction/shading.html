@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6. 陰影と立体感 &mdash; ドット絵作成入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d9143941" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="7. キャラクターを描く" href="characters.html" />
+    <link rel="prev" title="5. 色を選ぶ" href="colors.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ドット絵作成入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_pixel_art.html">2. ドット絵とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">3. 道具を準備する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lines.html">4. 線を描く</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colors.html">5. 色を選ぶ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. 陰影と立体感</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">6.1. 光源を決める</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">6.2. 陰影の段階</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">6.3. ピロー・シェーディングを避ける</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">6.4. クラスタを整える</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">6.5. ディザリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">6.6. アンチエイリアス</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="characters.html">7. キャラクターを描く</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tiles.html">8. タイルと背景</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">9. アニメーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postprocess.html">10. Python で後処理する</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ドット絵作成入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">6. </span>陰影と立体感</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">6. </span>陰影と立体感<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>平らに塗っただけの絵に陰影を付けると、立体感が生まれる。この章では、球を例にして陰影の付け方を説明し、避けるべき塗り方と、少ない色数で中間の明るさを表す技法を紹介する。</p>
+<section id="id2">
+<h2><span class="section-number">6.1. </span>光源を決める<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>陰影を付ける前に、光がどの方向から当たっているか（<a class="reference internal" href="glossary.html#term-10"><span class="xref std std-term">光源</span></a>の位置）を決める。ドット絵では、左上の手前から光が当たると決めることが多い。本書の図もすべてこの設定で描いている。</p>
+<p>光源の位置は、1 つの作品の中では必ず統一する。キャラクターごと、タイルごとに光の向きが違うと、画面全体がちぐはぐに見える。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">6.2. </span>陰影の段階<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>球に陰影を付けていく過程を <a class="reference internal" href="#fig-shading-steps"><span class="std std-numref">図 6.1</span></a> に示す。使うのは、第 5 章の方法で作った赤のランプと、輪郭の色である。</p>
+<figure class="align-center" id="id8">
+<span id="fig-shading-steps"></span><img alt="球に陰影を付けていく 5 段階" class="pixelated" src="_images/shading_steps.png" />
+<figcaption>
+<p><span class="caption-number">図 6.1 </span><span class="caption-text">球に陰影を付けていく過程。左から、基本色のみ、陰、明部、ハイライト、反射光を加えたもの。</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>各段階で加える色の役割は次のとおりである。</p>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-number">表 6.1 </span><span class="caption-text">陰影を構成する色</span><a class="headerlink" href="#id9" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名前</p></th>
+<th class="head"><p>役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>基本色</p></td>
+<td><p>物体の本来の色。光が斜めに当たる部分の色でもあり、最も広い面積を占める。</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="glossary.html#term-3"><span class="xref std std-term">陰</span></a></p></td>
+<td><p>光源と反対を向いていて、光が直接当たらない部分。形の大部分は、基本色と陰の境界の形で決まる。</p></td>
+</tr>
+<tr class="row-even"><td><p>明部</p></td>
+<td><p>光源のほうを向いていて、光が強く当たる部分。</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="glossary.html#term-22"><span class="xref std std-term">ハイライト</span></a></p></td>
+<td><p>光源の光が反射して最も明るく見える部分。小さく置くと、表面のつやを表せる。</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="glossary.html#term-25"><span class="xref std std-term">反射光</span></a></p></td>
+<td><p>地面などで跳ね返った光が陰の中を弱く照らす部分。陰の縁に、陰より少し明るい色で置く。</p></td>
+</tr>
+</tbody>
+</table>
+<p>最も重要なのは、基本色と陰の 2 色の段階である。この段階で立体に見えなければ、色を増やしても立体には見えない。明部とハイライトは、形がはっきりしてから加える。反射光は陰と区別できる程度に控えめにし、基本色より明るくしない。明るくしすぎると、光源が 2 つあるように見えるからである。</p>
+<p>なお、物体の表面にできる暗い部分（陰）とは別に、物体が光を遮って地面などにできる暗い部分を<a class="reference internal" href="glossary.html#term-5"><span class="xref std std-term">影</span></a>（落ち影）と呼ぶ。ゲームのキャラクターでは、足元に小さな楕円の影を置くと、地面に立っている感じが出る。</p>
+</section>
+<section id="id4">
+<h2><span class="section-number">6.3. </span>ピロー・シェーディングを避ける<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>初心者がやりがちな塗り方に、<a class="reference internal" href="glossary.html#term-29"><span class="xref std std-term">ピロー・シェーディング</span></a>がある。光源を考えずに、輪郭に沿って外側ほど暗く、中心ほど明るく塗る方法である。</p>
+<figure class="align-center" id="id10">
+<span id="fig-pillow-shading"></span><img alt="ピロー・シェーディングの球と、光源を意識して塗った球の比較" class="pixelated" src="_images/pillow_shading.png" />
+<figcaption>
+<p><span class="caption-number">図 6.2 </span><span class="caption-text">左はピロー・シェーディング、右は左上の光源を意識して塗った球</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-pillow-shading"><span class="std std-numref">図 6.2</span></a> の左の球は、枕（pillow）のように膨らんで見え、光がどこから来ているのか分からない。輪郭の線をなぞって暗い色を置きたくなったら、光源の位置を思い出し、光源と反対側だけを暗くする。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">6.4. </span>クラスタを整える<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>同じ色のピクセルがまとまった部分を<a class="reference internal" href="glossary.html#term-8"><span class="xref std std-term">クラスタ</span></a>と呼ぶ。陰影は、大きさと形の整ったクラスタの組み合わせで表すとよい。</p>
+<figure class="align-center" id="id11">
+<span id="fig-orphans"></span><img alt="孤立ドットが散らばった陰影と、整理した陰影の比較" class="pixelated" src="_images/orphans.png" />
+<figcaption>
+<p><span class="caption-number">図 6.3 </span><span class="caption-text">左は孤立したピクセルが散らばった陰影、右はクラスタを整えた陰影</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-orphans"><span class="std std-numref">図 6.3</span></a> の左の球には、周りと違う色のピクセルがぽつぽつと散らばっている。このようなピクセルを<a class="reference internal" href="glossary.html#term-11"><span class="xref std std-term">孤立ドット</span></a>と呼ぶ。孤立ドットは、意図して置いたもの（ハイライトや目など）でない限り、ざらついたノイズに見える。見つけたら、周りの色で塗りつぶすか、隣のクラスタにつなげる。</p>
+</section>
+<section id="id6">
+<h2><span class="section-number">6.5. </span>ディザリング<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>色数が限られていると、2 色の中間の明るさを表す色が無いことがある。このとき、2 色のピクセルを規則的に混ぜて、離れて見たときに中間の色に見せる技法を<a class="reference internal" href="glossary.html#term-20"><span class="xref std std-term">ディザリング</span></a>と呼ぶ。</p>
+<figure class="align-center" id="id12">
+<span id="fig-dithering"></span><img alt="2 色の境界をそのまま接したもの、市松模様を挟んだもの、規則的ディザによるグラデーション" class="pixelated" src="_images/dithering.png" />
+<figcaption>
+<p><span class="caption-number">図 6.4 </span><span class="caption-text">上から、2 色をそのまま接したもの、境界に市松模様を挟んだもの、4×4 の規則的ディザで左から右へ変化させたもの</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-dithering"><span class="std std-numref">図 6.4</span></a> の 2 段目は、境界に 2 色を市松模様に並べた帯を挟んだもので、境界が和らいで見える。3 段目は、混ぜる割合を少しずつ変えてグラデーションを表したものである。</p>
+<p>3 段目のような規則的なディザは、次の 4×4 の行列（Bayer 行列）を使って求めた。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}M = \begin{pmatrix}
+0 &amp; 8 &amp; 2 &amp; 10 \\
+12 &amp; 4 &amp; 14 &amp; 6 \\
+3 &amp; 11 &amp; 1 &amp; 9 \\
+15 &amp; 7 &amp; 13 &amp; 5
+\end{pmatrix}\end{split}\]</div>
+<p>位置 <span class="math notranslate nohighlight">\((x, y)\)</span> のピクセルで明るい色を混ぜたい割合を <span class="math notranslate nohighlight">\(t\)</span>（0 以上 1 以下）とするとき、次の条件を満たせば明るい色、満たさなければ暗い色にする。</p>
+<div class="math notranslate nohighlight">
+\[t &gt; \frac{M_{y \bmod 4,\, x \bmod 4} + 0.5}{16}\]</div>
+<p>行列の値は、割合 <span class="math notranslate nohighlight">\(t\)</span> を少しずつ大きくしていったときに、明るい色のピクセルがなるべく均等に散らばりながら増えていくように並んでいる。たとえば <span class="math notranslate nohighlight">\(t = 0.5\)</span> のときは、ちょうど市松模様になる。乱数を使わないので、割合が同じ範囲には同じ模様が繰り返し現れ、ドット絵になじみやすい。</p>
+<p>ディザリングは便利だが、使いどころを選ぶ。16×16 ピクセル程度の小さなキャラクターでは、ディザの模様を置く広さが無く、ノイズに見えやすい。ディザリングは、空や地面、岩肌などの広い面や、質感を表したい部分に使うとよい。</p>
+</section>
+<section id="id7">
+<h2><span class="section-number">6.6. </span>アンチエイリアス<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>輪郭の段差を目立たなくするため、段差の部分に、線の色と背景の色の中間の色を置く技法を<a class="reference internal" href="glossary.html#term-2"><span class="xref std std-term">アンチエイリアス</span></a>と呼ぶ。ドット絵では、ソフトウェアに自動でかけさせるのではなく、置く場所と色を描き手が選ぶ。</p>
+<figure class="align-center" id="id13">
+<span id="fig-antialias"></span><img alt="アンチエイリアスなしの境界線と、中間色を加えた境界線の比較" class="pixelated" src="_images/antialias.png" />
+<figcaption>
+<p><span class="caption-number">図 6.5 </span><span class="caption-text">傾き 4:1 の境界線。上はアンチエイリアスなし、下は段差の部分に中間色を 2 段階加えたもの。それぞれ 8 倍と 2 倍で表示している。</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-antialias"><span class="std std-numref">図 6.5</span></a> の下の図では、ランの端に中間色を置いたことで、2 倍で表示したときの段差が目立たなくなっている。</p>
+<p>アンチエイリアスに使う中間色は、隣り合う 2 色から決まる。そのため、背景が決まっていない部分には使えない。たとえば、ゲームのキャラクターの外側の輪郭にアンチエイリアスをかけると、背景が変わったときに、周りに色の付いた縁が見えてしまう。アンチエイリアスは、キャラクターの内側の線や、背景と一体で描く絵に使う。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="colors.html" class="btn btn-neutral float-left" title="5. 色を選ぶ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="characters.html" class="btn btn-neutral float-right" title="7. キャラクターを描く" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

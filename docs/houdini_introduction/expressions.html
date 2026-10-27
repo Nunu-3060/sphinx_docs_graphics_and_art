@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>パラメーターとエクスプレッション &mdash; Houdini 入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9f2b073c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=35a8b989"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="VEX 入門" href="vex.html" />
+    <link rel="prev" title="ジオメトリとアトリビュート" href="attributes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Houdini 入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Houdini とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cg_basics.html">3DCG の基礎知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">画面と基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodes.html">ノードとネットワーク</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modeling.html">はじめてのモデリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">ジオメトリとアトリビュート</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">パラメーターとエクスプレッション</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">パラメーターの名前</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">エクスプレッション</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">チャンネル参照</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">作例: 弾むボール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">キーフレームアニメーション</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vex-python">式と VEX と Python の使い分け</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vex.html">VEX 入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="procedural.html">プロシージャルモデリングの実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python による操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hda.html">デジタルアセット</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">マテリアルとレンダリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">シミュレーション入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="next.html">次のステップ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">サンプルコード一覧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Houdini 入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">パラメーターとエクスプレッション</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>パラメーターとエクスプレッション<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p><a class="reference internal" href="modeling.html"><span class="doc">はじめてのモデリング</span></a> の最後で、関係のある値を別々に入力すると、変更のたびに複数の場所を直す必要があることを見た。この章では、パラメーターの値を式で計算するエクスプレッションと、時間とともに値を変えるキーフレームアニメーションを説明する。</p>
+<section id="id2">
+<h2>パラメーターの名前<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>パラメーターには、画面に表示されるラベルと、内部名がある。例えば Transform ノードの <span class="guilabel">Translate</span> は、内部名が <code class="docutils literal notranslate"><span class="pre">t</span></code> で、3 つの成分の内部名が <code class="docutils literal notranslate"><span class="pre">tx</span></code>、<code class="docutils literal notranslate"><span class="pre">ty</span></code>、<code class="docutils literal notranslate"><span class="pre">tz</span></code> である。<code class="docutils literal notranslate"><span class="pre">t</span></code> のように複数の成分をまとめたものをパラメーターのタプルと呼ぶ。式やスクリプトからパラメーターを参照するときは、内部名を使う。内部名は、パラメーターのラベルにマウスを重ねると表示される。</p>
+</section>
+<section id="id3">
+<h2>エクスプレッション<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>数値のパラメーターには、数値の代わりに式（エクスプレッション）を入力できる。式は、パラメーターの値が必要になるたびに計算される。</p>
+<p>Houdini のパラメーターの式は、既定では Hscript という Houdini 独自の式言語で書く。パラメーターのラベルの上で RMB をクリックし、<span class="menuselection">Expression ‣ Change language to Python</span> を選ぶと、そのパラメーターの式を Python で書ける。</p>
+<p>Hscript の式では、次のような関数と変数を使える。</p>
+<table class="docutils align-default" id="id7">
+<caption><span class="caption-number">表 18 </span><span class="caption-text">Hscript の式でよく使う関数と変数</span><a class="headerlink" href="#id7" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>関数、変数</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ch(&quot;パス&quot;)</span></code></p></td>
+<td><p>他のパラメーターの値。パスは、ノードのパスとパラメーターの内部名を <code class="docutils literal notranslate"><span class="pre">/</span></code> でつないだもの。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">$F</span></code></p></td>
+<td><p>現在のフレーム番号。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$T</span></code></p></td>
+<td><p>現在の時刻（秒）。フレーム番号から <code class="docutils literal notranslate"><span class="pre">($F</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">/</span> <span class="pre">$FPS</span></code> で求めた値である。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">$FPS</span></code></p></td>
+<td><p>1 秒あたりのフレーム数。既定では 24 である。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$HIP</span></code></p></td>
+<td><p>hip ファイルを保存したディレクトリ。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">$OS</span></code></p></td>
+<td><p>そのノードの名前。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sin()</span></code>、<code class="docutils literal notranslate"><span class="pre">cos()</span></code></p></td>
+<td><p>三角関数。角度は度（degree）で指定する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">abs()</span></code>、<code class="docutils literal notranslate"><span class="pre">min()</span></code>、<code class="docutils literal notranslate"><span class="pre">max()</span></code>、<code class="docutils literal notranslate"><span class="pre">floor()</span></code></p></td>
+<td><p>絶対値、最小値、最大値、切り捨て。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rand()</span></code></p></td>
+<td><p>0 から 1 の乱数。同じ引数には同じ値を返す。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fit(値,</span> <span class="pre">元の最小,</span> <span class="pre">元の最大,</span> <span class="pre">新しい最小,</span> <span class="pre">新しい最大)</span></code></p></td>
+<td><p>値をある範囲から別の範囲に換算する。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>Hscript の <code class="docutils literal notranslate"><span class="pre">sin()</span></code> と <code class="docutils literal notranslate"><span class="pre">cos()</span></code> は角度を度で受け取るが、VEX と Python（<code class="docutils literal notranslate"><span class="pre">math.sin()</span></code>）はラジアンで受け取る。言語を切り替えたときに間違えやすい。</p>
+</div>
+</section>
+<section id="id4">
+<h2>チャンネル参照<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ch()</span></code> 関数で他のパラメーターを参照することを、チャンネル参照と呼ぶ。パスは、式を書いたノードからの相対パスで書くのが普通である。例えば、<code class="docutils literal notranslate"><span class="pre">/obj/table/leg</span></code> のパラメーターから、同じネットワークにある <code class="docutils literal notranslate"><span class="pre">top</span></code> の <span class="guilabel">Size</span> の X を参照するには、<code class="docutils literal notranslate"><span class="pre">ch(&quot;../top/sizex&quot;)</span></code> と書く。<code class="docutils literal notranslate"><span class="pre">..</span></code> は、式を書いたノードの 1 つ上の階層（ここでは <code class="docutils literal notranslate"><span class="pre">/obj/table</span></code>）を表す。同じノードのパラメーターは、<code class="docutils literal notranslate"><span class="pre">ch(&quot;sizex&quot;)</span></code> のようにパラメーター名だけで参照できる。</p>
+<p>式を手で入力する代わりに、次の操作でも参照を作れる。</p>
+<ol class="arabic simple">
+<li><p>参照したいパラメーターのラベルの上で RMB をクリックし、<span class="guilabel">Copy Parameter</span> を選ぶ。</p></li>
+<li><p>参照を書き込みたいパラメーターのラベルの上で RMB をクリックし、<span class="guilabel">Paste Relative References</span> を選ぶ。</p></li>
+</ol>
+<p><a class="reference internal" href="modeling.html"><span class="doc">はじめてのモデリング</span></a> の机に当てはめると、例えば次のように書き換えられる。天板の幅を変えると、脚の位置も自動的に変わるようになる。</p>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-number">表 19 </span><span class="caption-text">机のパラメーターを参照で書き換える例</span><a class="headerlink" href="#id8" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>パラメーター</p></th>
+<th class="head"><p>式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">leg_positions</span></code> の <span class="guilabel">Size</span> の 1 番目</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ch(&quot;../top/sizex&quot;)</span> <span class="pre">-</span> <span class="pre">0.16</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">leg_positions</span></code> の <span class="guilabel">Size</span> の 2 番目</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ch(&quot;../top/sizez&quot;)</span> <span class="pre">-</span> <span class="pre">0.16</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lift_top</span></code> の <span class="guilabel">Translate</span> の Y</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ch(&quot;../leg/sizey&quot;)</span> <span class="pre">+</span> <span class="pre">ch(&quot;../top/sizey&quot;)</span> <span class="pre">/</span> <span class="pre">2</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>さらに、机の高さや脚の位置の 0.08 のような値も参照で結び付けたくなる。そのような値をまとめて置く場所として、<a class="reference internal" href="hda.html"><span class="doc">デジタルアセット</span></a> で説明するデジタルアセットのパラメーターが使える。</p>
+</section>
+<section id="id5">
+<h2>作例: 弾むボール<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>エクスプレッションとキーフレームの例として、弾みながら回るボールを作る。ネットワークは <a class="reference internal" href="#fig-expressions-network"><span class="std std-numref">図 14</span></a> のとおりである。サンプルコードの <code class="docutils literal notranslate"><span class="pre">build_expressions.py</span></code> でも同じネットワークを作れる。</p>
+<figure class="align-default" id="fig-expressions-network">
+<div class="graphviz"><object data="_images/graphviz-69c4f5be3903ce3c57f282f998ac3b9451198546.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph expressions {
+  node [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#d4e8f7&quot;, fontsize=11];
+  ball [label=&quot;ball（Sphere）&quot;];
+  bounce [label=&quot;bounce（Transform）\nTranslate Y に式&quot;];
+  floor [label=&quot;floor（Grid）\nSize に式&quot;];
+  merge [label=&quot;merge（Merge）&quot;];
+  spin [label=&quot;spin（Transform）\nRotate Y にキーフレーム&quot;];
+  out [label=&quot;OUT（Null）&quot;, fillcolor=&quot;#fff3b0&quot;];
+  ball -&gt; bounce -&gt; merge; floor -&gt; merge; merge -&gt; spin -&gt; out;
+}</p></object></div>
+<figcaption>
+<p><span class="caption-number">図 14 </span><span class="caption-text">弾むボールのネットワーク</span><a class="headerlink" href="#fig-expressions-network" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">/obj</span></code> に Geometry ノード <code class="docutils literal notranslate"><span class="pre">expressions</span></code> を作り、その中で次のように作る。</p>
+<ol class="arabic">
+<li><p><strong>Sphere</strong>（<code class="docutils literal notranslate"><span class="pre">ball</span></code>）: <span class="guilabel">Primitive Type</span> を <span class="guilabel">Polygon Mesh</span> にし、<span class="guilabel">Radius</span> を <code class="docutils literal notranslate"><span class="pre">0.5</span></code>、<code class="docutils literal notranslate"><span class="pre">0.5</span></code>、<code class="docutils literal notranslate"><span class="pre">0.5</span></code> にする。</p></li>
+<li><p><strong>Transform</strong>（<code class="docutils literal notranslate"><span class="pre">bounce</span></code>）: <code class="docutils literal notranslate"><span class="pre">ball</span></code> をつなぎ、<span class="guilabel">Translate</span> の Y に次の式を入力する。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>ch(&quot;../ball/radx&quot;) + abs(sin($F * 6)) * 2
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">sin($F</span> <span class="pre">*</span> <span class="pre">6)</span></code> は、30 フレームで 180 度進む。その絶対値をとると、30 フレームごとに 0 に戻る山の形になる（<a class="reference internal" href="#fig-bounce"><span class="std std-numref">図 15</span></a>）。最初の項 <code class="docutils literal notranslate"><span class="pre">ch(&quot;../ball/radx&quot;)</span></code> はボールの半径で、ボールが床に接する高さを 0 の代わりに半径にするために足している。</p>
+</li>
+<li><p><strong>Grid</strong>（<code class="docutils literal notranslate"><span class="pre">floor</span></code>）: <span class="guilabel">Size</span> の 1 番目に <code class="docutils literal notranslate"><span class="pre">ch(&quot;../ball/radx&quot;)</span> <span class="pre">*</span> <span class="pre">8</span></code>、2 番目に <code class="docutils literal notranslate"><span class="pre">ch(&quot;sizex&quot;)</span></code> と入力する。床の一辺がボールの半径の 8 倍になり、正方形になる。</p></li>
+<li><p><strong>Merge</strong>（<code class="docutils literal notranslate"><span class="pre">merge</span></code>）: <code class="docutils literal notranslate"><span class="pre">bounce</span></code> と <code class="docutils literal notranslate"><span class="pre">floor</span></code> をつなぐ。</p></li>
+<li><p><strong>Transform</strong>（<code class="docutils literal notranslate"><span class="pre">spin</span></code>）: <code class="docutils literal notranslate"><span class="pre">merge</span></code> をつなぐ。<span class="guilabel">Translate</span> の X を <code class="docutils literal notranslate"><span class="pre">1</span></code> にし、<span class="guilabel">Rotate</span> の Y にキーフレームを打つ（次節）。</p></li>
+<li><p><strong>Null</strong>（<code class="docutils literal notranslate"><span class="pre">OUT</span></code>）: Display フラグを立てる。</p></li>
+</ol>
+<p>プレイバーの再生ボタンを押すと、ボールが弾む。<code class="docutils literal notranslate"><span class="pre">ball</span></code> の <span class="guilabel">Radius</span> を変えると、ボールが床に接する高さと床の大きさが自動的に変わる。</p>
+<figure class="align-default" id="id9">
+<span id="fig-bounce"></span><img alt="フレームごとのボールの高さと回転角のグラフ" src="_images/bounce.png" />
+<figcaption>
+<p><span class="caption-number">図 15 </span><span class="caption-text">ボールの高さ（左）と回転角（右）。横軸はフレーム番号である。</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id6">
+<h2>キーフレームアニメーション<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>キーフレーム（keyframe）は、あるフレームでのパラメーターの値を指定したものである。キーフレームとキーフレームの間のフレームの値は、自動的に補間される。</p>
+<p><code class="docutils literal notranslate"><span class="pre">spin</span></code> の <span class="guilabel">Rotate</span> の Y に、1 フレーム目で 0 度、120 フレーム目で 360 度のキーフレームを打つ。</p>
+<ol class="arabic simple">
+<li><p>プレイバーで 1 フレーム目に移動する。</p></li>
+<li><p><span class="guilabel">Rotate</span> の Y が <code class="docutils literal notranslate"><span class="pre">0</span></code> であることを確かめ、<span class="guilabel">Rotate</span> のラベルの上で <kbd class="kbd docutils literal notranslate">Alt</kbd> + LMB をクリックする。キーフレームが打たれ、入力欄の色が変わる。</p></li>
+<li><p>120 フレーム目に移動し、<span class="guilabel">Rotate</span> の Y に <code class="docutils literal notranslate"><span class="pre">360</span></code> を入力して、同じ操作でキーフレームを打つ。</p></li>
+</ol>
+<p>既定の補間は、動き始めと止まる直前が緩やかになる曲線（<code class="docutils literal notranslate"><span class="pre">bezier()</span></code>）である。一定の速さで回したい場合は、補間を直線（<code class="docutils literal notranslate"><span class="pre">linear()</span></code>）にする。補間の種類は、Animation Editor（<span class="menuselection">Windows ‣ Animation Editor</span>）で変えられる。サンプルコードの <code class="docutils literal notranslate"><span class="pre">build_expressions.py</span></code> は、キーフレームを <code class="docutils literal notranslate"><span class="pre">linear()</span></code> で作っている（<a class="reference internal" href="#fig-bounce"><span class="std std-numref">図 15</span></a> の右）。</p>
+<p>プレイバーの範囲は、既定で 1 フレームから 240 フレームまで、1 秒あたり 24 フレームである。</p>
+</section>
+<section id="vex-python">
+<h2>式と VEX と Python の使い分け<a class="headerlink" href="#vex-python" title="Link to this heading"></a></h2>
+<p>Houdini では、値を計算する方法として、パラメーターの式（Hscript、Python）、VEX、Python のスクリプトを使える。それぞれの向き不向きは次のとおりである。</p>
+<table class="docutils align-default" id="id10">
+<caption><span class="caption-number">表 20 </span><span class="caption-text">式と VEX と Python の使い分け</span><a class="headerlink" href="#id10" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>方法</p></th>
+<th class="head"><p>向いている用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>パラメーターの式</p></td>
+<td><p>パラメーターどうしの関係、時間による変化など、パラメーター 1 個の値を決める短い計算。</p></td>
+</tr>
+<tr class="row-odd"><td><p>VEX（<a class="reference internal" href="vex.html"><span class="doc">VEX 入門</span></a>）</p></td>
+<td><p>ポイントやプリミティブごとの計算。大量の要素を高速に処理できる。</p></td>
+</tr>
+<tr class="row-even"><td><p>Python（<a class="reference internal" href="python.html"><span class="doc">Python による操作</span></a>）</p></td>
+<td><p>ノードの作成や接続、ファイルの操作など、ネットワークそのものを扱う処理。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="attributes.html" class="btn btn-neutral float-left" title="ジオメトリとアトリビュート" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="vex.html" class="btn btn-neutral float-right" title="VEX 入門" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

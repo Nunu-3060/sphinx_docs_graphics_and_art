@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>物理ベースレンダリング入門 &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="1. はじめに" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">物理ベースレンダリング入門</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>物理ベースレンダリング入門<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/render_main.png"><img alt="本書のサンプルコードで描画したコーネルボックス" src="_images/render_main.png" style="width: 320px;" />
+</a>
+</figure>
+<p>本書は、CG を専門としないエンジニアに向けて、物理ベースレンダリング（PBR）の考え方と仕組みを解説する入門書である。光の物理量の定義から始めて、BRDF、レンダリング方程式、モンテカルロ積分を順に説明し、最後に NumPy と Pillow だけで動く小さなパストレーサーを読み解く。上の画像は、そのパストレーサーで描画したものである。</p>
+<p>数式は避けずに示すが、それぞれの式が何を意味するのかを言葉と図で説明することを重視する。サンプルコードはすべて Python で書かれており、「<a class="reference internal" href="appendix_examples.html"><span class="doc">付録 B サンプルコード</span></a>」から閲覧・ダウンロードできる。</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#id2">1.1. 本書の目的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#id3">1.2. 対象読者と前提知識</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#id4">1.3. 物理ベースレンダリングとは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#id6">1.4. 本書の構成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#id7">1.5. サンプルコードの実行環境</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#id2">2.1. 画像ができるまで</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#id3">2.2. ラスタライズとレイトレーシング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#id4">2.3. 直接照明と大域照明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#id5">2.4. 本書の道筋</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="light_and_color.html#id2">3.1. 光の性質</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light_and_color.html#id3">3.2. 色はどのように知覚されるか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light_and_color.html#srgb">3.3. 色空間と sRGB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light_and_color.html#id5">3.4. リニアワークフロー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light_and_color.html#hdr">3.5. HDR とトーンマッピング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light_and_color.html#id6">3.6. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radiometry.html#id2">4.1. 立体角</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiometry.html#id3">4.2. 放射量の定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiometry.html#id4">4.3. 投影面積とコサイン則</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiometry.html#id5">4.4. なぜ放射輝度が主役なのか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiometry.html#id6">4.5. 点光源と逆二乗の法則</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiometry.html#id7">4.6. 放射照度と放射輝度の関係</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiometry.html#id8">4.7. 測光量との違い</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiometry.html#id9">4.8. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="light_matter.html#id2">5.1. 反射と屈折</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light_matter.html#id3">5.2. フレネル反射率</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light_matter.html#schlick">5.3. Schlick 近似</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light_matter.html#id5">5.4. 金属と誘電体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light_matter.html#id7">5.5. 拡散反射の正体</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light_matter.html#id8">5.6. 表面下散乱</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light_matter.html#id9">5.7. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="brdf.html#id1">6.1. BRDF の定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brdf.html#id2">6.2. 物理的に妥当な BRDF の条件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brdf.html#id3">6.3. ランバート BRDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brdf.html#id4">6.4. 完全鏡面反射</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brdf.html#id5">6.5. 従来の反射モデルとその問題点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brdf.html#id8">6.6. 実測 BRDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brdf.html#id10">6.7. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="microfacet.html#id2">7.1. 粗い表面のモデル化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microfacet.html#cook-torrance">7.2. Cook-Torrance モデル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microfacet.html#d">7.3. 法線分布関数 D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microfacet.html#f">7.4. フレネル項 F</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microfacet.html#g">7.5. 幾何減衰項 G</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microfacet.html#id11">7.6. ラフネスと見た目</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microfacet.html#id12">7.7. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rendering_equation.html#id3">8.1. レンダリング方程式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering_equation.html#id4">8.2. 入射光はどこから来るか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering_equation.html#id5">8.3. 反射の回数で分解する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering_equation.html#id6">8.4. なぜ数値的に解くのか</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering_equation.html#id7">8.5. レンダリング方程式が扱わないもの</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering_equation.html#id8">8.6. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="monte_carlo.html#id2">9.1. 確率の復習</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monte_carlo.html#id3">9.2. モンテカルロ推定量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monte_carlo.html#id4">9.3. 例：円周率の推定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monte_carlo.html#id5">9.4. 半球上の積分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monte_carlo.html#id6">9.5. 重点サンプリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monte_carlo.html#id7">9.6. 多重重点サンプリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monte_carlo.html#id9">9.7. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#id2">10.1. パストレーシングの考え方</a></li>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#id3">10.2. シーンの記述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#numpy">10.3. NumPy による一括処理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#id4">10.4. カメラレイの生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#id5">10.5. 交差判定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#brdf">10.6. BRDF のサンプリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#id7">10.7. 次イベント推定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#id8">10.8. ロシアンルーレット</a></li>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#id9">10.9. メインループ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#id10">10.10. 実行結果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#id11">10.11. 計算時間について</a></li>
+<li class="toctree-l2"><a class="reference internal" href="path_tracing.html#id12">10.12. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="practical_pbr.html#id1">11.1. メタリック／ラフネスワークフロー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practical_pbr.html#id2">11.2. スペキュラー／グロッシネスワークフロー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practical_pbr.html#id3">11.3. テクスチャ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practical_pbr.html#disney-principled-brdf">11.4. Disney の Principled BRDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practical_pbr.html#id6">11.5. イメージベースドライティング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practical_pbr.html#id8">11.6. トーンマッピングと露出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practical_pbr.html#gltf-2-0">11.7. glTF 2.0 のマテリアル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practical_pbr.html#id12">11.8. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#bsdf">12.1. 透過と BSDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#id3">12.2. 関与媒質とボリュームレンダリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#id4">12.3. スペクトルレンダリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#id5">12.4. 偏光と干渉</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#id6">12.5. その他の光輸送アルゴリズム</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#id11">12.6. リアルタイムレイトレーシングとデノイズ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#id13">12.7. ニューラルレンダリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#id16">12.8. 次に読むべき資料</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#id20">12.9. まとめ</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-right" title="1. はじめに" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

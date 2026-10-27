@@ -1,0 +1,203 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12. 発展的な話題 &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="付録 A 数学的準備" href="appendix_math.html" />
+    <link rel="prev" title="11. 実用 PBR ワークフロー" href="practical_pbr.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">12. 発展的な話題</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bsdf">12.1. 透過と BSDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">12.2. 関与媒質とボリュームレンダリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">12.3. スペクトルレンダリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">12.4. 偏光と干渉</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">12.5. その他の光輸送アルゴリズム</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">12.6. リアルタイムレイトレーシングとデノイズ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">12.7. ニューラルレンダリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">12.8. 次に読むべき資料</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id20">12.9. まとめ</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12. </span>発展的な話題</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">12. </span>発展的な話題<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>本書では、物理ベースレンダリングの基礎となる考え方に絞って説明してきた。本章では、本書で扱わなかった話題を簡単に紹介し、さらに学ぶための手がかりを示す。</p>
+<section id="bsdf">
+<h2><span class="section-number">12.1. </span>透過と BSDF<a class="headerlink" href="#bsdf" title="Link to this heading"></a></h2>
+<p>ガラスや水のように光を透過する物質を扱うには、反射だけでなく透過も表す関数が必要になる。透過を表す関数を BTDF（Bidirectional Transmittance Distribution Function）と呼び、BRDF と BTDF をまとめたものを BSDF（Bidirectional Scattering Distribution Function）と呼ぶ。BSDF は、法線側の半球だけでなく、全方向（球面全体）について定義される。</p>
+<p>滑らかなガラスでは、フレネル反射率に従って反射と屈折のどちらか一方を確率的に選べばよい。すりガラスのような粗い透明物質には、マイクロファセット理論を屈折に拡張したモデル <a class="reference internal" href="references.html#walter2007" id="id2"><span>[Walter2007]</span></a> が使われる。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">12.2. </span>関与媒質とボリュームレンダリング<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>霧、煙、雲、濁った水などのように、空間を満たす物質（関与媒質）の中では、光は進みながら吸収・散乱される。このような場合、放射輝度はレイに沿って一定ではなくなり、レンダリング方程式の代わりに放射伝達方程式を解く必要がある。</p>
+<p>関与媒質の性質は、単位長さあたりに光が吸収される割合（吸収係数）、散乱される割合（散乱係数）、散乱された光がどの方向に向かうかを表す位相関数で記述される。位相関数としては、Henyey-Greenstein の位相関数がよく使われる。パストレーシングを拡張すれば、媒質中のランダムな位置で散乱が起こるようにして、関与媒質も扱える。</p>
+<p>「<a class="reference internal" href="light_matter.html"><span class="doc">光と物質の相互作用</span></a>」で紹介した表面下散乱も、物体の内部を関与媒質とみなすことで、同じ枠組みで扱える。</p>
+</section>
+<section id="id4">
+<h2><span class="section-number">12.3. </span>スペクトルレンダリング<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>本書のサンプルコードは RGB の 3 成分で光を計算した。しかし、プリズムや虹のように屈折率が波長によって異なる現象（分散）や、蛍光灯のように分光分布が鋭い山を持つ光源の下での色の見え方は、RGB では正確に再現できない。</p>
+<p>光を波長ごとに扱うスペクトルレンダリングでは、パスごとに波長をランダムに選び（あるいは複数の波長をまとめて追跡し）、最後に人間の視覚の特性を使って色に変換する。物理的に正確な色が求められる製品デザインや照明設計の分野で使われている。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">12.4. </span>偏光と干渉<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>本書では幾何光学の立場をとり、光の波としての性質を無視した。しかし、シャボン玉や油膜の虹色（薄膜干渉）、CD の表面の虹色（回折）、水面や窓ガラスの反射が偏光フィルターで消える現象（偏光）などは、波としての性質に由来する。薄膜干渉は、膜の厚さと屈折率から波長ごとの反射率を計算する BRDF を用いれば、幾何光学の枠組みのままで近似的に扱える。偏光を扱うには、放射輝度の代わりに、偏光の状態を表すストークスベクトルを追跡する必要がある。</p>
+</section>
+<section id="id6">
+<h2><span class="section-number">12.5. </span>その他の光輸送アルゴリズム<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>パストレーシングは汎用的だが、苦手なシーンもある。たとえば、小さな光源の光がガラスのコップを通って床に集まる模様（コースティクス）は、カメラ側からパスを追跡するだけではなかなか見つからない。このような場合に有効なアルゴリズムとして、次のものがある。</p>
+<dl class="simple">
+<dt>双方向パストレーシング</dt><dd><p>カメラ側と光源側の両方からパスを伸ばし、それらをつなぐことで光の経路を作る方法である <a class="reference internal" href="references.html#lafortunewillems1993" id="id7"><span>[LafortuneWillems1993]</span></a> <a class="reference internal" href="references.html#veach1997" id="id8"><span>[Veach1997]</span></a>。MIS を使って、さまざまなつなぎ方の寄与を組み合わせる。</p>
+</dd>
+<dt>フォトンマッピング</dt><dd><p>まず光源から多数の光子（フォトン）を放ってシーン中に記録しておき、カメラ側からのパスの交点で、周囲のフォトンの密度から明るさを推定する方法である <a class="reference internal" href="references.html#jensen1996" id="id9"><span>[Jensen1996]</span></a>。コースティクスを効率よく描画できる。</p>
+</dd>
+<dt>メトロポリス光輸送</dt><dd><p>光を運ぶパスを一度見つけたら、そのパスを少しずつ変化させて、近くにある別のパスを探索する方法である <a class="reference internal" href="references.html#veachguibas1997" id="id10"><span>[VeachGuibas1997]</span></a>。見つけにくい経路が重要なシーンで威力を発揮する。</p>
+</dd>
+</dl>
+</section>
+<section id="id11">
+<h2><span class="section-number">12.6. </span>リアルタイムレイトレーシングとデノイズ<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<p>2018 年ごろから、レイと三角形の交差判定をハードウェアで高速に行う GPU が普及し、ゲームでもレイトレーシングが使われるようになった。ただし、リアルタイムでは 1 画素あたり数本程度のパスしか追跡できないため、そのままではノイズが非常に大きい。</p>
+<p>そこで、ノイズの多い画像からノイズを取り除くデノイズ（denoising）が重要な技術になっている。前後のフレームの情報を再利用する手法や、機械学習を用いた手法などがあり、少ない spp でも見た目にはノイズのない画像が得られる。また、多数の光源を含むシーンで、少ないサンプル数から効率よく直接光を推定する ReSTIR <a class="reference internal" href="references.html#bitterli2020" id="id12"><span>[Bitterli2020]</span></a> のような手法も開発されている。</p>
+</section>
+<section id="id13">
+<h2><span class="section-number">12.7. </span>ニューラルレンダリング<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<p>近年、機械学習とレンダリングを組み合わせた研究が盛んである。NeRF（Neural Radiance Fields）<a class="reference internal" href="references.html#mildenhall2020" id="id14"><span>[Mildenhall2020]</span></a> は、複数の視点から撮影した写真から、空間の各点の密度と放射輝度をニューラルネットワークで表現し、新しい視点からの画像を生成する。3D Gaussian Splatting <a class="reference internal" href="references.html#kerbl2023" id="id15"><span>[Kerbl2023]</span></a> は、シーンを多数の 3 次元のガウス分布の集まりで表し、リアルタイムに描画できるようにした。</p>
+<p>これらの手法では、本書で説明した放射輝度やボリュームレンダリングの考え方が基礎になっている。一方で、材質や光源を明示的に扱う物理ベースレンダリングとは異なり、照明を変えた画像を生成するには別の工夫が必要になる。</p>
+</section>
+<section id="id16">
+<h2><span class="section-number">12.8. </span>次に読むべき資料<a class="headerlink" href="#id16" title="Link to this heading"></a></h2>
+<p>本書の内容をさらに深く学ぶには、次の資料が役に立つ。</p>
+<ul class="simple">
+<li><p>『Physically Based Rendering: From Theory to Implementation』<a class="reference internal" href="references.html#pbr4" id="id17"><span>[PBR4]</span></a> は、物理ベースレンダリングの理論と実装を網羅した教科書である。本書で扱った話題の多くが、実際に動くレンダラーのコードとともに詳しく説明されている。全文がウェブで無料公開されている。</p></li>
+<li><p>『Ray Tracing in One Weekend』シリーズ <a class="reference internal" href="references.html#rtow" id="id18"><span>[RTOW]</span></a> は、短いコードでレイトレーサーを作りながら学べる入門書である。これも無料で公開されている。</p></li>
+<li><p>『Real-Time Rendering』<a class="reference internal" href="references.html#rtr4" id="id19"><span>[RTR4]</span></a> は、リアルタイムレンダリングの技術を網羅した教科書であり、ゲームエンジンにおける PBR の実際を学ぶのに適している。</p></li>
+<li><p>本章や各章で紹介した論文は、「<a class="reference internal" href="references.html"><span class="doc">参考文献</span></a>」にまとめてある。</p></li>
+</ul>
+</section>
+<section id="id20">
+<h2><span class="section-number">12.9. </span>まとめ<a class="headerlink" href="#id20" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>透過は BSDF、霧や煙は放射伝達方程式で扱う。</p></li>
+<li><p>波長に依存する現象はスペクトルレンダリングで扱う。</p></li>
+<li><p>パストレーシングが苦手な経路には、双方向パストレーシング、フォトンマッピング、メトロポリス光輸送などが使われる。</p></li>
+<li><p>リアルタイムレイトレーシングではデノイズが欠かせない。</p></li>
+<li><p>ニューラルレンダリングも、放射輝度やボリュームレンダリングの考え方を基礎としている。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="practical_pbr.html" class="btn btn-neutral float-left" title="11. 実用 PBR ワークフロー" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="appendix_math.html" class="btn btn-neutral float-right" title="付録 A 数学的準備" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>11. 実用 PBR ワークフロー &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="12. 発展的な話題" href="advanced.html" />
+    <link rel="prev" title="10. パストレーシングの実装" href="path_tracing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">11. 実用 PBR ワークフロー</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">11.1. メタリック／ラフネスワークフロー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">11.2. スペキュラー／グロッシネスワークフロー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">11.3. テクスチャ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#disney-principled-brdf">11.4. Disney の Principled BRDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">11.5. イメージベースドライティング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">11.6. トーンマッピングと露出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gltf-2-0">11.7. glTF 2.0 のマテリアル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">11.8. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix_math.html">付録 A 数学的準備</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">11. </span>実用 PBR ワークフロー</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pbr">
+<h1><span class="section-number">11. </span>実用 PBR ワークフロー<a class="headerlink" href="#pbr" title="Link to this heading"></a></h1>
+<p>ここまでは、物理的な原理とパストレーシングによる計算を中心に説明してきた。本章では、ゲームエンジンや 3D モデリングツールで PBR がどのように使われているかを説明する。実際の制作現場では、理論をそのまま使うのではなく、アーティストが扱いやすいパラメーターに整理した「ワークフロー」として PBR が提供されている。</p>
+<section id="id1">
+<h2><span class="section-number">11.1. </span>メタリック／ラフネスワークフロー<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>現在最も広く使われているのが、メタリック／ラフネスワークフローである。材質を次の 3 つの主要なパラメーターで表す。</p>
+<dl class="simple">
+<dt>ベースカラー</dt><dd><p>材質の基本的な色。非金属では拡散反射の色（反射率 <span class="math notranslate nohighlight">\(\rho\)</span>）、金属では鏡面反射の色（<span class="math notranslate nohighlight">\(F_0\)</span>）を表す。</p>
+</dd>
+<dt>メタリック</dt><dd><p>材質が金属かどうか。0 が非金属（誘電体）、1 が金属を表す。</p>
+</dd>
+<dt>ラフネス</dt><dd><p>表面の粗さ。0 が完全に滑らか、1 が非常に粗い表面を表す。内部では <span class="math notranslate nohighlight">\(\alpha = r^2\)</span> に変換して GGX 分布に使うことが多い。</p>
+</dd>
+</dl>
+<p>このワークフローでは、レンダラーの内部で次のように BRDF のパラメーターを求める。</p>
+<div class="math notranslate nohighlight" id="equation-metallic-workflow">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-metallic-workflow" title="Link to this equation"></a></span>\[F_0 = (1 - m) \cdot 0.04 + m \cdot c_{\mathrm{base}}, \qquad \rho = (1 - m) \cdot c_{\mathrm{base}}\]</div>
+<p>ここで <span class="math notranslate nohighlight">\(m\)</span> はメタリック、<span class="math notranslate nohighlight">\(c_{\mathrm{base}}\)</span> はベースカラーである。非金属（<span class="math notranslate nohighlight">\(m = 0\)</span>）では、<span class="math notranslate nohighlight">\(F_0\)</span> は誘電体の典型的な値 0.04 に固定され、ベースカラーが拡散反射の色になる。金属（<span class="math notranslate nohighlight">\(m = 1\)</span>）では、拡散反射がなくなり、ベースカラーが <span class="math notranslate nohighlight">\(F_0\)</span> になる。これは「<a class="reference internal" href="light_matter.html"><span class="doc">光と物質の相互作用</span></a>」で説明した金属と誘電体の違いを、そのままパラメーターにしたものである。</p>
+<p>このワークフローの利点は、パラメーターが少なく、物理的にありえない組み合わせ（色の付いた鏡面反射を持つ非金属など）を作りにくいことである。メタリックは原則として 0 か 1 のどちらかを使う。中間の値は、錆びた金属や、金属の上に薄く付いたほこりなど、金属と非金属が 1 画素の中で混ざっている場合に使う。</p>
+<p>ベースカラーには、物理的にありうる範囲の値を使う必要がある。自然界で最も暗い物質（木炭など）でも反射率は数%あり、新雪のような最も白い物質でも 1 より小さい。真っ黒（0）や真っ白（1）のベースカラーは避けるべきである。</p>
+</section>
+<section id="id2">
+<h2><span class="section-number">11.2. </span>スペキュラー／グロッシネスワークフロー<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>もう 1 つのワークフローが、スペキュラー／グロッシネスワークフローである。拡散反射の色、鏡面反射の色（<span class="math notranslate nohighlight">\(F_0\)</span>）、グロッシネス（光沢度。ラフネスとは逆に、1 が滑らか）を直接指定する。</p>
+<p>メタリック／ラフネスワークフローより自由度が高く、たとえば宝石のように <span class="math notranslate nohighlight">\(F_0\)</span> が 0.04 から大きく外れる誘電体も表現できる。その反面、エネルギー保存を破る組み合わせ（拡散反射と鏡面反射の和が 1 を超えるなど）を作れてしまうため、扱いには注意が必要である。現在は、メタリック／ラフネスワークフローを基本とし、必要に応じて <span class="math notranslate nohighlight">\(F_0\)</span> を調整するパラメーター（スペキュラー）を追加する形が主流になっている。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">11.3. </span>テクスチャ<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>実際の材質は、場所によって色や粗さが異なる。そのため、各パラメーターは画像（テクスチャ）として与えることが多い。主なテクスチャを<a class="reference internal" href="#table-textures"><span class="std std-numref">表 11.1</span></a> に示す。</p>
+<table class="docutils align-default" id="table-textures">
+<caption><span class="caption-number">表 11.1 </span><span class="caption-text">PBR で使われる主なテクスチャ</span><a class="headerlink" href="#table-textures" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 45.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>テクスチャ</p></th>
+<th class="head"><p>内容</p></th>
+<th class="head"><p>値の扱い</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ベースカラー</p></td>
+<td><p>材質の色</p></td>
+<td><p>sRGB（線形に変換して使う）</p></td>
+</tr>
+<tr class="row-odd"><td><p>メタリック</p></td>
+<td><p>金属かどうか（0〜1）</p></td>
+<td><p>線形</p></td>
+</tr>
+<tr class="row-even"><td><p>ラフネス</p></td>
+<td><p>表面の粗さ（0〜1）</p></td>
+<td><p>線形</p></td>
+</tr>
+<tr class="row-odd"><td><p>法線マップ</p></td>
+<td><p>細かな凹凸による法線の向きの変化</p></td>
+<td><p>線形</p></td>
+</tr>
+<tr class="row-even"><td><p>アンビエントオクルージョン</p></td>
+<td><p>凹んだ部分での環境光の遮られ具合</p></td>
+<td><p>線形</p></td>
+</tr>
+<tr class="row-odd"><td><p>エミッシブ</p></td>
+<td><p>自ら発する光の色</p></td>
+<td><p>sRGB（線形に変換して使う）</p></td>
+</tr>
+</tbody>
+</table>
+<p>「<a class="reference internal" href="light_and_color.html"><span class="doc">光と色の基礎</span></a>」で説明したように、色を表すテクスチャは sRGB で符号化されているのが普通であり、計算の前に線形な値に変換する必要がある。一方、メタリックやラフネスのように色ではない数値を表すテクスチャは、もともと線形な値として保存されている。この 2 種類を取り違えると、材質の見た目が大きく変わってしまう。GPU やゲームエンジンでは、テクスチャごとに「sRGB として扱うかどうか」を設定できる。</p>
+<p>法線マップは、ポリゴンの数を増やさずに細かな凹凸を表現するためのテクスチャである。各画素に法線の向きを RGB の値として格納しておき、シェーディングのときに幾何的な法線の代わりに使う。</p>
+</section>
+<section id="disney-principled-brdf">
+<h2><span class="section-number">11.4. </span>Disney の Principled BRDF<a class="headerlink" href="#disney-principled-brdf" title="Link to this heading"></a></h2>
+<p>映画制作の分野で PBR を普及させるきっかけとなったのが、Walt Disney Animation Studios の Burley による Principled BRDF <a class="reference internal" href="references.html#burley2012" id="id4"><span>[Burley2012]</span></a> である。Burley は、MERL の実測 BRDF の分析に基づいて、次のような原則を掲げた。</p>
+<ul class="simple">
+<li><p>物理的なパラメーターではなく、直感的なパラメーターを使う。</p></li>
+<li><p>パラメーターの数はできるだけ少なくする。</p></li>
+<li><p>パラメーターの値は 0 から 1 の範囲とする。</p></li>
+<li><p>意味がある場合は、範囲を超える値も許す。</p></li>
+<li><p>パラメーターのあらゆる組み合わせが、破綻のない、もっともらしい結果になるようにする。</p></li>
+</ul>
+<p>Principled BRDF は、ベースカラー、メタリック、ラフネスに加えて、スペキュラー、スペキュラーティント、異方性、シーン（sheen。布の表面の毛羽による光沢）、クリアコート（自動車の塗装のような透明な上塗り層）などのパラメーターを持つ。このモデルの考え方は、Epic Games の Unreal Engine 4 <a class="reference internal" href="references.html#karis2013" id="id5"><span>[Karis2013]</span></a> をはじめとする多くのゲームエンジンや、Blender の Principled BSDF などの 3D ツールに取り入れられ、メタリック／ラフネスワークフローが業界標準となるきっかけとなった。</p>
+</section>
+<section id="id6">
+<h2><span class="section-number">11.5. </span>イメージベースドライティング<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>現実の物体は、点光源だけでなく、空、周囲の建物、部屋の壁など、あらゆる方向からの光に照らされている。周囲の光の分布を、全方向を写した HDR 画像（環境マップ）として与え、それを光源として使う方法をイメージベースドライティング（Image Based Lighting、IBL）と呼ぶ。金属が金属らしく見えるためには、周囲の環境の映り込みが欠かせないため、IBL は PBR と組み合わせて広く使われている。</p>
+<p>パストレーシングでは、レイが何にも当たらなかったときに、その方向の環境マップの値を入射光とすればよい。一方、リアルタイムのラスタライズでは、画素ごとに反射方程式の積分をモンテカルロ積分で計算する余裕はない。そこで、Karis <a class="reference internal" href="references.html#karis2013" id="id7"><span>[Karis2013]</span></a> が紹介した Split Sum 近似がよく使われる。これは、反射方程式の積分を、次の 2 つの積分の積で近似する方法である。</p>
+<div class="math notranslate nohighlight" id="equation-split-sum">
+<span class="eqno">(11.2)<a class="headerlink" href="#equation-split-sum" title="Link to this equation"></a></span>\[\int_{\Omega} L_i(\omega_i) f_r(\omega_i, \omega_o) \cos\theta_i \, d\omega_i
+\approx
+\underbrace{\frac{\int_{\Omega} L_i(\omega_i) D(\mathbf{h}) \cos\theta_i \, d\omega_i}{\int_{\Omega} D(\mathbf{h}) \cos\theta_i \, d\omega_i}}_{\text{前処理済みの環境マップ}}
+\cdot
+\underbrace{\int_{\Omega} f_r(\omega_i, \omega_o) \cos\theta_i \, d\omega_i}_{\text{BRDF の積分}}\]</div>
+<p>1 つ目の積分は、環境マップをラフネスに応じてぼかしたものであり、ラフネスの段階ごとにあらかじめ計算しておく（ここでの <span class="math notranslate nohighlight">\(D\)</span> の重み付けは、<span class="math notranslate nohighlight">\(\omega_o\)</span> を法線方向に固定するなどの近似のもとで計算する）。2 つ目の積分は環境マップによらず、<span class="math notranslate nohighlight">\(\mathbf{n} \cdot \omega_o\)</span> とラフネスの 2 つの変数の関数として表にしておける（<span class="math notranslate nohighlight">\(F_0\)</span> は Schlick 近似を使って括り出す）。実行時には、2 つの表を引いて掛け合わせるだけで、環境マップによる鏡面反射をおおよそ再現できる。</p>
+</section>
+<section id="id8">
+<h2><span class="section-number">11.6. </span>トーンマッピングと露出<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>「<a class="reference internal" href="light_and_color.html"><span class="doc">光と色の基礎</span></a>」で述べたように、物理に基づいて計算した HDR の値は、トーンマッピングによって表示できる範囲に変換する必要がある。</p>
+<p>トーンマッピングの前には、写真撮影と同じように露出を調整する。露出は、HDR の値に一定の係数を掛ける操作である。明るい屋外のシーンでは係数を小さく、暗い室内のシーンでは大きくする。</p>
+<p>代表的なトーンマッピング関数を<a class="reference internal" href="#fig-tone-curves"><span class="std std-numref">図 11.1</span></a> に示す。</p>
+<figure class="align-center" id="fig-tone-curves">
+<a class="reference internal image-reference" href="_images/tone_curves.png"><img alt="_images/tone_curves.png" src="_images/tone_curves.png" style="width: 75%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 11.1 </span><span class="caption-text">トーンマッピング関数の比較（横軸は対数目盛）</span><a class="headerlink" href="#fig-tone-curves" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<dl class="simple">
+<dt>切り詰め（Clamp）</dt><dd><p>1 を超える値を 1 にするだけの方法である。明るい部分の情報がすべて失われる。</p>
+</dd>
+<dt>Reinhard</dt><dd><p><span class="math notranslate nohighlight">\(x / (1 + x)\)</span> で変換する Reinhard らの方法 <a class="reference internal" href="references.html#reinhard2002" id="id9"><span>[Reinhard2002]</span></a> である。どれほど大きな値も 1 未満に収まり、明るい部分の階調が残る。一方で、画像全体のコントラストが低くなりやすい。</p>
+</dd>
+<dt>ACES</dt><dd><p>映画業界の色管理の規格 ACES（Academy Color Encoding System）に含まれる変換を模したものである。暗い部分と明るい部分をなだらかに圧縮し、中間の明るさのコントラストを保つ、フィルム写真に似た S 字型の曲線になる。<a class="reference internal" href="#fig-tone-curves"><span class="std std-numref">図 11.1</span></a> では、Narkowicz による近似式 <a class="reference internal" href="references.html#narkowicz2016" id="id10"><span>[Narkowicz2016]</span></a> を用いている。</p>
+</dd>
+</dl>
+<p>これらを、明るさが指数的に増える HDR 画像に適用した結果を<a class="reference internal" href="#fig-tone-comparison"><span class="std std-numref">図 11.2</span></a> に示す。上半分は無彩色、下半分はオレンジ色の光である。</p>
+<figure class="align-center" id="fig-tone-comparison">
+<a class="reference internal image-reference" href="_images/tone_mapping_comparison.png"><img alt="_images/tone_mapping_comparison.png" src="_images/tone_mapping_comparison.png" style="width: 85%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 11.2 </span><span class="caption-text">HDR 画像に各トーンマッピングを適用した結果</span><a class="headerlink" href="#fig-tone-comparison" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>切り詰めでは、ある明るさを超えると真っ白になる。また、オレンジ色の部分は、成分ごとに 1 に切り詰められる順番が異なるため、明るくなるにつれて黄色に色相が変わってしまう。Reinhard と ACES では、明るい部分も階調を保ったまま白に近づいていく。</p>
+<p>なお、本書のパストレーサーは簡単のため切り詰めを使っている。光源そのものと金の球のハイライトを除けば、値がほとんど 1 を超えないように光源の強さを調整してある。</p>
+</section>
+<section id="gltf-2-0">
+<h2><span class="section-number">11.7. </span>glTF 2.0 のマテリアル<a class="headerlink" href="#gltf-2-0" title="Link to this heading"></a></h2>
+<p>glTF 2.0 <a class="reference internal" href="references.html#gltf2" id="id11"><span>[glTF2]</span></a> は、Khronos Group が策定した 3D モデルの標準的なファイル形式であり、メタリック／ラフネスワークフローをマテリアルの標準として採用している。glTF のマテリアルのパラメーターと、本書で説明した概念との対応を<a class="reference internal" href="#table-gltf"><span class="std std-numref">表 11.2</span></a> に示す。</p>
+<table class="docutils align-default" id="table-gltf">
+<caption><span class="caption-number">表 11.2 </span><span class="caption-text">glTF 2.0 のマテリアルのパラメーター</span><a class="headerlink" href="#table-gltf" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>パラメーター</p></th>
+<th class="head"><p>対応する概念</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>baseColorFactor, baseColorTexture</p></td>
+<td><p>ベースカラー。テクスチャは sRGB で符号化される。</p></td>
+</tr>
+<tr class="row-odd"><td><p>metallicFactor, roughnessFactor</p></td>
+<td><p>メタリックとラフネス。</p></td>
+</tr>
+<tr class="row-even"><td><p>metallicRoughnessTexture</p></td>
+<td><p>メタリック（B チャンネル）とラフネス（G チャンネル）をまとめたテクスチャ。</p></td>
+</tr>
+<tr class="row-odd"><td><p>normalTexture</p></td>
+<td><p>法線マップ。</p></td>
+</tr>
+<tr class="row-even"><td><p>occlusionTexture</p></td>
+<td><p>アンビエントオクルージョン（R チャンネル）。</p></td>
+</tr>
+<tr class="row-odd"><td><p>emissiveFactor, emissiveTexture</p></td>
+<td><p>自ら発する光。</p></td>
+</tr>
+</tbody>
+</table>
+<p>glTF 2.0 の仕様書は、これらのパラメーターから BRDF を計算する方法も示しており、そこでは本書で説明した GGX 分布、Smith の幾何減衰項、Schlick 近似、<span class="math notranslate nohighlight">\(\alpha = r^2\)</span> の変換が使われている。さらに、クリアコート、透過、シーン（sheen）などを追加する拡張機能も定められている。</p>
+</section>
+<section id="id12">
+<h2><span class="section-number">11.8. </span>まとめ<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>メタリック／ラフネスワークフローは、ベースカラー、メタリック、ラフネスの 3 つのパラメーターで材質を表し、金属と誘電体の物理的な違いをそのまま反映している。</p></li>
+<li><p>色を表すテクスチャは sRGB、数値を表すテクスチャは線形として扱う。</p></li>
+<li><p>IBL は周囲の環境を光源として使う方法であり、リアルタイムでは Split Sum 近似などの事前計算を用いる。</p></li>
+<li><p>表示の前には、露出の調整とトーンマッピングを行う。</p></li>
+<li><p>glTF 2.0 は、本書で説明したモデルに基づくマテリアルを標準として採用している。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="path_tracing.html" class="btn btn-neutral float-left" title="10. パストレーシングの実装" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="advanced.html" class="btn btn-neutral float-right" title="12. 発展的な話題" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

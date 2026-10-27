@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VEX 入門 &mdash; Houdini 入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9f2b073c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=35a8b989"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="プロシージャルモデリングの実践" href="procedural.html" />
+    <link rel="prev" title="パラメーターとエクスプレッション" href="expressions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Houdini 入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Houdini とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cg_basics.html">3DCG の基礎知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">画面と基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodes.html">ノードとネットワーク</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modeling.html">はじめてのモデリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">ジオメトリとアトリビュート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">パラメーターとエクスプレッション</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">VEX 入門</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#attribute-wrangle">Attribute Wrangle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">基本の文法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">アトリビュートの読み書き</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">パラメーターを読む</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">よく使う関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">入力のジオメトリと出力のジオメトリ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">作例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">例 1: 波打つグリッド</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">例 2: でこぼこの球</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">例 3: らせんを描く</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">例 4: 最も近いポイントまでの距離で色を付ける</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#vex-python">VEX と Python の速さ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vop">VOP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="procedural.html">プロシージャルモデリングの実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python による操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hda.html">デジタルアセット</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">マテリアルとレンダリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">シミュレーション入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="next.html">次のステップ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">サンプルコード一覧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Houdini 入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">VEX 入門</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vex">
+<h1>VEX 入門<a class="headerlink" href="#vex" title="Link to this heading"></a></h1>
+<p>VEX は、Houdini の中でジオメトリやボリュームを処理するための言語である。文法は C 言語に似ている。VEX のコードは、ポイントやプリミティブの 1 個 1 個に対して並列に実行される。そのため、大量の要素を高速に処理できる。この章では、Attribute Wrangle ノードで VEX を使う方法を説明する。</p>
+<section id="attribute-wrangle">
+<h2>Attribute Wrangle<a class="headerlink" href="#attribute-wrangle" title="Link to this heading"></a></h2>
+<p>Attribute Wrangle ノードは、<span class="guilabel">VEXpression</span> パラメーターに書いた VEX のコードを、入力のジオメトリの要素ごとに実行するノードである。コードを実行する要素の種類は、<span class="guilabel">Run Over</span> パラメーターで選ぶ。</p>
+<table class="docutils align-default" id="id11">
+<caption><span class="caption-number">表 21 </span><span class="caption-text">Run Over の選択肢</span><a class="headerlink" href="#id11" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>選択肢</p></th>
+<th class="head"><p>コードを実行する回数と単位</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="guilabel">Points</span>（既定）</p></td>
+<td><p>ポイントごとに 1 回ずつ</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Primitives</span></p></td>
+<td><p>プリミティブごとに 1 回ずつ</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">Vertices</span></p></td>
+<td><p>バーテックスごとに 1 回ずつ</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Detail (only once)</span></p></td>
+<td><p>ジオメトリ全体に対して 1 回だけ。入力が無くても実行される。</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">Numbers</span></p></td>
+<td><p>指定した回数</p></td>
+</tr>
+</tbody>
+</table>
+<p>例えば、Grid ノードの後ろに Attribute Wrangle ノードをつなぎ、<span class="guilabel">VEXpression</span> に次の 1 行を書く。</p>
+<div class="highlight-vex notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="nv">@P</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="nv">@P</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.3</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><span class="guilabel">Run Over</span> が <span class="guilabel">Points</span> なので、この行はグリッドの全てのポイントに対して 1 回ずつ実行される。<code class="docutils literal notranslate"><span class="pre">&#64;P</span></code> は処理中のポイントの位置であり、その y 成分を x 座標の正弦波にしている。結果として、グリッドが波打つ。Python で書くなら次のループに相当するが、VEX ではループを書かない。ループは Houdini が並列に実行する。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">geo</span><span class="o">.</span><span class="n">points</span><span class="p">():</span>
+<span class="linenos">2</span>    <span class="n">pos</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">position</span><span class="p">()</span>
+<span class="linenos">3</span>    <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.3</span>
+<span class="linenos">4</span>    <span class="n">point</span><span class="o">.</span><span class="n">setPosition</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h2>基本の文法<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>VEX の文法は C 言語に近い。</p>
+<ul class="simple">
+<li><p>文の終わりにはセミコロン（<code class="docutils literal notranslate"><span class="pre">;</span></code>）が必要である。</p></li>
+<li><p>コメントは <code class="docutils literal notranslate"><span class="pre">//</span></code> から行末まで、または <code class="docutils literal notranslate"><span class="pre">/*</span></code> と <code class="docutils literal notranslate"><span class="pre">*/</span></code> の間である。</p></li>
+<li><p>変数は、型を付けて宣言する。<code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">count</span> <span class="pre">=</span> <span class="pre">10;</span></code> のように書く。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span></code>、<code class="docutils literal notranslate"><span class="pre">for</span></code>、<code class="docutils literal notranslate"><span class="pre">while</span></code>、<code class="docutils literal notranslate"><span class="pre">foreach</span></code> などの制御文を使える。</p></li>
+<li><p>三角関数の角度はラジアンで指定する。</p></li>
+</ul>
+<table class="docutils align-default" id="id12">
+<caption><span class="caption-number">表 22 </span><span class="caption-text">VEX の主な型</span><a class="headerlink" href="#id12" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>型</p></th>
+<th class="head"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>整数</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>浮動小数点数</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vector2</span></code>、<code class="docutils literal notranslate"><span class="pre">vector</span></code>、<code class="docutils literal notranslate"><span class="pre">vector4</span></code></p></td>
+<td><p>2 個、3 個、4 個の浮動小数点数。<code class="docutils literal notranslate"><span class="pre">vector</span></code> は位置、方向、色に使う。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">matrix3</span></code>、<code class="docutils literal notranslate"><span class="pre">matrix</span></code></p></td>
+<td><p>3 x 3、4 x 4 の行列</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>文字列</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>辞書</p></td>
+</tr>
+<tr class="row-even"><td><p>配列</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int[]</span></code>、<code class="docutils literal notranslate"><span class="pre">vector[]</span></code> のように、型の後ろに <code class="docutils literal notranslate"><span class="pre">[]</span></code> を付ける。</p></td>
+</tr>
+</tbody>
+</table>
+<p>ベクトルの成分は、<code class="docutils literal notranslate"><span class="pre">v.x</span></code>、<code class="docutils literal notranslate"><span class="pre">v.y</span></code>、<code class="docutils literal notranslate"><span class="pre">v.z</span></code> で読み書きする。色として使うときは <code class="docutils literal notranslate"><span class="pre">v.r</span></code>、<code class="docutils literal notranslate"><span class="pre">v.g</span></code>、<code class="docutils literal notranslate"><span class="pre">v.b</span></code> とも書ける。</p>
+<p>ベクトルを作るには 2 つの書き方がある。</p>
+<div class="highlight-vex notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="nb">vector</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">};</span><span class="w">          </span><span class="c1">// 波かっこ: 定数だけ書ける</span>
+<span class="linenos">2</span><span class="kt">float</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span>
+<span class="linenos">3</span><span class="nb">vector</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">       </span><span class="c1">// set(): 変数や式を書ける</span>
+<span class="linenos">4</span><span class="c1">// vector c = {0, h, 0};       // エラーになる</span>
+</pre></div>
+</div>
+<p>波かっこ（<code class="docutils literal notranslate"><span class="pre">{}</span></code>）の中には定数しか書けない。変数や式を含むベクトルは <code class="docutils literal notranslate"><span class="pre">set()</span></code> 関数で作る。これは間違えやすい点である。</p>
+</section>
+<section id="id2">
+<h2>アトリビュートの読み書き<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;</span></code> の後にアトリビュートの名前を書くと、処理中の要素のアトリビュートを読み書きできる。存在しないアトリビュートに書き込むと、新しく作られる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;</span></code> の前に 1 文字を付けて、アトリビュートの型を指定する。</p>
+<table class="docutils align-default" id="id13">
+<caption><span class="caption-number">表 23 </span><span class="caption-text">アトリビュートの型の指定</span><a class="headerlink" href="#id13" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>書き方</p></th>
+<th class="head"><p>型</p></th>
+<th class="head"><p>例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">f&#64;name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">f&#64;height</span> <span class="pre">=</span> <span class="pre">1.5;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">i&#64;name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">i&#64;floors</span> <span class="pre">=</span> <span class="pre">3;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">v&#64;name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vector</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">v&#64;scale</span> <span class="pre">=</span> <span class="pre">{1,</span> <span class="pre">2,</span> <span class="pre">1};</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">p&#64;name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vector4</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">p&#64;orient</span> <span class="pre">=</span> <span class="pre">{0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1};</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s&#64;name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">s&#64;name</span> <span class="pre">=</span> <span class="pre">&quot;roof&quot;;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">u&#64;name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vector2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">u&#64;st</span> <span class="pre">=</span> <span class="pre">{0.5,</span> <span class="pre">0.5};</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">4&#64;name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">matrix</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">4&#64;xform</span> <span class="pre">=</span> <span class="pre">ident();</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>型を省略すると <code class="docutils literal notranslate"><span class="pre">float</span></code> とみなされる。ただし、<code class="docutils literal notranslate"><span class="pre">P</span></code>、<code class="docutils literal notranslate"><span class="pre">N</span></code>、<code class="docutils literal notranslate"><span class="pre">Cd</span></code>、<code class="docutils literal notranslate"><span class="pre">v</span></code>、<code class="docutils literal notranslate"><span class="pre">uv</span></code>、<code class="docutils literal notranslate"><span class="pre">scale</span></code> などの決まったアトリビュートは、型を省略してもベクトルとして扱われる。<code class="docutils literal notranslate"><span class="pre">id</span></code> は整数、<code class="docutils literal notranslate"><span class="pre">name</span></code> は文字列として扱われる。自分で作るアトリビュートには、型を明示する習慣を付けるとよい。<code class="docutils literal notranslate"><span class="pre">&#64;height</span></code> と書いたつもりで <code class="docutils literal notranslate"><span class="pre">height</span></code> をベクトルとして作ってしまう、といった間違いを防げる。</p>
+<p>アトリビュートのほかに、次の変数を使える。</p>
+<table class="docutils align-default" id="id14">
+<caption><span class="caption-number">表 24 </span><span class="caption-text">よく使う組み込みの変数</span><a class="headerlink" href="#id14" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>変数</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;ptnum</span></code></p></td>
+<td><p>処理中のポイントの番号</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;numpt</span></code></p></td>
+<td><p>ポイントの総数</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;primnum</span></code></p></td>
+<td><p>処理中のプリミティブの番号</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;numprim</span></code></p></td>
+<td><p>プリミティブの総数</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;Time</span></code></p></td>
+<td><p>現在の時刻（秒）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;Frame</span></code></p></td>
+<td><p>現在のフレーム番号</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id3">
+<h2>パラメーターを読む<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>コードの中の定数を後から調整できるように、パラメーターにしておくと便利である。VEX では <code class="docutils literal notranslate"><span class="pre">chf(&quot;名前&quot;)</span></code>（浮動小数点数）、<code class="docutils literal notranslate"><span class="pre">chi(&quot;名前&quot;)</span></code>（整数）、<code class="docutils literal notranslate"><span class="pre">chv(&quot;名前&quot;)</span></code>（ベクトル）、<code class="docutils literal notranslate"><span class="pre">chramp(&quot;名前&quot;,</span> <span class="pre">位置)</span></code>（ランプ）で、ノードのパラメーターを読める。</p>
+<p><code class="docutils literal notranslate"><span class="pre">chf(&quot;amplitude&quot;)</span></code> のように書いた後、<span class="guilabel">VEXpression</span> の右にあるボタン（ツールチップは「Creates spare parameters for each unique call of ch()」）を押すと、コードの中の <code class="docutils literal notranslate"><span class="pre">ch</span></code> 系の関数の呼び出しに対応するパラメーターが、ノードに自動的に追加される。このように後から追加したパラメーターを、スペアパラメーターと呼ぶ。</p>
+</section>
+<section id="id4">
+<h2>よく使う関数<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>VEX には多くの関数が用意されている。よく使うものを挙げる。全ての関数は、ヘルプの VEX の関数の一覧で調べられる。</p>
+<table class="docutils align-default" id="id15">
+<caption><span class="caption-number">表 25 </span><span class="caption-text">VEX でよく使う関数</span><a class="headerlink" href="#id15" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>関数</p></th>
+<th class="head"><p>機能</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fit(v,</span> <span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">c,</span> <span class="pre">d)</span></code>、<code class="docutils literal notranslate"><span class="pre">fit01(v,</span> <span class="pre">c,</span> <span class="pre">d)</span></code></p></td>
+<td><p>値 <code class="docutils literal notranslate"><span class="pre">v</span></code> を範囲 a から b（<code class="docutils literal notranslate"><span class="pre">fit01</span></code> では 0 から 1）から、範囲 c から d に換算する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lerp(a,</span> <span class="pre">b,</span> <span class="pre">t)</span></code></p></td>
+<td><p>a と b を t の割合で混ぜる（線形補間）。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clamp(v,</span> <span class="pre">a,</span> <span class="pre">b)</span></code></p></td>
+<td><p>値を a から b の範囲に収める。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rand(seed)</span></code></p></td>
+<td><p>0 から 1 の乱数。同じ <code class="docutils literal notranslate"><span class="pre">seed</span></code> には同じ値を返す。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">noise(pos)</span></code></p></td>
+<td><p>位置に応じて滑らかに変化する乱数（ノイズ）。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sin()</span></code>、<code class="docutils literal notranslate"><span class="pre">cos()</span></code></p></td>
+<td><p>三角関数（ラジアン）。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">length(v)</span></code>、<code class="docutils literal notranslate"><span class="pre">normalize(v)</span></code></p></td>
+<td><p>ベクトルの長さ、長さ 1 にしたベクトル。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">distance(a,</span> <span class="pre">b)</span></code></p></td>
+<td><p>2 点の距離。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dot(a,</span> <span class="pre">b)</span></code>、<code class="docutils literal notranslate"><span class="pre">cross(a,</span> <span class="pre">b)</span></code></p></td>
+<td><p>内積、外積。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">point(input,</span> <span class="pre">&quot;名前&quot;,</span> <span class="pre">ptnum)</span></code></p></td>
+<td><p>入力のジオメトリの、指定したポイントのアトリビュートを読む。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nearpoint(input,</span> <span class="pre">pos)</span></code></p></td>
+<td><p>位置 <code class="docutils literal notranslate"><span class="pre">pos</span></code> に最も近いポイントの番号を返す。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">addpoint(0,</span> <span class="pre">pos)</span></code></p></td>
+<td><p>ポイントを追加し、その番号を返す。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">addprim(0,</span> <span class="pre">&quot;poly&quot;)</span></code>、<code class="docutils literal notranslate"><span class="pre">addvertex(0,</span> <span class="pre">prim,</span> <span class="pre">pt)</span></code></p></td>
+<td><p>プリミティブを追加する。プリミティブにポイントをつなぐ。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">removepoint(0,</span> <span class="pre">ptnum)</span></code>、<code class="docutils literal notranslate"><span class="pre">removeprim(0,</span> <span class="pre">primnum,</span> <span class="pre">1)</span></code></p></td>
+<td><p>ポイント、プリミティブを削除する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">setpointattrib(0,</span> <span class="pre">&quot;名前&quot;,</span> <span class="pre">ptnum,</span> <span class="pre">値)</span></code></p></td>
+<td><p>指定したポイントのアトリビュートを書く。</p></td>
+</tr>
+</tbody>
+</table>
+<p>関数の最初の引数の数字（<code class="docutils literal notranslate"><span class="pre">input</span></code>）は、ノードの入力の番号である。0 が 1 番目の入力、1 が 2 番目の入力を表す。<code class="docutils literal notranslate"><span class="pre">addpoint</span></code> などのジオメトリを変更する関数の 0 は、このノードが出力するジオメトリを表す。</p>
+</section>
+<section id="id5">
+<h2>入力のジオメトリと出力のジオメトリ<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>VEX のコードは、全ての要素で同時に（並列に）実行される。そのため、コードの中では次の 2 つを区別する必要がある。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">point(0,</span> <span class="pre">&quot;P&quot;,</span> <span class="pre">n)</span></code> のような関数が読むのは、ノードに入力された（変更される前の）ジオメトリである。他の要素がコードの中で書き換えた値は読めない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;P</span> <span class="pre">=</span> <span class="pre">...</span></code> や <code class="docutils literal notranslate"><span class="pre">setpointattrib()</span></code> で書いた値と、<code class="docutils literal notranslate"><span class="pre">addpoint()</span></code> で追加したポイントは、全ての要素の処理が終わった後で出力のジオメトリに反映される。</p></li>
+</ul>
+<p>この仕組みにより、要素の処理の順序を気にせずにコードを書ける。逆に、「隣のポイントを先に動かし、その結果を使って自分を動かす」ような逐次的な処理は、1 個の Wrangle では書けない。その場合は Wrangle を 2 個に分けるか、<span class="guilabel">Detail (only once)</span> で全ての要素をループで処理する。</p>
+</section>
+<section id="id6">
+<h2>作例<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>サンプルコードの <code class="docutils literal notranslate"><span class="pre">build_vex_examples.py</span></code> は、<code class="docutils literal notranslate"><span class="pre">/obj/vex_examples</span></code> の中に次の 4 つの例を作る。VEX のコードは <code class="docutils literal notranslate"><span class="pre">examples/vex</span></code> ディレクトリにあり、Attribute Wrangle の <span class="guilabel">VEXpression</span> にそのまま貼り付けて使える。各コードの <code class="docutils literal notranslate"><span class="pre">ch</span></code> 系の関数が読むパラメーターは、前述のボタンで作る。スクリプトで作った場合は、スペアパラメーターも作られる。</p>
+<figure class="align-default" id="fig-vex-network">
+<div class="graphviz"><object data="_images/graphviz-6988588c69fb58dc4abfb5f168c711cdbafcdc5a.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph vex {
+  node [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#d4e8f7&quot;, fontsize=11];
+  grid [label=&quot;grid（Grid）&quot;];
+  wave [label=&quot;wave\n（Attribute Wrangle）&quot;];
+  sphere [label=&quot;sphere（Sphere）&quot;];
+  normal [label=&quot;normal（Normal）&quot;];
+  noise [label=&quot;noise_displace\n（Attribute Wrangle）&quot;];
+  spiral [label=&quot;spiral\n（Attribute Wrangle）&quot;];
+  nearest [label=&quot;nearest_color\n（Attribute Wrangle）&quot;];
+  o1 [label=&quot;OUT_wave&quot;, fillcolor=&quot;#fff3b0&quot;];
+  o2 [label=&quot;OUT_noise&quot;, fillcolor=&quot;#fff3b0&quot;];
+  o3 [label=&quot;OUT_spiral&quot;, fillcolor=&quot;#fff3b0&quot;];
+  o4 [label=&quot;OUT_nearest&quot;, fillcolor=&quot;#fff3b0&quot;];
+  grid -&gt; wave -&gt; o1;
+  sphere -&gt; normal -&gt; noise -&gt; o2;
+  spiral -&gt; o3;
+  grid -&gt; nearest; spiral -&gt; nearest;
+  nearest -&gt; o4;
+}</p></object></div>
+<figcaption>
+<p><span class="caption-number">図 16 </span><span class="caption-text">VEX の作例のネットワーク</span><a class="headerlink" href="#fig-vex-network" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="id7">
+<h3>例 1: 波打つグリッド<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p><span class="guilabel">Run Over</span> は <span class="guilabel">Points</span> である。<code class="docutils literal notranslate"><span class="pre">&#64;Time</span></code> を使っているので、再生すると波が流れる。</p>
+<div class="highlight-vex notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1">// グリッドを波打たせる（Run Over: Points）。</span>
+<span class="linenos">2</span><span class="c1">// @Time は秒単位の現在時刻なので、再生すると波が流れる。</span>
+<span class="linenos">3</span><span class="kt">float</span><span class="w"> </span><span class="n">freq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;frequency&quot;</span><span class="p">);</span><span class="w">   </span><span class="c1">// 波の細かさ</span>
+<span class="linenos">4</span><span class="kt">float</span><span class="w"> </span><span class="n">amp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;amplitude&quot;</span><span class="p">);</span><span class="w">    </span><span class="c1">// 波の高さ</span>
+<span class="linenos">5</span><span class="nv">@P</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="nv">@P</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">freq</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">@Time</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">amp</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3>例 2: でこぼこの球<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p><span class="guilabel">Run Over</span> は <span class="guilabel">Points</span> である。法線 <code class="docutils literal notranslate"><span class="pre">&#64;N</span></code> の向きに、ノイズの値だけポイントを動かす。入力の球には、Normal ノードで法線を付けておく。</p>
+<div class="highlight-vex notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1">// 球の表面を法線の方向にでこぼこさせる（Run Over: Points）。</span>
+<span class="linenos">2</span><span class="kt">float</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">noise</span><span class="p">(</span><span class="nv">@P</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;frequency&quot;</span><span class="p">));</span><span class="w">   </span><span class="c1">// 0 から 1 程度の滑らかな乱数</span>
+<span class="linenos">3</span><span class="nv">@P</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">@N</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;amplitude&quot;</span><span class="p">);</span>
+<span class="linenos">4</span><span class="nv">@Cd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w">                     </span><span class="c1">// でこぼこの量を色でも確認する</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>例 3: らせんを描く<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p><span class="guilabel">Run Over</span> は <span class="guilabel">Detail (only once)</span> で、入力は無い。<code class="docutils literal notranslate"><span class="pre">addprim</span></code> でポリライン（折れ線）のプリミティブを 1 個作り、<code class="docutils literal notranslate"><span class="pre">for</span></code> ループで作ったポイントを <code class="docutils literal notranslate"><span class="pre">addvertex</span></code> で順につないでいく。<code class="docutils literal notranslate"><span class="pre">PI</span></code> は円周率を表す定数である。</p>
+<div class="highlight-vex notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1">// ポイントとポリラインを作ってらせんを描く（Run Over: Detail）。</span>
+<span class="linenos"> 2</span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chi</span><span class="p">(</span><span class="s">&quot;count&quot;</span><span class="p">);</span><span class="w">        </span><span class="c1">// ポイントの数</span>
+<span class="linenos"> 3</span><span class="kt">float</span><span class="w"> </span><span class="n">turns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;turns&quot;</span><span class="p">);</span><span class="w">      </span><span class="c1">// 巻き数</span>
+<span class="linenos"> 4</span><span class="kt">float</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;height&quot;</span><span class="p">);</span><span class="w">    </span><span class="c1">// らせんの高さ</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="kt">int</span><span class="w"> </span><span class="n">prim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">addprim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;polyline&quot;</span><span class="p">);</span>
+<span class="linenos"> 7</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">        </span><span class="c1">// 0 から 1</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">turns</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="no">PI</span><span class="p">;</span><span class="w">      </span><span class="c1">// ラジアン</span>
+<span class="linenos">10</span><span class="w">    </span><span class="nb">vector</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">));</span>
+<span class="linenos">11</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">addpoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">pos</span><span class="p">);</span>
+<span class="linenos">12</span><span class="w">    </span><span class="n">addvertex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">prim</span><span class="p">,</span><span class="w"> </span><span class="n">pt</span><span class="p">);</span><span class="w">                  </span><span class="c1">// ポイントをポリラインに繋ぐ</span>
+<span class="linenos">13</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>例 4: 最も近いポイントまでの距離で色を付ける<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<p><span class="guilabel">Run Over</span> は <span class="guilabel">Points</span> である。1 番目の入力にグリッドを、2 番目の入力に例 3 のらせんをつなぐ。グリッドの各ポイントについて、らせんの最も近いポイントを <code class="docutils literal notranslate"><span class="pre">nearpoint(1,</span> <span class="pre">&#64;P)</span></code> で探し、その距離で色を決める。らせんの真下が赤く、離れるほど青くなる。</p>
+<div class="highlight-vex notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1">// 2 番目の入力（入力番号 1）の最も近いポイントまでの距離で色を付ける（Run Over: Points）。</span>
+<span class="linenos">2</span><span class="kt">int</span><span class="w"> </span><span class="n">near</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nearpoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nv">@P</span><span class="p">);</span><span class="w">                </span><span class="c1">// 最も近いポイントの番号</span>
+<span class="linenos">3</span><span class="nb">vector</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;P&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">near</span><span class="p">);</span><span class="w">        </span><span class="c1">// そのポイントの位置</span>
+<span class="linenos">4</span><span class="kt">float</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="nv">@P</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">);</span>
+<span class="linenos">5</span><span class="kt">float</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clamp</span><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">chf</span><span class="p">(</span><span class="s">&quot;max_distance&quot;</span><span class="p">),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
+<span class="linenos">6</span><span class="nv">@Cd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lerp</span><span class="p">({</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">},</span><span class="w"> </span><span class="n">t</span><span class="p">);</span><span class="w">   </span><span class="c1">// 近いほど赤、遠いほど青</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="vex-python">
+<h2>VEX と Python の速さ<a class="headerlink" href="#vex-python" title="Link to this heading"></a></h2>
+<p>VEX は、コンパイルされてから、CPU の複数のコアで並列に実行される。Python の Python SOP（<a class="reference internal" href="python.html"><span class="doc">Python による操作</span></a>）でも同じ処理を書けるが、ポイントを 1 個ずつ順に処理するため、ずっと遅い。本資料の環境（16 スレッドの CPU）で、25 万個のポイントを持つグリッドに本章の最初の例と同じ波の計算をしたところ、Attribute Wrangle は約 2 ミリ秒、Python SOP は約 1.8 秒かかった。</p>
+<p>要素ごとの計算は VEX で書き、Python はネットワークの操作やファイルの入出力に使うのが基本である。</p>
+</section>
+<section id="vop">
+<h2>VOP<a class="headerlink" href="#vop" title="Link to this heading"></a></h2>
+<p>VOP は、VEX のプログラムをノードで組み立てる仕組みである。Attribute VOP ノードの中で、<code class="docutils literal notranslate"><span class="pre">sin</span></code> や <code class="docutils literal notranslate"><span class="pre">noise</span></code> などの関数を表すノードをつないで処理を作ると、Houdini がそれを VEX のコードに変換して実行する。コードを書くか、ノードをつなぐかの違いで、できることはほぼ同じである。マテリアル（<a class="reference internal" href="rendering.html"><span class="doc">マテリアルとレンダリング</span></a>）も VOP のネットワークで定義する。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="expressions.html" class="btn btn-neutral float-left" title="パラメーターとエクスプレッション" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="procedural.html" class="btn btn-neutral float-right" title="プロシージャルモデリングの実践" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

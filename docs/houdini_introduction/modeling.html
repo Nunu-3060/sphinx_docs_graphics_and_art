@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>はじめてのモデリング &mdash; Houdini 入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9f2b073c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=35a8b989"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="ジオメトリとアトリビュート" href="attributes.html" />
+    <link rel="prev" title="ノードとネットワーク" href="nodes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Houdini 入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Houdini とは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cg_basics.html">3DCG の基礎知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">画面と基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodes.html">ノードとネットワーク</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">はじめてのモデリング</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#geometry">Geometry ノードを作る</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">天板を作る</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">配線用の穴を開ける</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">脚を作る</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">まとめる</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">パラメーターを変えてみる</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sop">その他のよく使う SOP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">ジオメトリとアトリビュート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expressions.html">パラメーターとエクスプレッション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vex.html">VEX 入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="procedural.html">プロシージャルモデリングの実践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python による操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hda.html">デジタルアセット</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">マテリアルとレンダリング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">シミュレーション入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="next.html">次のステップ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">サンプルコード一覧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Houdini 入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">はじめてのモデリング</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>はじめてのモデリング<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>この章では、<a class="reference internal" href="#fig-table"><span class="std std-numref">図 10</span></a> の机を作りながら、SOP の基本的なノードの使い方を覚える。天板は箱の角を丸め、配線用の穴を開ける。脚は 1 本だけ作り、4 か所にコピーする。</p>
+<figure class="align-default" id="id7">
+<span id="fig-table"></span><img alt="天板と 4 本の脚からなる机" src="_images/table.png" />
+<figcaption>
+<p><span class="caption-number">図 10 </span><span class="caption-text">この章で作る机（寸法から描いた完成形のイメージ）</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>完成したネットワークは <a class="reference internal" href="#fig-table-network"><span class="std std-numref">図 11</span></a> のようになる。同じネットワークは、サンプルコードの <code class="docutils literal notranslate"><span class="pre">build_table.py</span></code> でも作れる（<a class="reference internal" href="intro.html"><span class="doc">はじめに</span></a> の「サンプルコードの使い方」を参照）。</p>
+<figure class="align-default" id="fig-table-network">
+<div class="graphviz"><object data="_images/graphviz-3b151e1abd7a5dccca72714e865fe41a8b58050e.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph table {
+  node [shape=box, style=&quot;rounded,filled&quot;, fillcolor=&quot;#d4e8f7&quot;, fontsize=11];
+  top [label=&quot;top\n（Box）&quot;];
+  lift [label=&quot;lift_top\n（Transform）&quot;];
+  bevel [label=&quot;bevel_top\n（PolyBevel）&quot;];
+  hole [label=&quot;hole\n（Tube）&quot;];
+  cut [label=&quot;cut_hole\n（Boolean）&quot;];
+  leg [label=&quot;leg\n（Box）&quot;];
+  pos [label=&quot;leg_positions\n（Grid）&quot;];
+  copy [label=&quot;copy_legs\n（Copy to Points）&quot;];
+  merge [label=&quot;merge\n（Merge）&quot;];
+  out [label=&quot;OUT\n（Null）&quot;, fillcolor=&quot;#fff3b0&quot;];
+  top -&gt; lift -&gt; bevel -&gt; cut;
+  hole -&gt; cut;
+  leg -&gt; copy; pos -&gt; copy;
+  cut -&gt; merge; copy -&gt; merge;
+  merge -&gt; out;
+}</p></object></div>
+<figcaption>
+<p><span class="caption-number">図 11 </span><span class="caption-text">机のネットワーク</span><a class="headerlink" href="#fig-table-network" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>机の寸法は次のとおりとする。</p>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-number">表 12 </span><span class="caption-text">机の寸法</span><a class="headerlink" href="#id8" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>部分</p></th>
+<th class="head"><p>寸法（m）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>天板</p></td>
+<td><p>幅 1.2、厚さ 0.04、奥行き 0.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>机の高さ（床から天板の上面まで）</p></td>
+<td><p>0.72</p></td>
+</tr>
+<tr class="row-even"><td><p>脚</p></td>
+<td><p>断面 0.05 x 0.05、長さ 0.68（= 0.72 - 0.04）</p></td>
+</tr>
+<tr class="row-odd"><td><p>脚の位置</p></td>
+<td><p>天板の端から脚の中心まで 0.08</p></td>
+</tr>
+<tr class="row-even"><td><p>配線用の穴</p></td>
+<td><p>半径 0.03</p></td>
+</tr>
+</tbody>
+</table>
+<section id="geometry">
+<h2>Geometry ノードを作る<a class="headerlink" href="#geometry" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>ネットワークエディターが <code class="docutils literal notranslate"><span class="pre">/obj</span></code> を表示していることを確かめる。別の場所を表示しているときは、<kbd class="kbd docutils literal notranslate">U</kbd> を何度か押して戻る。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Tab</kbd> を押して <code class="docutils literal notranslate"><span class="pre">geometry</span></code> と入力し、<span class="guilabel">Geometry</span> を選んで配置する。</p></li>
+<li><p>ノードの名前を <code class="docutils literal notranslate"><span class="pre">table</span></code> に変える。</p></li>
+<li><p>ノードをダブルクリックして中に入る。中はまだ空である。</p></li>
+</ol>
+<p>以降の操作は、全て <code class="docutils literal notranslate"><span class="pre">table</span></code> の中で行う。</p>
+</section>
+<section id="id2">
+<h2>天板を作る<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Box ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">top</span></code> にする。<span class="guilabel">Size</span> を <code class="docutils literal notranslate"><span class="pre">1.2</span></code>、<code class="docutils literal notranslate"><span class="pre">0.04</span></code>、<code class="docutils literal notranslate"><span class="pre">0.7</span></code> にする。この時点では、天板は原点を中心に置かれている。</p></li>
+<li><p>Transform ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">lift_top</span></code> にする。<code class="docutils literal notranslate"><span class="pre">top</span></code> の出力を <code class="docutils literal notranslate"><span class="pre">lift_top</span></code> の入力につなぐ。<span class="guilabel">Translate</span> の Y を <code class="docutils literal notranslate"><span class="pre">0.7</span></code> にする。天板の中心の高さは、脚の長さ 0.68 に天板の厚さの半分 0.02 を足した 0.7 である。</p></li>
+<li><p>PolyBevel ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">bevel_top</span></code> にする。<code class="docutils literal notranslate"><span class="pre">lift_top</span></code> の出力をつなぐ。<span class="guilabel">Distance</span> を <code class="docutils literal notranslate"><span class="pre">0.005</span></code> にすると、天板の全ての辺が 5 mm だけ丸く削られる。</p></li>
+</ol>
+<p>Tab メニューで作ったノードは、選んでいたノードの下に自動的につながることがある。つながっていない場合や、違うノードにつながった場合は、ワイヤーをつなぎ直す。新しいノードを作るたびに、そのノードに Display フラグを移して結果を確かめるとよい。</p>
+</section>
+<section id="id3">
+<h2>配線用の穴を開ける<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>Boolean ノードは、2 つの形状の和、差、積を計算する。ここでは、天板から円柱を引いて穴を開ける。</p>
+<ol class="arabic simple">
+<li><p>Tube ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">hole</span></code> にする。次のパラメーターを設定する。</p>
+<ul class="simple">
+<li><p><span class="guilabel">Primitive Type</span>: <span class="guilabel">Polygon</span></p></li>
+<li><p><span class="guilabel">End Caps</span>: オン（円柱の上下にふたをする）</p></li>
+<li><p><span class="guilabel">Radius</span>: <code class="docutils literal notranslate"><span class="pre">0.03</span></code>、<code class="docutils literal notranslate"><span class="pre">0.03</span></code></p></li>
+<li><p><span class="guilabel">Height</span>: <code class="docutils literal notranslate"><span class="pre">0.2</span></code></p></li>
+<li><p><span class="guilabel">Columns</span>: <code class="docutils literal notranslate"><span class="pre">24</span></code>（円周の分割数）</p></li>
+<li><p><span class="guilabel">Center</span>: <code class="docutils literal notranslate"><span class="pre">0.45</span></code>、<code class="docutils literal notranslate"><span class="pre">0.68</span></code>、<code class="docutils literal notranslate"><span class="pre">-0.25</span></code>（天板の右奥。天板を上下に貫く高さ）</p></li>
+</ul>
+</li>
+<li><p>Boolean ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">cut_hole</span></code> にする。1 番目（左）の入力に <code class="docutils literal notranslate"><span class="pre">bevel_top</span></code> を、2 番目（右）の入力に <code class="docutils literal notranslate"><span class="pre">hole</span></code> をつなぐ。</p></li>
+<li><p><span class="guilabel">Operation</span> を <span class="guilabel">Subtract</span> にする。1 番目の入力から 2 番目の入力を引いた形が出力される。</p></li>
+</ol>
+<p>Boolean ノードは、どちらの入力も閉じた（穴の無い）形状であることを前提にしている。円柱の <span class="guilabel">End Caps</span> をオンにしたのはこのためである。</p>
+</section>
+<section id="id4">
+<h2>脚を作る<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>脚は 1 本だけ作り、Copy to Points ノードで 4 か所にコピーする。コピーする先は、Grid ノードで作る 4 個のポイントである。</p>
+<ol class="arabic">
+<li><p>Box ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">leg</span></code> にする。<span class="guilabel">Size</span> を <code class="docutils literal notranslate"><span class="pre">0.05</span></code>、<code class="docutils literal notranslate"><span class="pre">0.68</span></code>、<code class="docutils literal notranslate"><span class="pre">0.05</span></code> にする。<span class="guilabel">Center</span> の Y を <code class="docutils literal notranslate"><span class="pre">0.34</span></code> にして、脚の下端が床（y = 0）に来るようにする。</p></li>
+<li><p>Grid ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">leg_positions</span></code> にする。次のパラメーターを設定する。</p>
+<ul class="simple">
+<li><p><span class="guilabel">Orientation</span>: <span class="guilabel">ZX Plane</span>（地面に平行な面）</p></li>
+<li><p><span class="guilabel">Size</span>: <code class="docutils literal notranslate"><span class="pre">1.04</span></code>、<code class="docutils literal notranslate"><span class="pre">0.54</span></code>（天板の幅と奥行きから、両端の 0.08 ずつを引いた値）</p></li>
+<li><p><span class="guilabel">Rows</span>: <code class="docutils literal notranslate"><span class="pre">2</span></code>、<span class="guilabel">Columns</span>: <code class="docutils literal notranslate"><span class="pre">2</span></code></p></li>
+</ul>
+<p>行と列が 2 ずつなので、グリッドの四隅の 4 個のポイントができる。</p>
+</li>
+<li><p>Copy to Points ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">copy_legs</span></code> にする。1 番目の入力に <code class="docutils literal notranslate"><span class="pre">leg</span></code> を、2 番目の入力に <code class="docutils literal notranslate"><span class="pre">leg_positions</span></code> をつなぐ。1 番目の入力の形状が、2 番目の入力の各ポイントにコピーされる。</p></li>
+<li><p><span class="guilabel">Transform Using Implicit Target Point Normals If No Point N Attribute</span> をオフにする。</p></li>
+</ol>
+<p>最後の手順は重要である。Copy to Points ノードは、コピー先のポイントに法線（<code class="docutils literal notranslate"><span class="pre">N</span></code> アトリビュート）が無い場合、そのポイントを含む面の向きを法線とみなし、コピーの Z 軸をその向きに合わせる。グリッドの面は上を向いているので、この設定がオンのままだと、脚が 90 度倒れて床に寝てしまう。コピーの向きを決めるアトリビュートについては、<a class="reference internal" href="procedural.html"><span class="doc">プロシージャルモデリングの実践</span></a> で詳しく説明する。</p>
+</section>
+<section id="id5">
+<h2>まとめる<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Merge ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">merge</span></code> にする。<code class="docutils literal notranslate"><span class="pre">cut_hole</span></code> と <code class="docutils literal notranslate"><span class="pre">copy_legs</span></code> をつなぐ。Merge ノードは、入力された全ての形状を 1 つにまとめる。</p></li>
+<li><p>Null ノードを作り、名前を <code class="docutils literal notranslate"><span class="pre">OUT</span></code> にする。<code class="docutils literal notranslate"><span class="pre">merge</span></code> の出力をつなぎ、Display フラグを立てる。</p></li>
+</ol>
+<p>これで机ができた。ネットワークエディターでノードの上で MMB を押し続けると、そのノードの出力に含まれるポイントとプリミティブの数を確かめられる。<code class="docutils literal notranslate"><span class="pre">OUT</span></code> の出力は、ポイントが 104 個、プリミティブが 74 個になる。</p>
+</section>
+<section id="id6">
+<h2>パラメーターを変えてみる<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>プロシージャルな作り方の利点を確かめるため、作った後で寸法を変えてみる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bevel_top</span></code> の <span class="guilabel">Distance</span> を <code class="docutils literal notranslate"><span class="pre">0.015</span></code> にすると、天板の角の丸みが大きくなる。下流の <code class="docutils literal notranslate"><span class="pre">cut_hole</span></code> 以降は自動的にやり直される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bevel_top</span></code> の Bypass フラグを立てると、角を丸める前の形に戻る。フラグを戻すと、また丸くなる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hole</span></code> の <span class="guilabel">Center</span> の X を変えると、穴の位置が動く。</p></li>
+</ul>
+<p>一方、<code class="docutils literal notranslate"><span class="pre">top</span></code> の <span class="guilabel">Size</span> で天板の幅を変えると、天板だけが大きくなり、脚の位置はそのままになる。脚の位置を決めているのは <code class="docutils literal notranslate"><span class="pre">leg_positions</span></code> の <span class="guilabel">Size</span> であり、天板の幅とは独立した値だからである。机の高さを変える場合も、<code class="docutils literal notranslate"><span class="pre">lift_top</span></code>、<code class="docutils literal notranslate"><span class="pre">leg</span></code>、<code class="docutils literal notranslate"><span class="pre">hole</span></code> の 3 か所を書き換える必要がある。</p>
+<p>このように、関係のある値を別々に入力すると、変更のたびに複数の場所を直すことになる。プログラムで言えば、同じ定数をあちこちに直接書いている状態である。この問題は、パラメーターから別のパラメーターを参照するエクスプレッションで解決できる（<a class="reference internal" href="expressions.html"><span class="doc">パラメーターとエクスプレッション</span></a>）。</p>
+</section>
+<section id="sop">
+<h2>その他のよく使う SOP<a class="headerlink" href="#sop" title="Link to this heading"></a></h2>
+<p>この章で使わなかったものも含め、モデリングでよく使う SOP を挙げる。各ノードの詳しい使い方は、ノードのヘルプで確認できる。</p>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-number">表 13 </span><span class="caption-text">モデリングでよく使う SOP</span><a class="headerlink" href="#id9" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ノード</p></th>
+<th class="head"><p>機能</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Box、Sphere、Tube、Grid、Torus、Circle、Line</p></td>
+<td><p>基本的な形状を作る。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Transform</p></td>
+<td><p>移動、回転、拡大縮小する。</p></td>
+</tr>
+<tr class="row-even"><td><p>PolyExtrude</p></td>
+<td><p>面を押し出す。面を内側に縮める（インセット）こともできる。<a class="reference internal" href="procedural.html"><span class="doc">プロシージャルモデリングの実践</span></a> で使う。</p></td>
+</tr>
+<tr class="row-odd"><td><p>PolyBevel</p></td>
+<td><p>辺や角を丸める、または面取りする。</p></td>
+</tr>
+<tr class="row-even"><td><p>Boolean</p></td>
+<td><p>2 つの形状の和、差、積を計算する。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Merge</p></td>
+<td><p>複数の形状を 1 つにまとめる。</p></td>
+</tr>
+<tr class="row-even"><td><p>Copy to Points</p></td>
+<td><p>形状を、別の形状の各ポイントにコピーする。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Subdivide</p></td>
+<td><p>面を細かく分割して滑らかにする。</p></td>
+</tr>
+<tr class="row-even"><td><p>Mirror</p></td>
+<td><p>形状を鏡に映したように反転してコピーする。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Fuse</p></td>
+<td><p>近くにあるポイントを 1 つにまとめる。</p></td>
+</tr>
+<tr class="row-even"><td><p>Blast</p></td>
+<td><p>指定した要素（ポイントやプリミティブ）を削除する。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sweep</p></td>
+<td><p>曲線に沿って断面の形を掃引し、パイプのような形状を作る。</p></td>
+</tr>
+<tr class="row-even"><td><p>Scatter</p></td>
+<td><p>面の上にランダムにポイントを散らばらせる。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Object Merge</p></td>
+<td><p>別の Geometry ノードの中のノードの出力を取り込む。</p></td>
+</tr>
+<tr class="row-even"><td><p>File</p></td>
+<td><p>ファイルからジオメトリを読み込む。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nodes.html" class="btn btn-neutral float-left" title="ノードとネットワーク" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="attributes.html" class="btn btn-neutral float-right" title="ジオメトリとアトリビュート" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. ドット絵とは &mdash; ドット絵作成入門 1.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d9143941" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="3. 道具を準備する" href="tools.html" />
+    <link rel="prev" title="1. はじめに" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ドット絵作成入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. ドット絵とは</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">2.1. ピクセルと解像度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">2.2. ドット絵をデータとして見る</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">2.3. 代表的な大きさ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">2.4. 拡大して表示する</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">3. 道具を準備する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lines.html">4. 線を描く</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colors.html">5. 色を選ぶ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shading.html">6. 陰影と立体感</a></li>
+<li class="toctree-l1"><a class="reference internal" href="characters.html">7. キャラクターを描く</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tiles.html">8. タイルと背景</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">9. アニメーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postprocess.html">10. Python で後処理する</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ドット絵作成入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>ドット絵とは</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">2. </span>ドット絵とは<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>この章では、ドット絵がどのような絵なのかを整理し、ドット絵を扱ううえで前提となるピクセル、大きさ、拡大の方法について説明する。</p>
+<section id="id2">
+<h2><span class="section-number">2.1. </span>ピクセルと解像度<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>コンピューターで扱う画像の多くは、色の付いた小さな正方形を格子状に並べたものである。この正方形を<a class="reference internal" href="glossary.html#term-27"><span class="xref std std-term">ピクセル</span></a>と呼び、このように表した画像を<a class="reference internal" href="glossary.html#term-33"><span class="xref std std-term">ラスター画像</span></a>と呼ぶ。写真もイラストも、画面に表示されるときはラスター画像になっている。</p>
+<p>普通のイラストでは、ピクセルは細かすぎて見えないことが前提になっている。描き手はブラシで線を引き、ピクセルの色はソフトウェアが決める。これに対して<a class="reference internal" href="glossary.html#term-21"><span class="xref std std-term">ドット絵</span></a>は、ピクセルが見えることを前提にした絵である。画像の<a class="reference internal" href="glossary.html#term-4"><span class="xref std std-term">解像度</span></a>（縦横のピクセル数）を小さく抑え、1 つ 1 つのピクセルの色を描き手が意図して決める。</p>
+<figure class="align-center" id="id6">
+<span id="fig-pixel-grid"></span><img alt="16×16 ピクセルのスライムを等倍、4 倍、16 倍で表示した図" class="pixelated" src="_images/pixel_grid.png" />
+<figcaption>
+<p><span class="caption-number">図 2.1 </span><span class="caption-text">16×16 ピクセルのスライム。左から等倍、4 倍、16 倍（格子付き）。市松模様の部分は透明である。</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-pixel-grid"><span class="std std-numref">図 2.1</span></a> のスライムは 16×16 ピクセル、つまり 256 個のピクセルでできている。そのうち色が付いているのは 114 個で、使っている色は 5 色だけである。目は縦 2 ピクセルの線、ハイライトは数ピクセルの白で表している。このように、少ない情報で「それらしく見せる」ことがドット絵の面白さであり、難しさでもある。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">2.2. </span>ドット絵をデータとして見る<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>ドット絵は、プログラムからも扱いやすい。本書のサンプルコードでは、ドット絵を「1 文字が 1 ピクセルを表す文字列のリスト」と、「文字から色への対応表（パレット）」の組で表している。次のリストは <a class="reference internal" href="#fig-pixel-grid"><span class="std std-numref">図 2.1</span></a> のスライムのデータである。<code class="docutils literal notranslate"><span class="pre">.</span></code> は透明を表す。</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-number">リスト 2.1 </span><span class="caption-text">sprite_data.py（スライムのデータ）</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">23</span><span class="n">SLIME_PALETTE</span><span class="p">:</span> <span class="n">Palette</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">24</span>    <span class="s2">&quot;K&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span>     <span class="c1"># 輪郭・目</span>
+<span class="linenos">25</span>    <span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">47</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">78</span><span class="p">),</span>    <span class="c1"># 陰</span>
+<span class="linenos">26</span>    <span class="s2">&quot;g&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">79</span><span class="p">,</span> <span class="mi">176</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span>    <span class="c1"># 基本色</span>
+<span class="linenos">27</span>    <span class="s2">&quot;l&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">158</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">106</span><span class="p">),</span>  <span class="c1"># 明部</span>
+<span class="linenos">28</span>    <span class="s2">&quot;w&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">244</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">214</span><span class="p">),</span>  <span class="c1"># ハイライト</span>
+<span class="linenos">29</span><span class="p">}</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span><span class="n">SLIME</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+<span class="linenos">32</span>    <span class="s2">&quot;................&quot;</span><span class="p">,</span>
+<span class="linenos">33</span>    <span class="s2">&quot;................&quot;</span><span class="p">,</span>
+<span class="linenos">34</span>    <span class="s2">&quot;................&quot;</span><span class="p">,</span>
+<span class="linenos">35</span>    <span class="s2">&quot;................&quot;</span><span class="p">,</span>
+<span class="linenos">36</span>    <span class="s2">&quot;................&quot;</span><span class="p">,</span>
+<span class="linenos">37</span>    <span class="s2">&quot;......KKKK......&quot;</span><span class="p">,</span>
+<span class="linenos">38</span>    <span class="s2">&quot;....KKwlggKK....&quot;</span><span class="p">,</span>
+<span class="linenos">39</span>    <span class="s2">&quot;...KwwlgggggK...&quot;</span><span class="p">,</span>
+<span class="linenos">40</span>    <span class="s2">&quot;..KlwlggggggdK..&quot;</span><span class="p">,</span>
+<span class="linenos">41</span>    <span class="s2">&quot;..KlggggggggdK..&quot;</span><span class="p">,</span>
+<span class="linenos">42</span>    <span class="s2">&quot;.KgggKggggKggdK.&quot;</span><span class="p">,</span>
+<span class="linenos">43</span>    <span class="s2">&quot;.KgggKggggKgddK.&quot;</span><span class="p">,</span>
+<span class="linenos">44</span>    <span class="s2">&quot;.KggggggggggddK.&quot;</span><span class="p">,</span>
+<span class="linenos">45</span>    <span class="s2">&quot;.KddgggggggdddK.&quot;</span><span class="p">,</span>
+<span class="linenos">46</span>    <span class="s2">&quot;..KKKKKKKKKKKK..&quot;</span><span class="p">,</span>
+<span class="linenos">47</span>    <span class="s2">&quot;................&quot;</span><span class="p">,</span>
+<span class="linenos">48</span><span class="p">]</span>
+<span class="linenos">49</span>
+</pre></div>
+</div>
+</div>
+<p>文字の並びを眺めると、輪郭（<code class="docutils literal notranslate"><span class="pre">K</span></code>）、陰（<code class="docutils literal notranslate"><span class="pre">d</span></code>）、明部（<code class="docutils literal notranslate"><span class="pre">l</span></code>）、ハイライト（<code class="docutils literal notranslate"><span class="pre">w</span></code>）の配置がそのまま見て取れる。後の章でも、ドット絵のデータは同じ形式で示す。</p>
+</section>
+<section id="id4">
+<h2><span class="section-number">2.3. </span>代表的な大きさ<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>ドット絵の大きさには決まりは無いが、よく使われる大きさがある。代表的なものを次の表に示す。</p>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-number">表 2.1 </span><span class="caption-text">よく使われるドット絵の大きさ</span><a class="headerlink" href="#id8" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 40.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>大きさ</p></th>
+<th class="head"><p>主な用途</p></th>
+<th class="head"><p>特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>8×8</p></td>
+<td><p>小さなアイコン、文字、小物</p></td>
+<td><p>形を記号的に表すしかない。</p></td>
+</tr>
+<tr class="row-odd"><td><p>16×16</p></td>
+<td><p>キャラクター、マップのタイル、アイテム</p></td>
+<td><p>顔や服の色分けができる。入門に向く。</p></td>
+</tr>
+<tr class="row-even"><td><p>32×32</p></td>
+<td><p>細かいキャラクター、大きめのアイテム</p></td>
+<td><p>表情や服のしわなども描ける。</p></td>
+</tr>
+<tr class="row-odd"><td><p>64×64 以上</p></td>
+<td><p>ボスキャラクター、立ち絵、背景</p></td>
+<td><p>描き込む量が多く、時間がかかる。</p></td>
+</tr>
+</tbody>
+</table>
+<p>大きさを 8 の倍数にするのは、かつてのゲーム機が 8×8 ピクセルを単位として画像を扱っていた名残である。現在のゲームエンジンではこの制約はほとんど無いが、タイルを格子状に並べるときに計算しやすいので、今でも 8 の倍数がよく使われる。</p>
+<p>最初は 16×16 ピクセルから始めるとよい。8×8 では表現できることが少なすぎ、32×32 ではピクセルの数が 4 倍になって、1 つ 1 つの判断の影響が見えにくくなる。本書の例も、ほとんどを 16×16 ピクセルで描いている。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">2.4. </span>拡大して表示する<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>16×16 ピクセルの画像は、現在の画面ではとても小さい。ドット絵は普通、拡大して表示する。このとき、拡大の方法によって見た目が大きく変わる。</p>
+<p>画像を拡大するとき、拡大後のピクセルの色を元の画像のピクセルから求める方法を<a class="reference internal" href="glossary.html#term-32"><span class="xref std std-term">補間</span></a>という。代表的な方法に、最も近いピクセルの色をそのまま使う<a class="reference internal" href="glossary.html#term-12"><span class="xref std std-term">最近傍補間</span></a>と、周囲 4 個のピクセルの色を距離に応じて混ぜる<a class="reference internal" href="glossary.html#term-23"><span class="xref std std-term">バイリニア補間</span></a>がある。</p>
+<figure class="align-center" id="id9">
+<span id="fig-scaling"></span><img alt="最近傍補間とバイリニア補間でスライムを 8 倍に拡大した図" src="_images/scaling.png" />
+<figcaption>
+<p><span class="caption-number">図 2.2 </span><span class="caption-text">8 倍に拡大したスライム。左は最近傍補間、右はバイリニア補間。</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-scaling"><span class="std std-numref">図 2.2</span></a> のように、バイリニア補間では境界がぼやけてしまう。ドット絵を拡大するときは、必ず最近傍補間を使う。画像編集ソフトでは「ニアレストネイバー」「最近傍法」などと表示されることが多い。</p>
+<p>さらに、倍率は整数にする。最近傍補間でも、倍率が整数でないと、元の 1 ピクセルが拡大後に何ピクセル分になるかが場所によって変わってしまう。</p>
+<figure class="align-center" id="id10">
+<span id="fig-non-integer"></span><img alt="3 倍と 2.5 倍に拡大したスライムの比較" class="pixelated" src="_images/non_integer.png" />
+<figcaption>
+<p><span class="caption-number">図 2.3 </span><span class="caption-text">最近傍補間で拡大したスライム。左は 3 倍、右は 2.5 倍。違いが分かるように、どちらもさらに 4 倍で表示している。</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#fig-non-integer"><span class="std std-numref">図 2.3</span></a> の右の図では、2.5 倍にしたため、元の 1 ピクセルが 2 ピクセル分になる所と 3 ピクセル分になる所が混在している。目の幅や輪郭の太さが不ぞろいになっているのが分かる。</p>
+<p>ゲームやウェブページでドット絵を表示するときも同じ考え方をする。ゲームエンジンでは画像の補間方法（フィルター）を最近傍補間に設定し、ウェブページでは CSS で <code class="docutils literal notranslate"><span class="pre">image-rendering:</span> <span class="pre">pixelated</span></code> を指定する。Python で拡大する方法は第 10 章で説明する。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="1. はじめに" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tools.html" class="btn btn-neutral float-right" title="3. 道具を準備する" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

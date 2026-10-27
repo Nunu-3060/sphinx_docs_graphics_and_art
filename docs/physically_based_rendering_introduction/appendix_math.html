@@ -1,0 +1,190 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>付録 A 数学的準備 &mdash; 物理ベースレンダリング入門</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9013e78d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=19757887"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="付録 B サンプルコード" href="appendix_examples.html" />
+    <link rel="prev" title="12. 発展的な話題" href="advanced.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            物理ベースレンダリング入門
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本編</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. レンダリングの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_and_color.html">3. 光と色の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiometry.html">4. 放射測定（ラジオメトリ）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="light_matter.html">5. 光と物質の相互作用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brdf.html">6. BRDF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microfacet.html">7. マイクロファセット理論</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering_equation.html">8. レンダリング方程式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monte_carlo.html">9. モンテカルロ積分</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path_tracing.html">10. パストレーシングの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_pbr.html">11. 実用 PBR ワークフロー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">12. 発展的な話題</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">付録</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">付録 A 数学的準備</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">ベクトルの演算</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">球面座標と立体角</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">逆関数法による乱数の生成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">コサイン重み付きサンプリングの導出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ggx">GGX のハーフベクトルのサンプリング</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_examples.html">付録 B サンプルコード</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">物理ベースレンダリング入門</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">付録 A 数学的準備</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="a">
+<h1>付録 A 数学的準備<a class="headerlink" href="#a" title="Link to this heading"></a></h1>
+<p>本文で用いた数学的な道具をまとめる。</p>
+<section id="id1">
+<h2>ベクトルの演算<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>3 次元ベクトル <span class="math notranslate nohighlight">\(\mathbf{a} = (a_x, a_y, a_z)\)</span>, <span class="math notranslate nohighlight">\(\mathbf{b} = (b_x, b_y, b_z)\)</span> について、次の演算を用いる。</p>
+<dl class="simple">
+<dt>内積</dt><dd><p><span class="math notranslate nohighlight">\(\mathbf{a} \cdot \mathbf{b} = a_x b_x + a_y b_y + a_z b_z\)</span>。<span class="math notranslate nohighlight">\(\mathbf{a}\)</span> と <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> がともに単位ベクトルなら、内積は 2 つのベクトルのなす角の余弦に等しい。本書では、法線と方向ベクトルの内積を角度の余弦として頻繁に用いる。</p>
+</dd>
+<dt>外積</dt><dd><p><span class="math notranslate nohighlight">\(\mathbf{a} \times \mathbf{b} = (a_y b_z - a_z b_y, \; a_z b_x - a_x b_z, \; a_x b_y - a_y b_x)\)</span>。<span class="math notranslate nohighlight">\(\mathbf{a}\)</span> と <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> の両方に垂直なベクトルになる。長方形の法線や、カメラの座標軸を求めるのに用いる。</p>
+</dd>
+<dt>正規化</dt><dd><p><span class="math notranslate nohighlight">\(\mathbf{a} / \| \mathbf{a} \|\)</span>。向きを変えずに長さを 1 にする。ここで <span class="math notranslate nohighlight">\(\| \mathbf{a} \| = \sqrt{\mathbf{a} \cdot \mathbf{a}}\)</span> である。</p>
+</dd>
+<dt>反射ベクトル</dt><dd><p>単位ベクトル <span class="math notranslate nohighlight">\(\omega\)</span> を、単位ベクトル <span class="math notranslate nohighlight">\(\mathbf{m}\)</span> を軸として反射させた方向は <span class="math notranslate nohighlight">\(2 (\omega \cdot \mathbf{m}) \mathbf{m} - \omega\)</span> である。ここで <span class="math notranslate nohighlight">\(\omega\)</span> は反射面から外向きのベクトルとする。</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>球面座標と立体角<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>法線 <span class="math notranslate nohighlight">\(\mathbf{n}\)</span> を <span class="math notranslate nohighlight">\(z\)</span> 軸とする座標系で、方向を天頂角 <span class="math notranslate nohighlight">\(\theta\)</span>（<span class="math notranslate nohighlight">\(z\)</span> 軸からの角度）と方位角 <span class="math notranslate nohighlight">\(\phi\)</span>（<span class="math notranslate nohighlight">\(xy\)</span> 平面内での角度）で表す。</p>
+<div class="math notranslate nohighlight" id="equation-spherical">
+<span class="eqno">(1)<a class="headerlink" href="#equation-spherical" title="Link to this equation"></a></span>\[\omega = (\sin\theta \cos\phi, \; \sin\theta \sin\phi, \; \cos\theta)\]</div>
+<p>単位球面上で、<span class="math notranslate nohighlight">\(\theta\)</span> を <span class="math notranslate nohighlight">\(d\theta\)</span>、<span class="math notranslate nohighlight">\(\phi\)</span> を <span class="math notranslate nohighlight">\(d\phi\)</span> だけ変化させたときにできる微小な領域を考える。<span class="math notranslate nohighlight">\(\theta\)</span> 方向の辺の長さは <span class="math notranslate nohighlight">\(d\theta\)</span>、<span class="math notranslate nohighlight">\(\phi\)</span> 方向の辺の長さは、半径 <span class="math notranslate nohighlight">\(\sin\theta\)</span> の円周上の弧なので <span class="math notranslate nohighlight">\(\sin\theta \, d\phi\)</span> である。したがって、この領域の面積、すなわち微小な立体角は次のようになる。</p>
+<div class="math notranslate nohighlight" id="equation-d-omega-derivation">
+<span class="eqno">(2)<a class="headerlink" href="#equation-d-omega-derivation" title="Link to this equation"></a></span>\[d\omega = \sin\theta \, d\theta \, d\phi\]</div>
+<p>半球全体の立体角は次のように計算できる。</p>
+<div class="math notranslate nohighlight">
+\[\int_{\Omega} d\omega = \int_0^{2\pi} \int_0^{\pi/2} \sin\theta \, d\theta \, d\phi = 2\pi \left[ -\cos\theta \right]_0^{\pi/2} = 2\pi\]</div>
+<p>同様に、<span class="math notranslate nohighlight">\(\cos\theta\)</span> で重み付けした半球の積分は次のとおりである。</p>
+<div class="math notranslate nohighlight">
+\[\int_{\Omega} \cos\theta \, d\omega = \int_0^{2\pi} \int_0^{\pi/2} \cos\theta \sin\theta \, d\theta \, d\phi = 2\pi \left[ \frac{\sin^2\theta}{2} \right]_0^{\pi/2} = \pi\]</div>
+</section>
+<section id="id3">
+<h2>逆関数法による乱数の生成<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>一様乱数から、指定した確率密度関数に従う乱数を作る基本的な方法が逆関数法である。確率密度関数 <span class="math notranslate nohighlight">\(p(x)\)</span> の累積分布関数を <span class="math notranslate nohighlight">\(P(x) = \int_{-\infty}^{x} p(t) \, dt\)</span> とする。区間 <span class="math notranslate nohighlight">\([0, 1)\)</span> の一様乱数 <span class="math notranslate nohighlight">\(\xi\)</span> に対して <span class="math notranslate nohighlight">\(X = P^{-1}(\xi)\)</span> とすると、<span class="math notranslate nohighlight">\(X\)</span> は確率密度関数 <span class="math notranslate nohighlight">\(p(x)\)</span> に従う。</p>
+</section>
+<section id="id4">
+<h2>コサイン重み付きサンプリングの導出<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>逆関数法を使って、式 <a class="reference internal" href="monte_carlo.html#equation-cosine-sampling">(9.5)</a> を導出する。立体角に関する確率密度関数 <span class="math notranslate nohighlight">\(p(\omega) = \cos\theta / \pi\)</span> を、<span class="math notranslate nohighlight">\(d\omega = \sin\theta \, d\theta \, d\phi\)</span> を使って <span class="math notranslate nohighlight">\((\theta, \phi)\)</span> に関する確率密度関数に書き換えると、次のようになる。</p>
+<div class="math notranslate nohighlight">
+\[p(\theta, \phi) = \frac{\cos\theta \sin\theta}{\pi}\]</div>
+<p>これは <span class="math notranslate nohighlight">\(\theta\)</span> の関数と <span class="math notranslate nohighlight">\(\phi\)</span> の関数の積に分けられるので、<span class="math notranslate nohighlight">\(\theta\)</span> と <span class="math notranslate nohighlight">\(\phi\)</span> を独立に生成できる。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\phi\)</span> について積分すると <span class="math notranslate nohighlight">\(\theta\)</span> の確率密度関数 <span class="math notranslate nohighlight">\(p(\theta) = 2 \cos\theta \sin\theta\)</span> が得られる。その累積分布関数は <span class="math notranslate nohighlight">\(P(\theta) = \sin^2\theta\)</span> である。<span class="math notranslate nohighlight">\(\sin^2\theta = \xi_1\)</span> とおくと <span class="math notranslate nohighlight">\(\cos\theta = \sqrt{1 - \xi_1}\)</span> となる。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\phi\)</span> は <span class="math notranslate nohighlight">\([0, 2\pi)\)</span> の一様分布に従うので、<span class="math notranslate nohighlight">\(\phi = 2\pi \xi_2\)</span> とすればよい。</p></li>
+</ul>
+<p>以上で式 <a class="reference internal" href="monte_carlo.html#equation-cosine-sampling">(9.5)</a> が得られた。<span class="math notranslate nohighlight">\(1 - \xi_1\)</span> も、端点の扱いを除けば <span class="math notranslate nohighlight">\(\xi_1\)</span> と同じ一様分布に従うので、<span class="math notranslate nohighlight">\(\cos\theta = \sqrt{\xi_1}\)</span> としても同じ分布になる。</p>
+</section>
+<section id="ggx">
+<h2>GGX のハーフベクトルのサンプリング<a class="headerlink" href="#ggx" title="Link to this heading"></a></h2>
+<p>パストレーサーで用いた、確率密度 <span class="math notranslate nohighlight">\(D(\mathbf{h}) (\mathbf{n} \cdot \mathbf{h})\)</span> でハーフベクトルを生成する式も、同じ方法で導出できる。式 <a class="reference internal" href="microfacet.html#equation-ggx">(7.4)</a> を代入して <span class="math notranslate nohighlight">\(\theta_h\)</span> の累積分布関数を求め、その逆関数をとると、次の式が得られる。</p>
+<div class="math notranslate nohighlight" id="equation-ggx-sampling">
+<span class="eqno">(3)<a class="headerlink" href="#equation-ggx-sampling" title="Link to this equation"></a></span>\[\cos\theta_h = \sqrt{\frac{1 - \xi_1}{1 + (\alpha^2 - 1)\xi_1}}, \qquad \phi_h = 2\pi \xi_2\]</div>
+<p>このハーフベクトルで <span class="math notranslate nohighlight">\(\omega_o\)</span> を反射させて <span class="math notranslate nohighlight">\(\omega_i\)</span> を得る。このとき、<span class="math notranslate nohighlight">\(\omega_i\)</span> の確率密度は、ハーフベクトルの確率密度に <span class="math notranslate nohighlight">\(d\omega_h / d\omega_i = 1 / (4 \, \omega_o \cdot \mathbf{h})\)</span> を掛けたものになる。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="advanced.html" class="btn btn-neutral float-left" title="12. 発展的な話題" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="appendix_examples.html" class="btn btn-neutral float-right" title="付録 B サンプルコード" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Nunu_3060.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
